@@ -17,9 +17,9 @@ import { navCategories, navLinks } from "@/constant";
 
 export function NavigationDropdowns() {
 	return (
-		<NavigationMenu>
+		<NavigationMenu className="hidden md:block">
 			<NavigationMenuList>
-				{navLinks.map(({ title, route }, index) => (
+				{navLinks.slice(0, 3).map(({ title, route }, index) => (
 					<NavigationMenuItem>
 						<Link href={route} legacyBehavior passHref>
 							<NavigationMenuLink

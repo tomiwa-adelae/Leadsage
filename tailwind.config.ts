@@ -16,9 +16,13 @@ const config: Config = {
 		},
 		extend: {
 			colors: {
+				gray: {
+					100: "#f3f3f3",
+				},
 				green: {
-					300: "#2F6F60",
-					400: "#204B41",
+					400: "#59B778",
+					600: "#2F6F60",
+					700: "#204B41",
 				},
 				background: "hsl(var(--background))",
 				foreground: "hsl(var(--foreground))",

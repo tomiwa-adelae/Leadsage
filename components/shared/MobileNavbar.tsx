@@ -77,10 +77,14 @@ export function MobileNavbar() {
 					})}
 				</nav>
 				<div className="flex flex-col px-4 gap-4">
-					<Input
-						type="text"
-						placeholder="Search houses, categories..."
-					/>
+					<div className="relative">
+						<Input
+							type="text"
+							placeholder="Search houses, categories..."
+							className="pl-8"
+						/>
+						<Search className="absolute text-gray-400 top-[50%] left-[3%] translate-x-[-3%] translate-y-[-50%] w-4 h-4" />
+					</div>
 					<Button asChild variant={"ghost"}>
 						<Link href="/signin">Sign in</Link>
 					</Button>

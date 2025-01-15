@@ -13,7 +13,7 @@ import {
 	NavigationMenuTrigger,
 	navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu";
-import { navCategories, navLinks } from "@/constant";
+import { categories, navLinks } from "@/constant";
 
 export function NavigationDropdowns() {
 	return (
@@ -34,7 +34,7 @@ export function NavigationDropdowns() {
 					<NavigationMenuTrigger>Categories</NavigationMenuTrigger>
 					<NavigationMenuContent>
 						<ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px] ">
-							{navCategories.map((component) => (
+							{categories.map((component) => (
 								<ListItem
 									key={component.title}
 									title={component.title}
@@ -59,7 +59,7 @@ const ListItem = React.forwardRef<
 				<a
 					ref={ref}
 					className={cn(
-						"block select-none space-y-1 rounded-md p-3 leading-none no-underline text-xs outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground hover:text-green-300 uppercase",
+						"block select-none space-y-1 rounded-md p-3 leading-none no-underline text-xs outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground hover:text-green-400 uppercase",
 						className
 					)}
 					{...props}

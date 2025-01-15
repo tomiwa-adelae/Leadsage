@@ -23,9 +23,6 @@ const Header = () => {
 				<Button variant={"ghost"} className="text-white" size={"icon"}>
 					<Search />
 				</Button>
-				<Button asChild variant={"ghost"} className="text-white">
-					<Link href="/signin">Sign in</Link>
-				</Button>
 				<Button asChild>
 					<Link href="/register">Join us</Link>
 				</Button>

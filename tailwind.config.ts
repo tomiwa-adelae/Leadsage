@@ -8,6 +8,9 @@ const config: Config = {
 		"./app/**/*.{js,ts,jsx,tsx,mdx}",
 	],
 	theme: {
+		animation: {
+			bounce: "bounce 3s ease-in-out infinite",
+		},
 		container: {
 			center: true,
 			screens: {

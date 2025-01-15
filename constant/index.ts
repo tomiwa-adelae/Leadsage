@@ -1,4 +1,6 @@
-export const navCategories: {
+import { Building, CreditCard, HandHelping, LaptopMinimal } from "lucide-react";
+
+export const categories: {
 	title: string;
 	href: string;
 }[] = [
@@ -36,5 +38,55 @@ export const navLinks = [
 	{
 		title: "Our categories",
 		route: "/categories",
+	},
+];
+
+export const homeStats = [
+	{
+		number: 834,
+		suffix: "M",
+		title: "Total houses",
+	},
+	{
+		number: 4,
+		suffix: "M",
+		title: "Apartments",
+	},
+	{
+		number: 20,
+		suffix: "+",
+		title: "Estates",
+	},
+	{
+		number: 400,
+		suffix: "M",
+		title: "Completed projects",
+	},
+];
+
+export const needSomethingDetails = [
+	{
+		icon: LaptopMinimal,
+		title: "Post a Building",
+		description:
+			"It’s free and easy to post a job. Simply fill in a title, description.",
+	},
+	{
+		icon: CreditCard,
+		title: "Pay safely",
+		description:
+			"It’s free and easy to post a job. Simply fill in a title, description.",
+	},
+	{
+		icon: Building,
+		title: "Choose a Building",
+		description:
+			"It’s free and easy to post a job. Simply fill in a title, description.",
+	},
+	{
+		icon: HandHelping,
+		title: "We're here to help",
+		description:
+			"It’s free and easy to post a job. Simply fill in a title, description.",
 	},
 ];

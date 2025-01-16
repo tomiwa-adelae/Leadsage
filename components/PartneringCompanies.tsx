@@ -2,6 +2,7 @@
 
 import React, { useEffect, useState } from "react";
 import { InfiniteMovingCards } from "./ui/infinite-moving-cards";
+import { companies } from "@/constant";
 
 export function PartneringCompanies() {
 	return (
@@ -14,30 +15,3 @@ export function PartneringCompanies() {
 		</div>
 	);
 }
-
-const companies = [
-	{
-		logo: "/assets/images/icons/amazon.webp",
-		name: "Amazon",
-	},
-	{
-		logo: "/assets/images/icons/amd.webp",
-		name: "AMD",
-	},
-	{
-		logo: "/assets/images/icons/cisco.webp",
-		name: "Cisco",
-	},
-	{
-		logo: "/assets/images/icons/dropcam.webp",
-		name: "Dropcam",
-	},
-	{
-		logo: "/assets/images/icons/logitech.webp",
-		name: "Logitech",
-	},
-	{
-		logo: "/assets/images/icons/spotify.webp",
-		name: "Spotify",
-	},
-];

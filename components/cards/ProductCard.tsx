@@ -8,7 +8,7 @@ const ProductCard = () => {
 		<div className="inline-block border rounded-xl overflow-hidden cursor-pointer group">
 			<div className="overflow-hidden">
 				<Image
-					src={"/assets/images/services-1.webp"}
+					src={"/assets/images/services-1.png"}
 					alt={"Service one"}
 					width={1000}
 					height={1000}

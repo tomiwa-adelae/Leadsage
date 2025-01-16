@@ -20,7 +20,7 @@ export function NavigationDropdowns() {
 		<NavigationMenu className="hidden md:block">
 			<NavigationMenuList>
 				{navLinks.slice(0, 3).map(({ title, route }, index) => (
-					<NavigationMenuItem>
+					<NavigationMenuItem key={index}>
 						<Link href={route} legacyBehavior passHref>
 							<NavigationMenuLink
 								className={navigationMenuTriggerStyle()}

@@ -99,7 +99,10 @@ export function ShowcaseSearchForm() {
 									</FormControl>
 									<SelectContent>
 										{categories.map((category, index) => (
-											<SelectItem value={category.title}>
+											<SelectItem
+												key={index}
+												value={category.title}
+											>
 												{category.title}
 											</SelectItem>
 										))}

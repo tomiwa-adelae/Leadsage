@@ -90,3 +90,97 @@ export const needSomethingDetails = [
 			"It’s free and easy to post a job. Simply fill in a title, description.",
 	},
 ];
+
+export const footerLinks = [
+	{
+		title: "About",
+		links: [
+			{
+				title: "Careers",
+				route: "/careers",
+			},
+			{
+				title: "Press & News",
+				route: "/news",
+			},
+			{
+				title: "Partnership",
+				route: "/partnership",
+			},
+			{
+				title: "Privacy Policy",
+				route: "/privacy-policy",
+			},
+			{
+				title: "Terms of Service",
+				route: "/terms-of-service",
+			},
+			{
+				title: "Investor Relations",
+				route: "/investor-relations",
+			},
+		],
+	},
+	{
+		title: "Categories",
+		links: [
+			{
+				title: "Apartments/Flats",
+				route: "/apartments",
+			},
+			{
+				title: "Houses",
+				route: "/houses",
+			},
+			{
+				title: "Villas",
+				route: "/villas",
+			},
+			{
+				title: "Townhouses",
+				route: "/townhouses",
+			},
+			{
+				title: "Shared Housing",
+				route: "/shared-housing",
+			},
+			{
+				title: "Office Spaces",
+				route: "/office-spaces",
+			},
+			{
+				title: "Retail Spaces",
+				route: "/retail-spaces",
+			},
+			{
+				title: "Industrial properties",
+				route: "/industrial-properties",
+			},
+			{
+				title: "Land",
+				route: "/land",
+			},
+		],
+	},
+	{
+		title: "Support",
+		links: [
+			{
+				title: "Help & Support",
+				route: "/help",
+			},
+			{
+				title: "Trust & Safety",
+				route: "/trust-safety",
+			},
+			{
+				title: "Here as a Landlord",
+				route: "/landlord",
+			},
+			{
+				title: "Here as a tenant",
+				route: "/tenant",
+			},
+		],
+	},
+];

@@ -4,7 +4,10 @@ import {
 	CreditCard,
 	HandHelping,
 	LaptopMinimal,
+	Mail,
+	MapPin,
 	Medal,
+	Phone,
 	ShieldCheck,
 } from "lucide-react";
 
@@ -292,5 +295,24 @@ export const faqs = [
 	{
 		question: "Is it styled?",
 		answer: "Yes. It comes with default styles that matches the other components aesthetic.",
+	},
+];
+
+export const contactDetails = [
+	{
+		icon: MapPin,
+		title: "Address",
+		description:
+			"328 Queensberry Street, North Melbourne VIC, 3051, Australia.",
+	},
+	{
+		icon: Phone,
+		title: "Phone",
+		description: "(+234) 802 2425 763",
+	},
+	{
+		icon: Mail,
+		title: "Email",
+		description: "hello@leadsage.com",
 	},
 ];

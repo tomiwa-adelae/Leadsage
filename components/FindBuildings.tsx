@@ -11,7 +11,7 @@ const FindBuildings = () => {
 				<h4 className="font-medium text-base text-green-400 mb-4">
 					For customers
 				</h4>
-				<h3 className="text-gray-900 font-bold text-3xl">
+				<h3 className="text-gray-900 font-bold text-2xl md:text-3xl leading-normal">
 					Find building your own way
 				</h3>
 				<p className="text-gray-700 text-sm leading-loose my-8">

@@ -15,9 +15,14 @@ import {
 } from "@/components/ui/navigation-menu";
 import { categories, navLinks } from "@/constant";
 
-export function NavigationDropdowns() {
+export function NavigationDropdowns({ color }: { color?: string }) {
+	console.log(color);
 	return (
-		<NavigationMenu className="hidden md:block">
+		<NavigationMenu
+			className={`hidden ${
+				color === "black" ? "text-black" : "text-white"
+			} md:block`}
+		>
 			<NavigationMenuList>
 				{navLinks.slice(0, 3).map(({ title, route }, index) => (
 					<NavigationMenuItem key={index}>

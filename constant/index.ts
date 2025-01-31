@@ -1,4 +1,12 @@
-import { Building, CreditCard, HandHelping, LaptopMinimal } from "lucide-react";
+import {
+	Building,
+	CircleDollarSign,
+	CreditCard,
+	HandHelping,
+	LaptopMinimal,
+	Medal,
+	ShieldCheck,
+} from "lucide-react";
 
 export const categories: {
 	title: string;
@@ -209,5 +217,80 @@ export const companies = [
 	{
 		logo: "/assets/images/icons/spotify.webp",
 		name: "Spotify",
+	},
+];
+
+export const aboutWorkersBenefits = [
+	"Connect to freelancers with proven business experience",
+	"Get matched with the perfect talent by a customer success manager",
+	"Unmatched quality of remote, hybrid, and flexible jobs",
+];
+
+export const yourFingerTipsDetails = [
+	{
+		icon: Medal,
+		title: "Proof of quality",
+		description:
+			"Check any pro’s work samples, client reviews, and identity verification client reviews, and identity verification.",
+	},
+	{
+		icon: CircleDollarSign,
+		title: "No cost until you hire",
+		description:
+			"Interview potential fits for your job, negotiate rates, and only pay for work you approve",
+	},
+	{
+		icon: ShieldCheck,
+		title: "Safe and secure",
+		description:
+			"Focus on your work knowing we help protect your data and privacy. We’re here with 24/7 support if you need it.",
+	},
+];
+
+export const aboutStats = [
+	{
+		stats: "4.9/5",
+		title: "Clients rate professionals on Leadsage",
+	},
+	{
+		stats: "96%",
+		title: "95% of customers are satisfied through to see their freelancers",
+	},
+	{
+		stats: "Award",
+		title: "G2’s 2021 Best Software Awards",
+	},
+];
+
+export const aboutTestimonies = [
+	{
+		image: "https://images.unsplash.com/photo-1624561172888-ac93c696e10c?q=80&w=2592&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+		name: "Albert Cole",
+		portfolio: "Designer",
+	},
+	{
+		image: "https://images.unsplash.com/photo-1624561172888-ac93c696e10c?q=80&w=2592&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+		name: "Alison Dawn",
+		portfolio: "WP Developer",
+	},
+	{
+		image: "https://images.unsplash.com/photo-1624561172888-ac93c696e10c?q=80&w=2592&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+		name: "Daniel Parker",
+		portfolio: "Front-end Developer",
+	},
+];
+
+export const faqs = [
+	{
+		question: "Is it accessible?",
+		answer: "Yes. It adheres to the WAI-ARIA design pattern.",
+	},
+	{
+		question: "Is it animated?",
+		answer: "Yes. It's animated by default, but you can disable it if you prefer.",
+	},
+	{
+		question: "Is it styled?",
+		answer: "Yes. It comes with default styles that matches the other components aesthetic.",
 	},
 ];

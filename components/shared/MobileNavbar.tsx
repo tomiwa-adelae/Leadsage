@@ -86,7 +86,7 @@ export function MobileNavbar() {
 						<Search className="absolute text-gray-400 top-[50%] left-[3%] translate-x-[-3%] translate-y-[-50%] w-4 h-4" />
 					</div>
 					<Button asChild variant={"ghost"}>
-						<Link href="/signin">Sign in</Link>
+						<Link href="/login">Sign in</Link>
 					</Button>
 					<Button asChild>
 						<Link href="/register">Join us</Link>

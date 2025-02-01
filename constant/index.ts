@@ -3,11 +3,18 @@ import {
 	CircleDollarSign,
 	CreditCard,
 	HandHelping,
+	Heart,
+	House,
 	LaptopMinimal,
 	Mail,
 	MapPin,
 	Medal,
+	MessageSquareText,
+	MessagesSquare,
+	NotebookText,
 	Phone,
+	Receipt,
+	ScrollText,
 	ShieldCheck,
 } from "lucide-react";
 
@@ -314,5 +321,43 @@ export const contactDetails = [
 		icon: Mail,
 		title: "Email",
 		description: "hello@leadsage.com",
+	},
+];
+
+export const dashboardLinks = [
+	{
+		title: "Dashboard",
+		route: "/dashboard",
+		icon: House,
+	},
+	{
+		title: "My Proposal",
+		route: "/proposal",
+		icon: NotebookText,
+	},
+	{
+		title: "Saved",
+		route: "/saved",
+		icon: Heart,
+	},
+	{
+		title: "Messages",
+		route: "/messages",
+		icon: MessagesSquare,
+	},
+	{
+		title: "Reviews",
+		route: "/reviews",
+		icon: MessageSquareText,
+	},
+	{
+		title: "Payouts",
+		route: "/payouts",
+		icon: Receipt,
+	},
+	{
+		title: "Statements",
+		route: "/statements",
+		icon: ScrollText,
 	},
 ];

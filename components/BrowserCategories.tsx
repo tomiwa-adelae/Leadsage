@@ -10,10 +10,12 @@ const BrowserCategories = () => {
 			<div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-8">
 				<div className="space-y-2">
 					<h2 className="font-semibold text-2xl lg:text-3xl">
-						Browse buildings by category
+						Browse Properties by Category
 					</h2>
-					<p className="text-sm text-gray-700">
-						Lorem ipsum, dolor sit amet consectetur adipisicing.
+					<p className="text-sm text-gray-700 leading-loose lg:max-w-lg">
+						Explore a wide variety of properties categorized to suit
+						your needs, from residential homes to commercial spaces.
+						Find exactly what you're looking for with ease.
 					</p>
 				</div>
 				<Button

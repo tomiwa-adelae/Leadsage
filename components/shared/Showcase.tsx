@@ -28,7 +28,7 @@ const Showcase = ({
 					>
 						{title}
 					</h1>
-					<p className="text-sm md:text-base leading-relaxed font-medium md:max-w-md">
+					<p className="text-sm md:text-base leading-loose font-medium lg:max-w-lg">
 						{description}
 					</p>
 				</div>

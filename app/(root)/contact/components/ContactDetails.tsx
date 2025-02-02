@@ -11,8 +11,9 @@ const ContactDetails = () => {
 						Keep in Touch With Us.
 					</h3>
 					<p className="text-gray-700 text-sm leading-loose my-4">
-						Lorem ipsum dolor sit, amet consectetur adipisicing
-						elit. Similique ea esse aperiam nostrum quo tenetur!
+						We’re here to assist you! Whether you have questions or
+						need support, feel free to reach out. Our team is always
+						ready to help.
 					</p>
 					<div className="mt-8 grid gap-8">
 						{contactDetails.map(

@@ -13,7 +13,7 @@ const ShowcaseBoxes = () => {
 						Proof of Quality
 					</h5>
 					<p className="text-xs text-gray-700">
-						Lorem ipsum dolor sit amet.
+						We prioritize excellence & reliability
 					</p>
 				</div>
 			</div>
@@ -26,13 +26,13 @@ const ShowcaseBoxes = () => {
 						Safe and secure
 					</h5>
 					<p className="text-xs text-gray-700">
-						Lorem ipsum dolor sit amet.
+						Your privacy is our top concerns.
 					</p>
 				</div>
 			</div>
 			<div className="rounded-2xl bg-white p-4 text-black inline-flex items-center justify-start gap-4 absolute bottom-[-2%] left-[-10%] translate-x-[10%] translate-y-[2%] animate-bounce">
 				<h3 className="font-semibold text-gray-900 text-sm">
-					58M+ Happy Customers
+					50+ Happy Customers
 				</h3>
 				<Image
 					src={"/assets/images/icons/people.webp"}

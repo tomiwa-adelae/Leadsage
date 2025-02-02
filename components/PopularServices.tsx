@@ -3,27 +3,32 @@ import ProductCard from "./cards/ProductCard";
 import { Button } from "./ui/button";
 import Link from "next/link";
 import { MoveUpRight } from "lucide-react";
+import { popularProperties } from "@/constant";
 
 const PopularServices = () => {
 	return (
 		<div className="container pb-16">
 			<div className="space-y-2">
 				<h2 className="font-semibold text-2xl lg:text-3xl">
-					Popular Services
+					Popular Properties
 				</h2>
 				<p className="text-sm text-gray-700">
-					Most viewed and all-time top-selling buildings and spaces
+					Check out our most viewed and top-selling properties—trusted
+					by many for their quality, location, and value.
 				</p>
 			</div>
 			<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mt-8">
-				<ProductCard />
-				<ProductCard />
-				<ProductCard />
-				<ProductCard />
-				<ProductCard />
-				<ProductCard />
-				<ProductCard />
-				<ProductCard />
+				{popularProperties.map(
+					({ image, title, location, price }, index) => (
+						<ProductCard
+							key={index}
+							image={image}
+							title={title}
+							price={price}
+							location={location}
+						/>
+					)
+				)}
 			</div>
 			<div className="w-full mt-8 flex items-center justify-center">
 				<Button

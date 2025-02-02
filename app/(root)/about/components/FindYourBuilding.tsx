@@ -11,11 +11,14 @@ const FindYourBuilding = () => {
 				<div className="flex flex-col items-center justify-center">
 					<div className="lg:max-w-sm">
 						<h2 className="text-gray-900 font-bold text-2xl md:text-3xl leading-normal md:leading-normal">
-							Find the buildings needed to get your life together.
+							Find the Perfect Property for Your Next Chapter
 						</h2>
 						<p className="text-gray-700 text-sm leading-loose my-4">
-							Lorem ipsum dolor sit amet, consectetur adipiscing
-							elit, sed do eiusmod tempor incididunt.
+							Discover a wide range of homes, apartments, and
+							commercial spaces designed to fit your lifestyle and
+							budget. Whether you're looking to rent, buy, or
+							invest, Leadsage Africa makes the process simple and
+							stress-free.
 						</p>
 						<Button size={"lg"} asChild>
 							<Link href="/services">

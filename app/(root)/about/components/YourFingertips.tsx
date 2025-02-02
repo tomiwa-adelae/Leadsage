@@ -9,9 +9,9 @@ const YourFingertips = () => {
 			<div className="grid grid-cols-1 md:grid-cols-2 gap-8">
 				<div className="flex flex-col justify-center">
 					<h2 className="text-gray-900 font-bold text-2xl md:text-3xl leading-normal md:leading-normal">
-						A whole world of freelance{" "}
-						<br className="hidden md:block" /> talent at your
-						fingertips
+						A Whole World of Homes{" "}
+						<br className="hidden md:block" /> and Properties at
+						Your Fingertips
 					</h2>
 					<div className="mt-8 grid gap-8">
 						{yourFingerTipsDetails.map(

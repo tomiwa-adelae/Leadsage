@@ -7,10 +7,12 @@ const NeedSomething = () => {
 		<div className="container py-16">
 			<div className="space-y-2">
 				<h2 className="font-semibold text-2xl lg:text-3xl">
-					Need a space?
+					Looking for the Perfect Space?
 				</h2>
-				<p className="text-sm text-gray-700">
-					Most viewed and all-time top-selling buildings and spaces
+				<p className="text-sm text-gray-700 leading-loose">
+					Explore our most popular and top-rated buildings and
+					properties that have captured the attention of tenants and
+					landlords alike.
 				</p>
 			</div>
 			<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 mt-10">

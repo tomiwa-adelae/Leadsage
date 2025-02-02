@@ -13,9 +13,9 @@ const page = () => {
 			<Header color="black" />
 			<Showcase
 				image={"/assets/images/about-showcase-bg.jpg"}
-				title={"About"}
+				title={"🌍 About Leadsage Africa"}
 				description={
-					"Give your visitor a smooth online experience with a solid UX design"
+					"Learn more about our journey to revolutionize housing in Africa. At Leadsage, we connect people with their ideal homes through transparency, trust, and innovation."
 				}
 			/>
 			<JoinMarketplace />

@@ -19,15 +19,15 @@ const JoinMarketplace = () => {
 				/>
 				<div className="flex flex-col justify-center">
 					<h2 className="text-gray-900 font-bold text-2xl md:text-3xl leading-normal md:leading-normal">
-						Join World's Best Marketplace for Workers
+						Join Africa’s Leading Housing Marketplace
 					</h2>
 					<p className="text-gray-700 text-sm leading-loose my-8">
-						It is a long established fact that a reader will be
-						distracted by the readable content of a page when
-						looking at its layout. The point of using Lorem Ipsum is
-						that it has a more-or-less normal distribution of
-						letters, as opposed to using 'Content here, content
-						here', making it look like readable English.
+						Finding the perfect home or property shouldn't be
+						complicated. At Leadsage Africa, we make it easy to
+						discover, rent, or list properties with confidence. Our
+						platform connects tenants with verified listings and
+						provides landlords with seamless property management
+						tools.
 					</p>
 					<ul className="space-y-4">
 						{aboutWorkersBenefits.map((benefit, index) => (

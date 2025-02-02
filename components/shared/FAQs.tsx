@@ -13,8 +13,8 @@ const FAQs = () => {
 					Frequently Asked Questions
 				</h3>
 				<p className="text-gray-700 text-sm leading-loose my-4  text-center">
-					Lorem ipsum dolor sit amet consectetur adipisicing elit.
-					Illo quae at deserunt praesentium aliquid et?
+					Have questions? We're here to help! Browse through our most
+					common inquiries and find the answers you need.
 				</p>
 				<div className="mt-8">
 					<Accordion type="single" collapsible className="w-full">

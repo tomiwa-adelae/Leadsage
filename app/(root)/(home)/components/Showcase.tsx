@@ -17,13 +17,14 @@ const Showcase = () => {
 			<main className="container py-24 grid grid-cols-1 lg:grid-cols-2 gap-20 lg:gap-8">
 				<div>
 					<h1 className="font-bold text-4xl leading-relaxed">
-						Find Your Dream Home, Tailored Just for You
+						Find Your Perfect Home, Designed for You
 					</h1>
 					<p className="text-sm leading-loose text-gray-200 mt-4">
-						Explore a wide range of properties tailored to your
-						needs. Discover the perfect space at the best prices,
-						saving you time and money while finding a place to call
-						home.
+						Explore a diverse selection of properties that match
+						your lifestyle and budget. Whether you're renting,
+						buying, or investing, we help you find the ideal space
+						with ease—saving you time, effort, and money along the
+						way.
 					</p>
 					<ShowcaseSearchForm />
 					<div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-6">

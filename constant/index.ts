@@ -61,23 +61,23 @@ export const navLinks = [
 
 export const homeStats = [
 	{
-		number: 834,
-		suffix: "M",
+		number: 20,
+		suffix: "+",
 		title: "Total houses",
 	},
 	{
-		number: 4,
-		suffix: "M",
+		number: 50,
+		suffix: "+",
 		title: "Apartments",
 	},
 	{
-		number: 20,
+		number: 3,
 		suffix: "+",
 		title: "Estates",
 	},
 	{
-		number: 400,
-		suffix: "M",
+		number: 10,
+		suffix: "+",
 		title: "Completed projects",
 	},
 ];
@@ -85,27 +85,27 @@ export const homeStats = [
 export const needSomethingDetails = [
 	{
 		icon: LaptopMinimal,
-		title: "Post a Building",
+		title: "Post a Property",
 		description:
-			"It’s free and easy to post a job. Simply fill in a title, description.",
+			"Listing your building is simple and free. Just add a title, description, and property details, and you're all set to reach potential tenants.",
 	},
 	{
 		icon: CreditCard,
-		title: "Pay safely",
+		title: "Pay Safely",
 		description:
-			"It’s free and easy to post a job. Simply fill in a title, description.",
+			"Enjoy secure and easy payment options when renting or purchasing properties through our platform, ensuring peace of mind for both tenants and landlords.",
 	},
 	{
 		icon: Building,
-		title: "Choose a Building",
+		title: "Choose the Right Space",
 		description:
-			"It’s free and easy to post a job. Simply fill in a title, description.",
+			"Find the ideal property that fits your needs—whether you're looking to rent, buy, or invest. Our listings cater to all budgets and preferences.",
 	},
 	{
 		icon: HandHelping,
-		title: "We're here to help",
+		title: "We're Here to Help",
 		description:
-			"It’s free and easy to post a job. Simply fill in a title, description.",
+			"Need assistance? Our team is always available to guide you through the process, whether you're posting a listing, making a payment, or choosing the perfect home.",
 	},
 ];
 
@@ -231,77 +231,113 @@ export const companies = [
 ];
 
 export const aboutWorkersBenefits = [
-	"Connect to freelancers with proven business experience",
-	"Get matched with the perfect talent by a customer success manager",
-	"Unmatched quality of remote, hybrid, and flexible jobs",
+	"Explore a wide range of homes, apartments, and commercial spaces",
+	"Find properties that match your budget and payment preferences",
+	"Enjoy secure transactions, flexible payment plans, and expert support",
 ];
 
 export const yourFingerTipsDetails = [
 	{
 		icon: Medal,
-		title: "Proof of quality",
+		title: "Verified Listings",
 		description:
-			"Check any pro’s work samples, client reviews, and identity verification client reviews, and identity verification.",
+			"Browse through high-quality properties with verified details, real images, and trusted landlords.",
 	},
 	{
 		icon: CircleDollarSign,
-		title: "No cost until you hire",
+		title: "No Hidden Costs",
 		description:
-			"Interview potential fits for your job, negotiate rates, and only pay for work you approve",
+			"Explore, inquire, and negotiate with property owners—pay only when you secure your ideal home.",
 	},
 	{
 		icon: ShieldCheck,
-		title: "Safe and secure",
+		title: "Safe & Secure",
 		description:
-			"Focus on your work knowing we help protect your data and privacy. We’re here with 24/7 support if you need it.",
+			"Enjoy a seamless and secure experience with protected transactions, data privacy, and 24/7 support.",
 	},
 ];
 
 export const aboutStats = [
 	{
-		stats: "4.9/5",
-		title: "Clients rate professionals on Leadsage",
+		stats: "4.8/5",
+		title: "Average rating from satisfied tenants and property owners.",
 	},
 	{
 		stats: "96%",
-		title: "95% of customers are satisfied through to see their freelancers",
+		title: "Of users successfully find their ideal home or tenant through Leadsage.",
 	},
 	{
-		stats: "Award",
-		title: "G2’s 2021 Best Software Awards",
+		stats: "Excellence",
+		title: "Proudly rated as a top real estate platform for seamless property rentals and listings.",
+	},
+];
+
+export const testimonials = [
+	{
+		quote: "Leadsage made finding our dream home a breeze! The platform was easy to navigate, and we found a place that perfectly fit our budget and needs. Highly recommend!",
+		name: "Jessica & John",
+		designation: "New Tenants",
+		src: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?q=80&w=3540&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+	},
+	{
+		quote: "As a landlord, listing my property on Leadsage was simple and quick. I received inquiries almost immediately, and the whole process was smooth and professional.",
+		name: "Michael",
+		designation: "Landlord",
+		src: "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?q=80&w=3560&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+	},
+	{
+		quote: "I was struggling to find an affordable space for my business until I found Leadsage. The wide range of options and filters made it easy to choose the right commercial space.",
+		name: "Victor",
+		designation: "Small Business Owner",
+		src: "https://images.unsplash.com/photo-1623582854588-d60de57fa33f?q=80&w=3540&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+	},
+	{
+		quote: "Leadsage's verified listings and secure payment system gave me the confidence to rent my first apartment. I had all my questions answered quickly by their support team.",
+		name: "Ahmed",
+		designation: "Tenant",
+		src: "https://images.unsplash.com/photo-1636041293178-808a6762ab39?q=80&w=3464&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
 	},
 ];
 
 export const aboutTestimonies = [
 	{
-		image: "https://images.unsplash.com/photo-1624561172888-ac93c696e10c?q=80&w=2592&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-		name: "Albert Cole",
-		portfolio: "Designer",
+		image: "/assets/images/israel-ibitoye.jpg",
+		alt: "Israel Ibitoye wearing a black shirt and an ash pant trousers",
+		name: "Israel Ibitoye",
+		portfolio: "Chief Executive Officer",
 	},
 	{
-		image: "https://images.unsplash.com/photo-1624561172888-ac93c696e10c?q=80&w=2592&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-		name: "Alison Dawn",
-		portfolio: "WP Developer",
-	},
-	{
-		image: "https://images.unsplash.com/photo-1624561172888-ac93c696e10c?q=80&w=2592&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-		name: "Daniel Parker",
-		portfolio: "Front-end Developer",
+		image: "/assets/images/tomiwa-adelae.jfif",
+		alt: "Tomiwa Adelae wearing a blue native shirt and a beautiful smile",
+		name: "Tomiwa Adelae",
+		portfolio: "Chief Technical Officer",
 	},
 ];
 
 export const faqs = [
 	{
-		question: "Is it accessible?",
-		answer: "Yes. It adheres to the WAI-ARIA design pattern.",
+		question: "How does Leadsage Africa work?",
+		answer: "Leadsage Africa connects tenants with verified property listings and helps landlords manage their rentals. Simply search for properties, filter by location and price, and contact the property owner or agent directly.",
 	},
 	{
-		question: "Is it animated?",
-		answer: "Yes. It's animated by default, but you can disable it if you prefer.",
+		question: "Are all property listings verified?",
+		answer: "Yes, we prioritize transparency by verifying listings to ensure they are legitimate and accurately represented. Properties with a verification badge have been reviewed for authenticity.",
 	},
 	{
-		question: "Is it styled?",
-		answer: "Yes. It comes with default styles that matches the other components aesthetic.",
+		question: "Can I list my property on Leadsage?",
+		answer: "Absolutely! If you're a landlord or agent, you can create an account and list your property with details, images, and pricing. Our platform also provides tools to track inquiries and manage rent collection.",
+	},
+	{
+		question: "Does Leadsage offer flexible payment plans?",
+		answer: "Yes, some properties offer flexible payment options, including monthly, quarterly, and annual payment plans. You can use filters to find listings that match your preferred payment structure.",
+	},
+	{
+		question: "Is it free to browse properties?",
+		answer: "Yes! Browsing properties on Leadsage is completely free. You only pay when you decide to rent or buy a property through the platform.",
+	},
+	{
+		question: "How can I contact customer support?",
+		answer: "You can reach our support team via live chat, email, or phone. We’re available 24/7 to assist with any inquiries, disputes, or technical issues.",
 	},
 ];
 
@@ -310,7 +346,7 @@ export const contactDetails = [
 		icon: MapPin,
 		title: "Address",
 		description:
-			"328 Queensberry Street, North Melbourne VIC, 3051, Australia.",
+			"51A, Agboola Ajumobi, Magodo GRA, Phase 1, Shangisha, Lagos State, Nigeria.",
 	},
 	{
 		icon: Phone,
@@ -359,5 +395,62 @@ export const dashboardLinks = [
 		title: "Statements",
 		route: "/statements",
 		icon: ScrollText,
+	},
+];
+
+export const popularProperties = [
+	{
+		title: "Maila",
+		image: "https://res.cloudinary.com/spleetng/image/upload/q_20/v1729581280/rnzbp2rmxcdxpsog6d2v.jpg",
+		location: "Shomolu, Lagos",
+		price: "750,000",
+	},
+	{
+		title: "WOLS",
+		image: "https://res.cloudinary.com/spleetng/image/upload/q_20/v1734418121/ydrh14s3vxvbpamxd7rr.jpg",
+		location: "Lagos",
+		price: "600,000",
+	},
+	{
+		title: "VHA",
+		image: "https://res.cloudinary.com/spleetng/image/upload/q_20/v1727690576/yekwmi6mfrlaqpm06thl.jpg",
+		location: "Oniru, VI, Lagos",
+		price: "3,750,000",
+	},
+	{
+		title: "Lily",
+		image: "https://res.cloudinary.com/spleetng/image/upload/q_20/v1727435596/d5muum4wbnlwihciv4pu.jpg",
+		location: "Lekki Phase 1, Lagos",
+		price: "1,8050,000",
+	},
+	{
+		title: "AURURA A",
+		image: "https://res.cloudinary.com/spleetng/image/upload/q_20/v1708693119/lrnciug7fref3oumapam.jpg",
+		location: "Lagos",
+		price: "1,450,000",
+	},
+	{
+		title: "Frisco 2",
+		image: "https://res.cloudinary.com/spleetng/image/upload/q_20/v1730974308/jlnnomttdfm0akwepywo.jpg",
+		location: "Lekki, Lagos",
+		price: "540,000",
+	},
+	{
+		title: "Richard House",
+		image: "https://res.cloudinary.com/spleetng/image/upload/q_20/v1727082180/l5lz2bsug4mglwasrhtj.jpg",
+		location: "Abraham Estate, Ajah, Lagos",
+		price: "750,000",
+	},
+	{
+		title: "5 Bedroom Flat",
+		image: "https://pictures-nigeria.jijistatic.net/165430816_MzAwLTUzMy02OTg4Y2RjOGU0.webp",
+		location: "Ajah, Lagos",
+		price: "25,000,000",
+	},
+	{
+		title: "4 Bedroom Townhouse",
+		image: "https://pictures-nigeria.jijistatic.net/161698331_MzAwLTIyNS02OTcyZjE0MGI0.webp",
+		location: "Banana Island, Ikoyi, Lagos",
+		price: "60,000,000",
 	},
 ];

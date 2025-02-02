@@ -9,16 +9,16 @@ const FindBuildings = () => {
 		<div className="container grid grid-cols-1 lg:grid-cols-5 gap-8 pt-6 pb-6">
 			<div className="lg:col-span-2 flex flex-col items-start justify-center">
 				<h4 className="font-medium text-base text-green-400 mb-4">
-					For customers
+					For Our Customers
 				</h4>
 				<h3 className="text-gray-900 font-bold text-2xl md:text-3xl leading-normal">
-					Find building your own way
+					Find Your Perfect Property, Your Way
 				</h3>
 				<p className="text-gray-700 text-sm leading-loose my-8">
-					Lorem ipsum dolor sit, amet consectetur adipisicing elit.
-					Similique ea esse aperiam nostrum quo tenetur! Officiis
-					repellat quo deserunt? Quas odio ad autem expedita
-					quibusdam.
+					Discover the ideal building or space tailored to your
+					preferences. With verified listings and flexible options, we
+					help you find the perfect place to call home—whether you're
+					renting or buying.
 				</p>
 				<Button size={"lg"} asChild>
 					<Link href="/services">
@@ -38,19 +38,19 @@ const FindBuildings = () => {
 					<ul className="text-white text-sm space-y-6">
 						<li>
 							<CircleCheck className="text-white inline-block w-4 h-4 mr-2" />{" "}
-							The best for every budget
+							The Best for Every Budget:
 						</li>
 						<li>
 							<CircleCheck className="text-white inline-block w-4 h-4 mr-2" />{" "}
-							Quality work done quickly
+							Quality Work, Done Quickly
 						</li>
 						<li>
 							<CircleCheck className="text-white inline-block w-4 h-4 mr-2" />{" "}
-							Protected payments, every time
+							Protected Payments, Every Time
 						</li>
 						<li>
 							<CircleCheck className="text-white inline-block w-4 h-4 mr-2" />{" "}
-							24/7 support
+							24/7 Support
 						</li>
 					</ul>
 				</div>

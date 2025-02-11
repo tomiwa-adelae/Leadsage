@@ -6,7 +6,13 @@ const ShowcaseBoxes = () => {
 		<div>
 			<div className="rounded-2xl bg-white p-4 text-black inline-flex items-center justify-start gap-4 absolute top-[-8%] left-[20%] translate-x-[-20%] translate-y-[8%] animate-bounce">
 				<div className="rounded-full p-3 bg-[#E6F5EB] inline-block text-green-400">
-					<House absoluteStrokeWidth className="w-6 h-6" />
+					<Image
+						src={"/assets/icons/house.svg"}
+						alt={"House Icon"}
+						width={1000}
+						height={1000}
+						className="w-[25px] h-[25px]"
+					/>
 				</div>
 				<div className="space-y-1">
 					<h5 className="font-semibold text-sm text-gray-900">
@@ -19,7 +25,13 @@ const ShowcaseBoxes = () => {
 			</div>
 			<div className="rounded-2xl bg-white p-4 text-black inline-flex items-center justify-start gap-4 absolute top-[45%] right-[-5%] translate-x-[5%] translate-y-[-45%] animate-bounce">
 				<div className="rounded-full p-3 bg-[#E6F5EB] inline-block text-green-400">
-					<ShieldCheck absoluteStrokeWidth className="w-6 h-6" />
+					<Image
+						src={"/assets/icons/shield.svg"}
+						alt={"Shield Icon"}
+						width={1000}
+						height={1000}
+						className="w-[25px] h-[25px]"
+					/>
 				</div>
 				<div className="space-y-1">
 					<h5 className="font-semibold text-sm text-gray-900">
@@ -35,7 +47,7 @@ const ShowcaseBoxes = () => {
 					50+ Happy Customers
 				</h3>
 				<Image
-					src={"/assets/images/icons/people.webp"}
+					src={"/assets/icons/people.webp"}
 					alt={"Happy Customer"}
 					width={1000}
 					height={1000}

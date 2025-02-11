@@ -23,9 +23,12 @@ const YourFingertips = () => {
 										className="flex items-start justify-start gap-3"
 									>
 										<div className="py-1">
-											<Icon
-												absoluteStrokeWidth
-												className="w-6 h-6 lg:w-8 lg:h-8 text-green-600"
+											<Image
+												src={icon}
+												alt={title}
+												width={1000}
+												height={1000}
+												className="w-[50px] h-[50px]"
 											/>
 										</div>
 										<div className="space-y-1">

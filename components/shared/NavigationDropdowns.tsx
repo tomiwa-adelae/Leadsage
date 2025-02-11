@@ -24,9 +24,9 @@ export function NavigationDropdowns({ color }: { color?: string }) {
 			} md:block`}
 		>
 			<NavigationMenuList>
-				{navLinks.slice(0, 3).map(({ title, route }, index) => (
+				{navLinks.slice(0, 3).map(({ title, slug }, index) => (
 					<NavigationMenuItem key={index}>
-						<Link href={route} legacyBehavior passHref>
+						<Link href={slug} legacyBehavior passHref>
 							<NavigationMenuLink
 								className={navigationMenuTriggerStyle()}
 							>

@@ -1,9 +1,11 @@
+"use client";
 import { Inknut_Antiqua } from "next/font/google";
 import { Button } from "../ui/button";
 import Link from "next/link";
 import { NavigationDropdowns } from "./NavigationDropdowns";
-import { Search } from "lucide-react";
 import { MobileNavbar } from "./MobileNavbar";
+import Image from "next/image";
+import { usePathname } from "next/navigation";
 
 const inknut = Inknut_Antiqua({
 	subsets: ["latin"],
@@ -11,6 +13,7 @@ const inknut = Inknut_Antiqua({
 });
 
 const Header = ({ color = "white" }: { color?: string }) => {
+	const pathname = usePathname();
 	return (
 		<div
 			className={`${
@@ -28,7 +31,15 @@ const Header = ({ color = "white" }: { color?: string }) => {
 				<NavigationDropdowns color={color} />
 				<div className={`gap-4 hidden md:flex`}>
 					<Button variant={"ghost"} size={"icon"}>
-						<Search />
+						<Image
+							src={"/assets/icons/search.svg"}
+							alt={"Search Icon"}
+							width={1000}
+							height={1000}
+							className={`w-[20px] h-[20px] ${
+								pathname === "/" && "invert"
+							}`}
+						/>
 					</Button>
 					<Button asChild>
 						<Link href="/register">Join us</Link>

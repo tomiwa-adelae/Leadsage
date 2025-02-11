@@ -1,23 +1,3 @@
-import {
-	Building,
-	CircleDollarSign,
-	CreditCard,
-	HandHelping,
-	Heart,
-	House,
-	LaptopMinimal,
-	Mail,
-	MapPin,
-	Medal,
-	MessageSquareText,
-	MessagesSquare,
-	NotebookText,
-	Phone,
-	Receipt,
-	ScrollText,
-	ShieldCheck,
-} from "lucide-react";
-
 export const categories: {
 	title: string;
 	href: string;
@@ -43,19 +23,19 @@ export const categories: {
 export const navLinks = [
 	{
 		title: "Home",
-		route: "/",
+		slug: "/",
 	},
 	{
 		title: "About us",
-		route: "/about",
+		slug: "/about",
 	},
 	{
 		title: "Contact us",
-		route: "/contact",
+		slug: "/contact",
 	},
 	{
 		title: "Our categories",
-		route: "/categories",
+		slug: "/categories",
 	},
 ];
 
@@ -84,25 +64,25 @@ export const homeStats = [
 
 export const needSomethingDetails = [
 	{
-		icon: LaptopMinimal,
+		icon: "/assets/icons/laptop.svg",
 		title: "Post a Property",
 		description:
 			"Listing your building is simple and free. Just add a title, description, and property details, and you're all set to reach potential tenants.",
 	},
 	{
-		icon: CreditCard,
+		icon: "/assets/icons/wallet.svg",
 		title: "Pay Safely",
 		description:
 			"Enjoy secure and easy payment options when renting or purchasing properties through our platform, ensuring peace of mind for both tenants and landlords.",
 	},
 	{
-		icon: Building,
+		icon: "/assets/icons/building.svg",
 		title: "Choose the Right Space",
 		description:
 			"Find the ideal property that fits your needs—whether you're looking to rent, buy, or invest. Our listings cater to all budgets and preferences.",
 	},
 	{
-		icon: HandHelping,
+		icon: "/assets/icons/hands.svg",
 		title: "We're Here to Help",
 		description:
 			"Need assistance? Our team is always available to guide you through the process, whether you're posting a listing, making a payment, or choosing the perfect home.",
@@ -115,27 +95,27 @@ export const footerLinks = [
 		links: [
 			{
 				title: "Careers",
-				route: "/careers",
+				slug: "/careers",
 			},
 			{
 				title: "Press & News",
-				route: "/news",
+				slug: "/news",
 			},
 			{
 				title: "Partnership",
-				route: "/partnership",
+				slug: "/partnership",
 			},
 			{
 				title: "Privacy Policy",
-				route: "/privacy-policy",
+				slug: "/privacy-policy",
 			},
 			{
 				title: "Terms of Service",
-				route: "/terms-of-service",
+				slug: "/terms-of-service",
 			},
 			{
 				title: "Investor Relations",
-				route: "/investor-relations",
+				slug: "/investor-relations",
 			},
 		],
 	},
@@ -144,39 +124,39 @@ export const footerLinks = [
 		links: [
 			{
 				title: "Apartments/Flats",
-				route: "/apartments",
+				slug: "/apartments",
 			},
 			{
 				title: "Houses",
-				route: "/houses",
+				slug: "/houses",
 			},
 			{
 				title: "Villas",
-				route: "/villas",
+				slug: "/villas",
 			},
 			{
 				title: "Townhouses",
-				route: "/townhouses",
+				slug: "/townhouses",
 			},
 			{
 				title: "Shared Housing",
-				route: "/shared-housing",
+				slug: "/shared-housing",
 			},
 			{
 				title: "Office Spaces",
-				route: "/office-spaces",
+				slug: "/office-spaces",
 			},
 			{
 				title: "Retail Spaces",
-				route: "/retail-spaces",
+				slug: "/retail-spaces",
 			},
 			{
 				title: "Industrial properties",
-				route: "/industrial-properties",
+				slug: "/industrial-properties",
 			},
 			{
 				title: "Land",
-				route: "/land",
+				slug: "/land",
 			},
 		],
 	},
@@ -185,19 +165,19 @@ export const footerLinks = [
 		links: [
 			{
 				title: "Help & Support",
-				route: "/help",
+				slug: "/help",
 			},
 			{
 				title: "Trust & Safety",
-				route: "/trust-safety",
+				slug: "/trust-safety",
 			},
 			{
 				title: "Here as a Landlord",
-				route: "/landlord",
+				slug: "/landlord",
 			},
 			{
 				title: "Here as a tenant",
-				route: "/tenant",
+				slug: "/tenant",
 			},
 		],
 	},
@@ -205,27 +185,27 @@ export const footerLinks = [
 
 export const companies = [
 	{
-		logo: "/assets/images/icons/amazon.webp",
+		logo: "/assets/icons/amazon.webp",
 		name: "Amazon",
 	},
 	{
-		logo: "/assets/images/icons/amd.webp",
+		logo: "/assets/icons/amd.webp",
 		name: "AMD",
 	},
 	{
-		logo: "/assets/images/icons/cisco.webp",
+		logo: "/assets/icons/cisco.webp",
 		name: "Cisco",
 	},
 	{
-		logo: "/assets/images/icons/dropcam.webp",
+		logo: "/assets/icons/dropcam.webp",
 		name: "Dropcam",
 	},
 	{
-		logo: "/assets/images/icons/logitech.webp",
+		logo: "/assets/icons/logitech.webp",
 		name: "Logitech",
 	},
 	{
-		logo: "/assets/images/icons/spotify.webp",
+		logo: "/assets/icons/spotify.webp",
 		name: "Spotify",
 	},
 ];
@@ -238,19 +218,19 @@ export const aboutWorkersBenefits = [
 
 export const yourFingerTipsDetails = [
 	{
-		icon: Medal,
+		icon: "/assets/icons/award.svg",
 		title: "Verified Listings",
 		description:
 			"Browse through high-quality properties with verified details, real images, and trusted landlords.",
 	},
 	{
-		icon: CircleDollarSign,
+		icon: "/assets/icons/naira.svg",
 		title: "No Hidden Costs",
 		description:
 			"Explore, inquire, and negotiate with property owners—pay only when you secure your ideal home.",
 	},
 	{
-		icon: ShieldCheck,
+		icon: "/assets/icons/shield.svg",
 		title: "Safe & Secure",
 		description:
 			"Enjoy a seamless and secure experience with protected transactions, data privacy, and 24/7 support.",
@@ -343,18 +323,18 @@ export const faqs = [
 
 export const contactDetails = [
 	{
-		icon: MapPin,
+		icon: "/assets/icons/location.svg",
 		title: "Address",
 		description:
 			"51A, Agboola Ajumobi, Magodo GRA, Phase 1, Shangisha, Lagos State, Nigeria.",
 	},
 	{
-		icon: Phone,
+		icon: "/assets/icons/phone.svg",
 		title: "Phone",
 		description: "(+234) 802 2425 763",
 	},
 	{
-		icon: Mail,
+		icon: "/assets/icons/email.svg",
 		title: "Email",
 		description: "hello@leadsage.com",
 	},
@@ -362,39 +342,89 @@ export const contactDetails = [
 
 export const dashboardLinks = [
 	{
-		title: "Dashboard",
-		route: "/dashboard",
-		icon: House,
+		title: "Start",
+		links: [
+			{
+				title: "Dashboard",
+				slug: "/dashboard",
+				icon: "/assets/icons/house.svg",
+			},
+			{
+				title: "My Proposal",
+				slug: "/proposal",
+				icon: "/assets/icons/house.svg",
+			},
+			{
+				title: "Saved",
+				slug: "/saved",
+				icon: "/assets/icons/house.svg",
+			},
+			{
+				title: "Messages",
+				slug: "/messages",
+				icon: "/assets/icons/house.svg",
+			},
+			{
+				title: "Reviews",
+				slug: "/reviews",
+				icon: "/assets/icons/house.svg",
+			},
+			{
+				title: "Payouts",
+				slug: "/payouts",
+				icon: "/assets/icons/house.svg",
+			},
+			{
+				title: "Statements",
+				slug: "/statements",
+				icon: "/assets/icons/house.svg",
+			},
+		],
 	},
 	{
-		title: "My Proposal",
-		route: "/proposal",
-		icon: NotebookText,
+		title: "Organize & Manage",
+		links: [
+			{
+				title: "Manage Services",
+				slug: "/manage-services",
+				icon: "/assets/icons/house.svg",
+			},
+			{
+				title: "Manage Jobs",
+				slug: "/manage-jobs",
+				icon: "/assets/icons/house.svg",
+			},
+			{
+				title: "Manage Projects",
+				slug: "/manage-projects",
+				icon: "/assets/icons/house.svg",
+			},
+			{
+				title: "Add Services",
+				slug: "/add-services",
+				icon: "/assets/icons/house.svg",
+			},
+			{
+				title: "Create Project",
+				slug: "/create-project",
+				icon: "/assets/icons/house.svg",
+			},
+		],
 	},
 	{
-		title: "Saved",
-		route: "/saved",
-		icon: Heart,
-	},
-	{
-		title: "Messages",
-		route: "/messages",
-		icon: MessagesSquare,
-	},
-	{
-		title: "Reviews",
-		route: "/reviews",
-		icon: MessageSquareText,
-	},
-	{
-		title: "Payouts",
-		route: "/payouts",
-		icon: Receipt,
-	},
-	{
-		title: "Statements",
-		route: "/statements",
-		icon: ScrollText,
+		title: "Account",
+		links: [
+			{
+				title: "My Profile",
+				slug: "/my-profile",
+				icon: "/assets/icons/house.svg",
+			},
+			{
+				title: "Logout",
+				slug: "/logout",
+				icon: "/assets/icons/house.svg",
+			},
+		],
 	},
 ];
 
@@ -452,5 +482,59 @@ export const popularProperties = [
 		image: "https://pictures-nigeria.jijistatic.net/161698331_MzAwLTIyNS02OTcyZjE0MGI0.webp",
 		location: "Banana Island, Ikoyi, Lagos",
 		price: "60,000,000",
+	},
+];
+
+export const dashboardBoxesDetails = [
+	{
+		icon: "/assets/icons/file.svg",
+		number: 25,
+		title: "Services Offered",
+		subTitle: "New Offered",
+		subTitleNumber: 10,
+	},
+	{
+		icon: "/assets/icons/file.svg",
+		number: 25,
+		title: "Services Offered",
+		subTitle: "New Offered",
+		subTitleNumber: 10,
+	},
+	{
+		icon: "/assets/icons/file.svg",
+		number: 25,
+		title: "Services Offered",
+		subTitle: "New Offered",
+		subTitleNumber: 10,
+	},
+	{
+		icon: "/assets/icons/file.svg",
+		number: 25,
+		title: "Services Offered",
+		subTitle: "New Offered",
+		subTitleNumber: 10,
+	},
+];
+
+export const socialLinks = [
+	{
+		title: "Facebook",
+		icon: "/assets/icons/facebook.svg",
+		slug: "facebook.com",
+	},
+	{
+		title: "Twitter",
+		icon: "/assets/icons/twitter.svg",
+		slug: "twitter.com",
+	},
+	{
+		title: "Instagram",
+		icon: "/assets/icons/instagram.svg",
+		slug: "instagram.com",
+	},
+	{
+		title: "Linkedin",
+		icon: "/assets/icons/linkedin.svg",
+		slug: "linkedin.com",
 	},
 ];

@@ -1,4 +1,3 @@
-import { MapPin } from "lucide-react";
 import Image from "next/image";
 import React from "react";
 import { Separator } from "../ui/separator";
@@ -30,7 +29,13 @@ const ProductCard = ({
 					{title}
 				</h4>
 				<p className="text-gray-700 text-sm">
-					<MapPin className="inline-block w-4 h-4 mr-2" />
+					<Image
+						src={"/assets/icons/location.svg"}
+						alt={"Location"}
+						width={1000}
+						height={1000}
+						className="w-[20px] h-[20px] inline-block mr-2"
+					/>
 					{location}
 				</p>
 				<Separator />

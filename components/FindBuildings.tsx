@@ -1,7 +1,6 @@
-import React from "react";
 import { Button } from "./ui/button";
 import Link from "next/link";
-import { Check, CircleCheck, MoveUpRight } from "lucide-react";
+import { MoveUpRight } from "lucide-react";
 import Image from "next/image";
 
 const FindBuildings = () => {
@@ -37,19 +36,43 @@ const FindBuildings = () => {
 				<div className="bg-green-700 py-8 lg:py-12 px-6 lg:px-12 font-medium rounded-3xl inline-block absolute top-[50%] left-[40%] translate-x-[-40%] translate-y-[-50%]">
 					<ul className="text-white text-sm space-y-6">
 						<li>
-							<CircleCheck className="text-white inline-block w-4 h-4 mr-2" />{" "}
+							<Image
+								src={"/assets/icons/check.svg"}
+								alt={"Check icon"}
+								width={1000}
+								height={1000}
+								className="text-white inline-block w-4 h-4 mr-2 invert"
+							/>
 							The Best for Every Budget:
 						</li>
 						<li>
-							<CircleCheck className="text-white inline-block w-4 h-4 mr-2" />{" "}
+							<Image
+								src={"/assets/icons/check.svg"}
+								alt={"Check icon"}
+								width={1000}
+								height={1000}
+								className="text-white inline-block w-4 h-4 mr-2 invert"
+							/>
 							Quality Work, Done Quickly
 						</li>
 						<li>
-							<CircleCheck className="text-white inline-block w-4 h-4 mr-2" />{" "}
+							<Image
+								src={"/assets/icons/check.svg"}
+								alt={"Check icon"}
+								width={1000}
+								height={1000}
+								className="text-white inline-block w-4 h-4 mr-2 invert"
+							/>
 							Protected Payments, Every Time
 						</li>
 						<li>
-							<CircleCheck className="text-white inline-block w-4 h-4 mr-2" />{" "}
+							<Image
+								src={"/assets/icons/check.svg"}
+								alt={"Check icon"}
+								width={1000}
+								height={1000}
+								className="text-white inline-block w-4 h-4 mr-2 invert"
+							/>
 							24/7 Support
 						</li>
 					</ul>

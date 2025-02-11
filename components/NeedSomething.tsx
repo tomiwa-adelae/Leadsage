@@ -1,6 +1,5 @@
 import { needSomethingDetails } from "@/constant";
-import { LaptopMinimal } from "lucide-react";
-import React from "react";
+import Image from "next/image";
 
 const NeedSomething = () => {
 	return (
@@ -22,9 +21,12 @@ const NeedSomething = () => {
 
 						return (
 							<div className="space-y-4" key={index}>
-								<Icon
-									className="w-9 h-9 text-green-700"
-									absoluteStrokeWidth
+								<Image
+									src={icon}
+									alt={title}
+									width={1000}
+									height={1000}
+									className="w-[50px] h-[50px]"
 								/>
 								<h4 className="font-medium text-lg text-gray-900">
 									{title}

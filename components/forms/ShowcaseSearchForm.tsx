@@ -15,7 +15,6 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { toast } from "@/hooks/use-toast";
-import { Search } from "lucide-react";
 import {
 	Select,
 	SelectContent,
@@ -24,7 +23,7 @@ import {
 	SelectValue,
 } from "@/components/ui/select";
 import { categories } from "@/constant";
-import { Separator } from "../ui/separator";
+import Image from "next/image";
 
 const FormSchema = z.object({
 	keyword: z.string().min(2, {
@@ -76,7 +75,13 @@ export function ShowcaseSearchForm() {
 											{...field}
 											className="pl-7 border-none"
 										/>
-										<Search className="absolute text-gray-400 top-[50%] left-[0%] translate-y-[-50%] w-4 h-4" />
+										<Image
+											src={"/assets/icons/search.svg"}
+											alt={"Search Icon"}
+											width={1000}
+											height={1000}
+											className="w-[15px] h-[15px] absolute text-gray-400 top-[50%] left-[0%] translate-y-[-50%]"
+										/>
 									</div>
 								</FormControl>
 								<FormMessage />

@@ -1,8 +1,7 @@
-import { Facebook, Instagram, Linkedin, Twitter } from "lucide-react";
 import Link from "next/link";
-import React from "react";
 import { Separator } from "../ui/separator";
-import { footerLinks } from "@/constant";
+import { footerLinks, socialLinks } from "@/constant";
+import Image from "next/image";
 
 const Footer = () => {
 	const year = new Date().getFullYear();
@@ -18,18 +17,17 @@ const Footer = () => {
 					<div className="flex items-center justify-end gap-4">
 						<p className="font-semibold text-sm">Follow us</p>
 						<div className="flex items-center justify-end gap-4 text-white">
-							<Link href="/facebook.com">
-								<Facebook className="w-4 h-4" />
-							</Link>
-							<Link href="/facebook.com">
-								<Twitter className="w-4 h-4" />
-							</Link>
-							<Link href="/facebook.com">
-								<Instagram className="w-4 h-4" />
-							</Link>
-							<Link href="/facebook.com">
-								<Linkedin className="w-4 h-4" />
-							</Link>
+							{socialLinks.map(({ title, icon, slug }, index) => (
+								<a key={index} target={"_blank"} href={slug}>
+									<Image
+										src={icon}
+										alt={title}
+										width={1000}
+										height={1000}
+										className="w-[20px] h-[20px]"
+									/>
+								</a>
+							))}
 						</div>
 					</div>
 				</div>
@@ -41,9 +39,9 @@ const Footer = () => {
 								{title}
 							</h4>
 							<ul className="space-y-6 text-xs mt-6 text-gray-200">
-								{links.map(({ title, route }, index) => (
+								{links.map(({ title, slug }, index) => (
 									<li key={index}>
-										<Link href={route}>{title}</Link>
+										<Link href={slug}>{title}</Link>
 									</li>
 								))}
 							</ul>

@@ -1,5 +1,6 @@
 import { ContactForm } from "@/components/forms/ContactForm";
 import { contactDetails } from "@/constant";
+import Image from "next/image";
 import React from "react";
 
 const ContactDetails = () => {
@@ -24,9 +25,16 @@ const ContactDetails = () => {
 										className="flex items-start justify-start gap-8"
 										key={index}
 									>
-										<Icon
+										{/* <Icon
 											absoluteStrokeWidth
 											className="w-9 h-9 text-green-600 mt-1"
+										/> */}
+										<Image
+											src={icon}
+											alt={title}
+											width={1000}
+											height={1000}
+											className="w-[50px] h-[50px] mt-1"
 										/>
 										<div className="space-y-0.5">
 											<h4 className="font-medium text-lg text-gray-900">

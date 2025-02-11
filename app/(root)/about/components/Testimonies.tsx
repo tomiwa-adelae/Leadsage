@@ -15,9 +15,16 @@ const Testimonies = () => {
 					landlords alike.
 				</p>
 				<div>
-					<Quote
+					{/* <Quote
 						absoluteStrokeWidth
 						className="text-green-400 w-14 h-14 mx-auto my-10"
+					/> */}
+					<Image
+						src={"/assets/icons/quote.svg"}
+						alt={"Quote icon"}
+						width={1000}
+						height={1000}
+						className="w-[70px] h-[70px] mx-auto my-10"
 					/>
 					<h4 className="font-semibold text-lg md:text-2xl leading-loose md:leading-loose mt-4 md:w-8/12 mx-auto text-center">
 						"Leadsage made finding our dream home effortless! The

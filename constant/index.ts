@@ -538,3 +538,20 @@ export const socialLinks = [
 		slug: "linkedin.com",
 	},
 ];
+
+export const images = [
+	{
+		src: "/assets/images/apartment-1.jpg",
+		alt: "A picture of the interior of a building",
+	},
+	{
+		src: "/assets/images/apartment-2.jpg",
+		alt: "A picture of the interior of a building",
+	},
+	{
+		src: "/assets/images/apartment-3.jpg",
+		alt: "A picture of the interior of a building",
+	},
+];
+
+export const apartmentDurations = ["monthly", "annually", "bi-annually"];

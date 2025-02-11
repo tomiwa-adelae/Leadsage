@@ -1,6 +1,7 @@
 import Image from "next/image";
 import React from "react";
 import { Separator } from "../ui/separator";
+import Link from "next/link";
 
 const ProductCard = ({
 	image,
@@ -14,7 +15,10 @@ const ProductCard = ({
 	image: string;
 }) => {
 	return (
-		<div className="inline-block border rounded-xl overflow-hidden cursor-pointer group">
+		<Link
+			href={`/apartments/12345`}
+			className="inline-block border rounded-xl overflow-hidden cursor-pointer group"
+		>
 			<div className="overflow-hidden">
 				<Image
 					src={image}
@@ -44,7 +48,7 @@ const ProductCard = ({
 					annually
 				</p>
 			</div>
-		</div>
+		</Link>
 	);
 };
 

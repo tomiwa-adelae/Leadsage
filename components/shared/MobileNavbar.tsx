@@ -29,13 +29,13 @@ export function MobileNavbar() {
 	return (
 		<Sheet>
 			<SheetTrigger asChild>
-				<Button variant={"ghost"}>
+				<Button className="rounded-sm" size={"icon"} variant={"ghost"}>
 					<Image
 						src="/assets/icons/menu.svg"
 						alt="Menu Icon"
 						width={1000}
 						height={1000}
-						className={`w-[30px] h-[30px]  ${
+						className={`w-[30px] h-[30px] ${
 							pathname === "/" && "invert"
 						}`}
 					/>

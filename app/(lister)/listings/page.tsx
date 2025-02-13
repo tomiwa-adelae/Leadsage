@@ -54,7 +54,7 @@ const listings = [
 
 const page = () => {
 	return (
-		<div className="pt-8 pb-12">
+		<div className="pb-12">
 			<div className="flex flex-col md:flex-row gap-4 items-start md:items-center justify-between">
 				<SectionTitle
 					title={"My Listings"}

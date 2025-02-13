@@ -15,7 +15,7 @@ import Link from "next/link";
 
 const page = () => {
 	return (
-		<div className="pt-8 pb-12">
+		<div className="pb-12">
 			<SectionTitle
 				title={"Good morning, Ibitoye"}
 				subTitle="Welcome to your Leadsage dashboard."

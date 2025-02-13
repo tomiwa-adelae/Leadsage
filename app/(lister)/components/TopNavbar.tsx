@@ -12,8 +12,8 @@ const inknut = Inknut_Antiqua({
 
 const TopNavbar = () => {
 	return (
-		<nav className="py-4 px-4 pr-8 fixed top-0 left-0 lg:left-[300px] w-full lg:w-[calc(100vw-300px)] bg-white shadow-[0px_2px_10px_-2px_rgba(0,0,0,0.1)] z-50">
-			<div className="max-w-full flex items-center justify-between">
+		<nav className="py-4 lg:left-[300px] w-full bg-white shadow-[0px_2px_10px_-2px_rgba(0,0,0,0.1)] z-50">
+			<div className="container flex items-center justify-between">
 				<h3
 					className={`lg:hidden uppercase font-bold text-xl lg:text-2xl hover:text-green-400 transition ease-out ${inknut.className}`}
 				>
@@ -33,8 +33,8 @@ const TopNavbar = () => {
 					<div className="hidden lg:flex items-center justify-center gap-8">
 						<Link href="/">
 							<Image
-								src={"/assets/icons/house.svg"}
-								alt={"House"}
+								src={"/assets/icons/bell.svg"}
+								alt={"Bell icon"}
 								width={1000}
 								height={1000}
 								className="w-[25px] h-[25px]"
@@ -42,8 +42,8 @@ const TopNavbar = () => {
 						</Link>
 						<Link href="/">
 							<Image
-								src={"/assets/icons/house.svg"}
-								alt={"House"}
+								src={"/assets/icons/email.svg"}
+								alt={"Email icon"}
 								width={1000}
 								height={1000}
 								className="w-[25px] h-[25px]"
@@ -51,8 +51,8 @@ const TopNavbar = () => {
 						</Link>
 						<Link href="/">
 							<Image
-								src={"/assets/icons/house.svg"}
-								alt={"House"}
+								src={"/assets/icons/heart.svg"}
+								alt={"Heart icon"}
 								width={1000}
 								height={1000}
 								className="w-[25px] h-[25px]"

@@ -95,7 +95,7 @@ export function AccountSettingsForm() {
 
 	return (
 		<div className="bg-white rounded-md p-6 mt-14">
-			<div className="mt-6 mb-10">
+			<div className="mt-6 mb-10 relative inline-block">
 				<Image
 					src={"/assets/images/tomiwa-adelae.jfif"}
 					alt={"Profile picture"}
@@ -103,6 +103,15 @@ export function AccountSettingsForm() {
 					height={1000}
 					className="w-[150px] h-[150px] object-cover rounded-full"
 				/>
+				<div className="bg-black/20 rounded-full flex items-center justify-center w-full h-full absolute top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%]">
+					<Image
+						src={"/assets/icons/camera.svg"}
+						alt={"Camera icon"}
+						width={1000}
+						height={1000}
+						className="w-[20px] h-[20px] "
+					/>
+				</div>
 			</div>
 			<Form {...form}>
 				<form

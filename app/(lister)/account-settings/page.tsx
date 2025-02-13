@@ -4,7 +4,7 @@ import React from "react";
 
 const page = () => {
 	return (
-		<div className="pt-8 pb-12">
+		<div className="pb-12">
 			<SectionTitle
 				title={"Account Settings"}
 				subTitle="Welcome to your Leadsage dashboard."

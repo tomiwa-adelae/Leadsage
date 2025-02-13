@@ -12,19 +12,19 @@ const inknut = Inknut_Antiqua({
 
 const TopNavbar = () => {
 	return (
-		<nav className="py-4 fixed top-0 left-0 lg:left-[270px] w-full lg:w-[calc(100vw-270px)] bg-white shadow-[0px_2px_10px_-2px_rgba(0,0,0,0.1)]">
-			<div className="max-w-full px-4 flex items-center justify-between">
+		<nav className="py-4 px-4 pr-8 fixed top-0 left-0 lg:left-[300px] w-full lg:w-[calc(100vw-300px)] bg-white shadow-[0px_2px_10px_-2px_rgba(0,0,0,0.1)] z-50">
+			<div className="max-w-full flex items-center justify-between">
 				<h3
 					className={`lg:hidden uppercase font-bold text-xl lg:text-2xl hover:text-green-400 transition ease-out ${inknut.className}`}
 				>
 					<Link href={"/"}>Leadsage</Link>
 				</h3>
 				<div className="flex-1">
-					<div className="hidden lg:block relative bg-yellow-300">
+					<div className="hidden lg:block relative">
 						<Input
 							type="text"
 							placeholder="Search houses, categories..."
-							className="pl-8 w-full"
+							className="pl-4 w-full"
 						/>
 						<Search className="absolute text-gray-400 top-[50%] right-[3%] translate-x-[-3%] translate-y-[-50%] w-4 h-4" />
 					</div>

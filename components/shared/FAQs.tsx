@@ -7,7 +7,7 @@ import {
 import { faqs } from "@/constant";
 const FAQs = () => {
 	return (
-		<div className="bg-white py-20">
+		<div id="faqs" className="bg-white py-20">
 			<div className="container">
 				<h3 className="text-gray-900 font-bold text-2xl md:text-3xl leading-normal text-center">
 					Frequently Asked Questions

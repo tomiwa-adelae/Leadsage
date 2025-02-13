@@ -14,7 +14,7 @@ const inknut = Inknut_Antiqua({
 const Sidebar = () => {
 	const pathname = usePathname();
 	return (
-		<div className="hidden bg-white fixed left-0 top-0 h-screen lg:flex w-[270px] flex-col ">
+		<div className="hidden bg-white fixed left-0 top-0 h-screen lg:flex w-[300px] flex-col z-50">
 			<ScrollArea>
 				<div className="py-6">
 					<h3
@@ -38,8 +38,8 @@ const Sidebar = () => {
 												<Link
 													className={`flex items-center gap-3 justify-start py-4 px-4 rounded-r-sm ${
 														isActive &&
-														"text-white font-semibold bg-black"
-													} hover:bg-black hover:text-white  transition-all text-xs uppercase font-medium`}
+														"text-white font-semibold bg-green-400"
+													} hover:bg-green-400 hover:text-white  transition-all text-xs uppercase font-medium`}
 													href={slug}
 													key={index}
 												>

@@ -347,82 +347,88 @@ export const dashboardLinks = [
 			{
 				title: "Dashboard",
 				slug: "/dashboard",
-				icon: "/assets/icons/house.svg",
+				icon: "/assets/icons/dashboard.svg",
 			},
 			{
-				title: "My Proposal",
-				slug: "/proposal",
-				icon: "/assets/icons/house.svg",
+				title: "My Listings",
+				slug: "/listings",
+				icon: "/assets/icons/file.svg",
 			},
 			{
-				title: "Saved",
-				slug: "/saved",
+				title: "Create Listing",
+				slug: "/create-listing",
 				icon: "/assets/icons/house.svg",
 			},
-			{
-				title: "Messages",
-				slug: "/messages",
-				icon: "/assets/icons/house.svg",
-			},
-			{
-				title: "Reviews",
-				slug: "/reviews",
-				icon: "/assets/icons/house.svg",
-			},
-			{
-				title: "Payouts",
-				slug: "/payouts",
-				icon: "/assets/icons/house.svg",
-			},
-			{
-				title: "Statements",
-				slug: "/statements",
-				icon: "/assets/icons/house.svg",
-			},
+
+			// {
+			// 	title: "Saved",
+			// 	slug: "/saved",
+			// 	icon: "/assets/icons/house.svg",
+			// },
+			// {
+			// 	title: "Messages",
+			// 	slug: "/messages",
+			// 	icon: "/assets/icons/house.svg",
+			// },
+			// {
+			// 	title: "Reviews",
+			// 	slug: "/reviews",
+			// 	icon: "/assets/icons/house.svg",
+			// },
+			// {
+			// 	title: "Payouts",
+			// 	slug: "/payouts",
+			// 	icon: "/assets/icons/house.svg",
+			// },
+			// {
+			// 	title: "Statements",
+			// 	slug: "/statements",
+			// 	icon: "/assets/icons/house.svg",
+			// },
 		],
 	},
-	{
-		title: "Organize & Manage",
-		links: [
-			{
-				title: "Manage Services",
-				slug: "/manage-services",
-				icon: "/assets/icons/house.svg",
-			},
-			{
-				title: "Manage Jobs",
-				slug: "/manage-jobs",
-				icon: "/assets/icons/house.svg",
-			},
-			{
-				title: "Manage Projects",
-				slug: "/manage-projects",
-				icon: "/assets/icons/house.svg",
-			},
-			{
-				title: "Add Services",
-				slug: "/add-services",
-				icon: "/assets/icons/house.svg",
-			},
-			{
-				title: "Create Project",
-				slug: "/create-project",
-				icon: "/assets/icons/house.svg",
-			},
-		],
-	},
+	// {
+	// 	title: "Organize & Manage",
+	// 	links: [
+	// 		{
+	// 			title: "Manage Services",
+	// 			slug: "/manage-services",
+	// 			icon: "/assets/icons/house.svg",
+	// 		},
+	// 		{
+	// 			title: "Manage Jobs",
+	// 			slug: "/manage-jobs",
+	// 			icon: "/assets/icons/house.svg",
+	// 		},
+	// 		{
+	// 			title: "Manage Projects",
+	// 			slug: "/manage-projects",
+	// 			icon: "/assets/icons/house.svg",
+	// 		},
+	// 		{
+	// 			title: "Add Services",
+	// 			slug: "/add-services",
+	// 			icon: "/assets/icons/house.svg",
+	// 		},
+	// 		{
+	// 			title: "Create Listing",
+	// 			slug: "/create-listing",
+	// 			icon: "/assets/icons/house.svg",
+	// 		},
+	// 	],
+	// },
 	{
 		title: "Account",
 		links: [
 			{
-				title: "My Profile",
-				slug: "/my-profile",
-				icon: "/assets/icons/house.svg",
+				title: "Account Settings",
+				slug: "/account-settings",
+				icon: "/assets/icons/settings.svg",
 			},
 			{
 				title: "Logout",
 				slug: "/logout",
-				icon: "/assets/icons/house.svg",
+				icon: "/assets/icons/logout.svg",
 			},
 		],
 	},
@@ -487,32 +493,14 @@ export const popularProperties = [
 
 export const dashboardBoxesDetails = [
 	{
-		icon: "/assets/icons/file.svg",
-		number: 25,
-		title: "Services Offered",
-		subTitle: "New Offered",
-		subTitleNumber: 10,
+		icon: "/assets/icons/house-two.svg",
+		number: 1,
+		title: "Space listed",
 	},
 	{
-		icon: "/assets/icons/file.svg",
-		number: 25,
-		title: "Services Offered",
-		subTitle: "New Offered",
-		subTitleNumber: 10,
-	},
-	{
-		icon: "/assets/icons/file.svg",
-		number: 25,
-		title: "Services Offered",
-		subTitle: "New Offered",
-		subTitleNumber: 10,
-	},
-	{
-		icon: "/assets/icons/file.svg",
-		number: 25,
-		title: "Services Offered",
-		subTitle: "New Offered",
-		subTitleNumber: 10,
+		icon: "/assets/icons/naira.svg",
+		number: 0.0,
+		title: "Total Earnings",
 	},
 ];
 
@@ -555,3 +543,5 @@ export const images = [
 ];
 
 export const apartmentDurations = ["monthly", "annually", "bi-annually"];
+
+export const genders = ["male", "female"];

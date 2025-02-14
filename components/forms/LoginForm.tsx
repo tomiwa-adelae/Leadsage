@@ -15,38 +15,58 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { toast } from "@/hooks/use-toast";
-import { MoveUpRight } from "lucide-react";
+import { LoaderCircle, MoveUpRight } from "lucide-react";
 import Link from "next/link";
-
-const FormSchema = z.object({
-	email: z.string().email().min(2, {
-		message: "Name must be at least 2 characters.",
-	}),
-	password: z.string().min(6, {
-		message: "Password must be at least 6 characters.",
-	}),
-});
+import { authenticateUser } from "@/lib/actions/user.actions";
+import { useRouter } from "next/navigation";
+import { LoginFormSchema } from "@/lib/validations";
+import { useEffect } from "react";
 
 export function LoginForm() {
-	const form = useForm<z.infer<typeof FormSchema>>({
-		resolver: zodResolver(FormSchema),
+	const router = useRouter();
+
+	useEffect(() => {
+		const authenticatedUser = localStorage.getItem("user");
+
+		if (authenticatedUser) {
+			router.push("/");
+		}
+	}, [router]);
+
+	const form = useForm<z.infer<typeof LoginFormSchema>>({
+		resolver: zodResolver(LoginFormSchema),
 		defaultValues: {
 			email: "",
 			password: "",
 		},
 	});
 
-	function onSubmit(data: z.infer<typeof FormSchema>) {
-		toast({
-			title: "You submitted the following values:",
-			description: (
-				<pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
-					<code className="text-white">
-						{JSON.stringify(data, null, 2)}
-					</code>
-				</pre>
-			),
-		});
+	async function onSubmit(data: z.infer<typeof LoginFormSchema>) {
+		try {
+			const res = await authenticateUser({ ...data });
+			if (res?.status == 400)
+				return toast({
+					title: "Error!",
+					description: res?.message,
+					variant: "destructive",
+				});
+
+			toast({
+				title: "Success!",
+				description: res?.message,
+			});
+
+			// Save user information to database
+			localStorage.setItem("user", JSON.stringify(res?.user));
+
+			router.push("/");
+		} catch (error: any) {
+			toast({
+				title: "Error!",
+				description: "An error occurred!",
+				variant: "destructive",
+			});
+		}
 	}
 
 	return (
@@ -58,7 +78,7 @@ export function LoginForm() {
 				<p className="text-gray-700 text-sm leading-loose my-4">
 					Don't have an account?{" "}
 					<Link
-						className="hover:underline text-green-400"
+						className="hover:underline text-green-400 font-medium"
 						href="/register"
 					>
 						Sign Up!
@@ -108,8 +128,20 @@ export function LoginForm() {
 					>
 						Lost your password?
 					</Link>
-					<Button className="w-full" size={"lg"} type="submit">
-						Log In <MoveUpRight />
+					<Button
+						disabled={form.formState.isSubmitting}
+						className="w-full"
+						size={"lg"}
+						type="submit"
+					>
+						{form.formState.isSubmitting
+							? "Logging in..."
+							: "Log in"}{" "}
+						{form.formState.isSubmitting ? (
+							<LoaderCircle className="animate-spin" />
+						) : (
+							<MoveUpRight />
+						)}
 					</Button>
 				</form>
 			</Form>

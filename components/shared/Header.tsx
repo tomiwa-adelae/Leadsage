@@ -6,6 +6,8 @@ import { NavigationDropdowns } from "./NavigationDropdowns";
 import { MobileNavbar } from "./MobileNavbar";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
+import { useEffect, useState } from "react";
+import { ProfileDropdown } from "./ProfileDropdown";
 
 const inknut = Inknut_Antiqua({
 	subsets: ["latin"],
@@ -14,6 +16,14 @@ const inknut = Inknut_Antiqua({
 
 const Header = ({ color = "white" }: { color?: string }) => {
 	const pathname = usePathname();
+
+	const [user, setUser] = useState<any>();
+
+	useEffect(() => {
+		const autheticatedUser = localStorage.getItem("user");
+		setUser(autheticatedUser);
+	}, []);
+
 	return (
 		<div
 			className={`${
@@ -41,20 +51,28 @@ const Header = ({ color = "white" }: { color?: string }) => {
 							}`}
 						/>
 					</Button>
-					<Button asChild>
-						<Link href="/register">Join us</Link>
-					</Button>
+					{user ? (
+						<ProfileDropdown />
+					) : (
+						<Button asChild>
+							<Link href="/register">Join us</Link>
+						</Button>
+					)}
 				</div>
-				<div className="flex gap-0.5 md:hidden">
-					<Button
-						asChild
-						variant={"ghost"}
-						className={`${
-							color === "black" ? "text-black" : "text-white"
-						}`}
-					>
-						<Link href="/register">Join us</Link>
-					</Button>
+				<div className="flex gap-3 md:hidden">
+					{user ? (
+						<ProfileDropdown />
+					) : (
+						<Button
+							asChild
+							variant={"ghost"}
+							className={`${
+								color === "black" ? "text-black" : "text-white"
+							}`}
+						>
+							<Link href="/register">Join us</Link>
+						</Button>
+					)}
 					<MobileNavbar />
 				</div>
 			</header>

@@ -24,18 +24,22 @@ export const navLinks = [
 	{
 		title: "Home",
 		slug: "/",
+		icon: "/assets/icons/house.svg",
 	},
 	{
 		title: "About us",
 		slug: "/about",
+		icon: "/assets/icons/about.svg",
 	},
 	{
 		title: "Contact us",
 		slug: "/contact",
+		icon: "/assets/icons/contact.svg",
 	},
 	{
 		title: "Our categories",
 		slug: "/categories",
+		icon: "/assets/icons/category.svg",
 	},
 ];
 

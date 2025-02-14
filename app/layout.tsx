@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Montserrat } from "next/font/google";
 import "./globals.css";
 import Footer from "@/components/shared/Footer";
+import { Toaster } from "@/components/ui/toaster";
 
 export const metadata: Metadata = {
 	title: "Leadsage",
@@ -23,6 +24,7 @@ export default function RootLayout({
 		<html lang="en">
 			<body className={`${montserrat.className} antialiased`}>
 				{children}
+				<Toaster />
 			</body>
 		</html>
 	);

@@ -15,30 +15,18 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { toast } from "@/hooks/use-toast";
-import { MoveUpRight } from "lucide-react";
+import { LoaderCircle, MoveUpRight } from "lucide-react";
 import Link from "next/link";
-
-const FormSchema = z.object({
-	firstName: z.string().min(2, {
-		message: "First name must be at least 2 characters.",
-	}),
-	lastName: z.string().min(2, {
-		message: "Last name must be at least 2 characters.",
-	}),
-	email: z.string().email().min(2, {
-		message: "Email must be at least 2 characters.",
-	}),
-	phoneNumber: z.string().min(2, {
-		message: "Phone number must be at least 2 characters.",
-	}),
-	password: z.string().min(6, {
-		message: "Password must be at least 6 characters.",
-	}),
-});
+import { registerUser } from "@/lib/actions/user.actions";
+import { useRouter } from "next/navigation";
+import { RegisterFormSchema } from "@/lib/validations";
+import { useEffect } from "react";
 
 export function RegisterForm() {
-	const form = useForm<z.infer<typeof FormSchema>>({
-		resolver: zodResolver(FormSchema),
+	const router = useRouter();
+
+	const form = useForm<z.infer<typeof RegisterFormSchema>>({
+		resolver: zodResolver(RegisterFormSchema),
 		defaultValues: {
 			firstName: "",
 			lastName: "",
@@ -48,17 +36,35 @@ export function RegisterForm() {
 		},
 	});
 
-	function onSubmit(data: z.infer<typeof FormSchema>) {
-		toast({
-			title: "You submitted the following values:",
-			description: (
-				<pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
-					<code className="text-white">
-						{JSON.stringify(data, null, 2)}
-					</code>
-				</pre>
-			),
-		});
+	useEffect(() => {
+		const authenticatedUser = localStorage.getItem("user");
+
+		if (authenticatedUser) {
+			router.push("/");
+		}
+	}, [router]);
+
+	async function onSubmit(data: z.infer<typeof RegisterFormSchema>) {
+		try {
+			const res = await registerUser({ ...data });
+			if (res?.status == 400)
+				return toast({
+					title: "Error!",
+					description: res?.message,
+					variant: "destructive",
+				});
+
+			toast({
+				title: "Success!",
+				description: res?.message,
+			});
+			// Save user information to database
+			localStorage.setItem("user", JSON.stringify(res?.user));
+
+			router.push("/");
+		} catch (error: any) {
+			console.log(error);
+		}
 	}
 
 	return (
@@ -70,7 +76,7 @@ export function RegisterForm() {
 				<p className="text-gray-700 text-sm leading-loose my-4">
 					Already have an account?{" "}
 					<Link
-						className="hover:underline text-green-400"
+						className="hover:underline text-green-400 font-medium"
 						href="/login"
 					>
 						Log In!
@@ -164,8 +170,20 @@ export function RegisterForm() {
 							</FormItem>
 						)}
 					/>
-					<Button className="w-full" size={"lg"} type="submit">
-						Create Account <MoveUpRight />
+					<Button
+						disabled={form.formState.isSubmitting}
+						className="w-full"
+						size={"lg"}
+						type="submit"
+					>
+						{form.formState.isSubmitting
+							? "Creating..."
+							: "Create account"}{" "}
+						{form.formState.isSubmitting ? (
+							<LoaderCircle className="animate-spin" />
+						) : (
+							<MoveUpRight />
+						)}
 					</Button>
 				</form>
 			</Form>

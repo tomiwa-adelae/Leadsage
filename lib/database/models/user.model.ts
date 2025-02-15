@@ -45,8 +45,6 @@ const UserSchema = new Schema<IUser>(
 		},
 		isRenter: {
 			type: Boolean,
-			required: true,
-			default: false,
 		},
 		isAdmin: {
 			type: Boolean,

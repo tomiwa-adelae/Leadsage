@@ -19,7 +19,7 @@ import { usePathname, useRouter } from "next/navigation";
 import { Input } from "../ui/input";
 import { Separator } from "../ui/separator";
 import { ScrollArea } from "../ui/scroll-area";
-import { useClerk, useUser } from "@clerk/nextjs";
+import { SignedOut, useClerk, useUser } from "@clerk/nextjs";
 
 const inknut = Inknut_Antiqua({
 	subsets: ["latin"],
@@ -100,7 +100,7 @@ export function MobileNavbar() {
 						})}
 					</nav>
 					<div className="flex flex-col px-4 gap-4">
-						<div className="relative">
+						{/* <div className="relative">
 							<Input
 								type="text"
 								placeholder="Search houses, categories..."
@@ -113,23 +113,23 @@ export function MobileNavbar() {
 								height={1000}
 								className={`w-[20px] h-[20px] absolute top-[50%] left-[3%] translate-x-[-3%] translate-y-[-50%]`}
 							/>
-						</div>
+						</div> */}
 
 						{
-							<>
+							<SignedOut>
 								<Button asChild variant={"ghost"}>
 									<Link href="/sign-in">Sign in</Link>
 								</Button>
 								<Button asChild>
 									<Link href="/sign-up">Join us</Link>
 								</Button>
-							</>
+							</SignedOut>
 						}
 					</div>
 					{
 						<>
 							<div>
-								<Separator className="mt-8 mb-4" />
+								<Separator className="my-4" />
 								<nav className="flex flex-col font-semibold gap-4 p-4 text-xs uppercase">
 									{dashboardLinks.map(
 										({ title, links }, index) => (

@@ -1,12 +1,20 @@
+import { getUserInfo } from "@/lib/actions/user.actions";
 import Footer from "./components/Footer";
 import Sidebar from "./components/Sidebar";
 import TopNavbar from "./components/TopNavbar";
+import { auth } from "@clerk/nextjs";
 
-export default function Layout({
+export default async function Layout({
 	children,
 }: Readonly<{
 	children: React.ReactNode;
 }>) {
+	const { userId } = auth();
+
+	const user = await getUserInfo(userId!);
+
+	console.log(user);
+
 	return (
 		<div className="bg-gray-100">
 			<Sidebar />

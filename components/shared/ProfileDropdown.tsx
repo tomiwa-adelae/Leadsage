@@ -28,15 +28,13 @@ export function ProfileDropdown() {
 	return (
 		<DropdownMenu>
 			<DropdownMenuTrigger asChild>
-				<Button variant={"ghost"} size={"icon"}>
-					<Image
-						src={user?.imageUrl!}
-						alt={`${user?.firstName} ${user?.lastName}`}
-						width={1000}
-						height={1000}
-						className="w-10 h-10 rounded-full object-cover mr-2"
-					/>
-				</Button>
+				<Image
+					src={user?.imageUrl!}
+					alt={`${user?.firstName} ${user?.lastName}`}
+					width={1000}
+					height={1000}
+					className="w-10 h-10 rounded-full cursor-pointer hover:border border-green-400 object-cover mr-2"
+				/>
 			</DropdownMenuTrigger>
 			<DropdownMenuContent className="w-56">
 				{dashboardLinks.map((link, index) => (

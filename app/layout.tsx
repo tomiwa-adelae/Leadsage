@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Montserrat } from "next/font/google";
 import "./globals.css";
 import { Toaster } from "@/components/ui/toaster";
+import { ClerkProvider } from "@clerk/nextjs";
 
 export const metadata: Metadata = {
 	title: "Leadsage",
@@ -20,11 +21,13 @@ export default function RootLayout({
 	children: React.ReactNode;
 }>) {
 	return (
-		<html lang="en">
-			<body className={`${montserrat.className} antialiased`}>
-				{children}
-				<Toaster />
-			</body>
-		</html>
+		<ClerkProvider>
+			<html lang="en">
+				<body className={`${montserrat.className} antialiased`}>
+					{children}
+					<Toaster />
+				</body>
+			</html>
+		</ClerkProvider>
 	);
 }

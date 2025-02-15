@@ -17,7 +17,6 @@ import { Input } from "@/components/ui/input";
 import { toast } from "@/hooks/use-toast";
 import { Textarea } from "../ui/textarea";
 import { MoveUpRight } from "lucide-react";
-import { createListing } from "@/lib/actions/list.actions";
 import { useEffect, useState } from "react";
 import { CreateListingForm } from "@/lib/validations";
 
@@ -46,32 +45,7 @@ export function CreateApartmentForm() {
 		},
 	});
 
-	async function onSubmit(data: z.infer<typeof CreateListingForm>) {
-		try {
-			const res = await createListing({
-				userId: user?._id,
-				details: data,
-			});
-
-			if (res?.status == 400)
-				return toast({
-					title: "Error!",
-					description: res?.message,
-					variant: "destructive",
-				});
-
-			toast({
-				title: "Success!",
-				description: res?.message,
-			});
-		} catch (error: any) {
-			toast({
-				title: "Error!",
-				description: "An error occurred!",
-				variant: "destructive",
-			});
-		}
-	}
+	async function onSubmit(data: z.infer<typeof CreateListingForm>) {}
 
 	return (
 		<div className="bg-white rounded-md p-6 mt-14">

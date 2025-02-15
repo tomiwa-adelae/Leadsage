@@ -7,19 +7,15 @@ import { Inknut_Antiqua } from "next/font/google";
 import { ProfileDropdown } from "@/components/shared/ProfileDropdown";
 import { useEffect, useState } from "react";
 import { MobileNavbar } from "@/components/shared/MobileNavbar";
+import { dashboardLinks, dashboardMemberLinks } from "@/constant";
 
 const inknut = Inknut_Antiqua({
 	subsets: ["latin"],
 	weight: ["300", "400", "500"],
 });
 
-const TopNavbar = () => {
-	const [user, setUser] = useState<any>();
-
-	useEffect(() => {
-		const authenticatedUser = localStorage.getItem("user");
-		setUser(authenticatedUser);
-	}, []);
+const TopNavbar = ({ user }: { user: any }) => {
+	const links = user?.isRenter ? dashboardLinks : dashboardMemberLinks;
 	return (
 		<nav className="py-4 lg:left-[300px] w-full bg-white shadow-[0px_2px_10px_-2px_rgba(0,0,0,0.1)] z-50">
 			<div className="container flex items-center justify-between">
@@ -68,9 +64,9 @@ const TopNavbar = () => {
 							/>
 						</Link>
 					</div>
-					{user && <ProfileDropdown />}
+					{user && <ProfileDropdown user={user} />}
 					<div className="lg:hidden">
-						<MobileNavbar />
+						<MobileNavbar user={user} />
 					</div>
 				</div>
 			</div>

@@ -20,10 +20,12 @@ import Link from "next/link";
 import { authenticateUser } from "@/lib/actions/user.actions";
 import { useRouter } from "next/navigation";
 import { LoginFormSchema } from "@/lib/validations";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 export function LoginForm() {
 	const router = useRouter();
+
+	const [showPassword, setShowPassword] = useState<boolean>();
 
 	useEffect(() => {
 		const authenticatedUser = localStorage.getItem("user");
@@ -59,7 +61,7 @@ export function LoginForm() {
 			// Save user information to database
 			localStorage.setItem("user", JSON.stringify(res?.user));
 
-			router.push("/");
+			router.push(res?.user.isRenter ? "/dashboard" : "/");
 		} catch (error: any) {
 			toast({
 				title: "Error!",
@@ -79,7 +81,7 @@ export function LoginForm() {
 					Don't have an account?{" "}
 					<Link
 						className="hover:underline text-green-400 font-medium"
-						href="/register"
+						href="/choose-account"
 					>
 						Sign Up!
 					</Link>
@@ -111,9 +113,24 @@ export function LoginForm() {
 						name="password"
 						render={({ field }) => (
 							<FormItem>
-								<FormLabel>Password</FormLabel>
+								<FormLabel className="flex items-center justify-between gap-2">
+									<span>Password</span>
+									<span
+										onClick={() =>
+											setShowPassword(!showPassword)
+										}
+										className="cursor-pointer text-xs"
+									>
+										{showPassword
+											? "Hide password"
+											: "Show password"}
+									</span>
+								</FormLabel>
 								<FormControl>
 									<Input
+										type={
+											showPassword ? "text" : "password"
+										}
 										placeholder="Enter your password"
 										{...field}
 									/>

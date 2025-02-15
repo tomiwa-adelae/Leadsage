@@ -6,7 +6,7 @@ import User from "../database/models/user.model";
 import { handleError } from "../utils";
 
 // Create a user
-export async function registerUser(details: RegisterUserParams) {
+export async function createUser(details: RegisterUserParams) {
 	try {
 		await connectToDatabase();
 

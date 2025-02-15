@@ -16,7 +16,7 @@ const page = () => {
 							solid UX design
 						</p>
 					</div>
-					<LoginForm />
+					{/* <LoginForm /> */}
 				</div>
 			</div>
 		</div>

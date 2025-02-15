@@ -14,12 +14,12 @@ const Showcase = () => {
 			className="min-h-screen text-white bg-no-repeat bg-center bg-cover bg-current"
 		>
 			<Header />
-			<main className="container py-24 grid grid-cols-1 lg:grid-cols-2 gap-20 lg:gap-8">
+			<main className="container pt-10 lg:py-24 grid grid-cols-1 lg:grid-cols-2 gap-20 lg:gap-8">
 				<div>
-					<h1 className="font-bold text-4xl leading-relaxed">
+					<h1 className="font-bold text-2xl lg:text-4xl leading-relaxed lg:leading-relaxed">
 						Find Your Perfect Home, Designed for You
 					</h1>
-					<p className="text-sm leading-loose text-gray-200 mt-4">
+					<p className="hidden lg:block text-sm leading-loose text-gray-200 mt-4">
 						Explore a diverse selection of properties that match
 						your lifestyle and budget. Whether you're renting,
 						buying, or investing, we help you find the ideal space
@@ -30,7 +30,7 @@ const Showcase = () => {
 					<div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-6">
 						{homeStats.map(({ number, title, suffix }, index) => (
 							<div key={index} className="grid gap-1">
-								<h3 className="font-bold text-2xl">
+								<h3 className="font-bold text-lg lg:text-2xl">
 									<CountUp
 										start={0}
 										end={number}
@@ -39,7 +39,7 @@ const Showcase = () => {
 										suffix={suffix}
 									/>
 								</h3>
-								<strong className="text-sm font-medium">
+								<strong className="text-xs lg:text-sm font-medium">
 									{title}
 								</strong>
 							</div>

@@ -9,7 +9,7 @@ const FAQs = () => {
 	return (
 		<div id="faqs" className="bg-white py-20">
 			<div className="container">
-				<h3 className="text-gray-900 font-bold text-2xl md:text-3xl leading-normal text-center">
+				<h3 className="text-gray-900 font-bold text-xl md:text-3xl leading-normal text-center">
 					Frequently Asked Questions
 				</h3>
 				<p className="text-gray-700 text-sm leading-loose my-4  text-center">

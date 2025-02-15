@@ -1,20 +1,3 @@
-import {
-	Cloud,
-	CreditCard,
-	Github,
-	Keyboard,
-	LifeBuoy,
-	LogOut,
-	Mail,
-	MessageSquare,
-	Plus,
-	PlusCircle,
-	Settings,
-	User,
-	UserPlus,
-	Users,
-} from "lucide-react";
-
 import { Button } from "@/components/ui/button";
 import {
 	DropdownMenu,
@@ -22,20 +5,17 @@ import {
 	DropdownMenuGroup,
 	DropdownMenuItem,
 	DropdownMenuLabel,
-	DropdownMenuPortal,
 	DropdownMenuSeparator,
-	DropdownMenuShortcut,
-	DropdownMenuSub,
-	DropdownMenuSubContent,
-	DropdownMenuSubTrigger,
 	DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import Image from "next/image";
-import { dashboardLinks } from "@/constant";
+import { dashboardLinks, dashboardMemberLinks } from "@/constant";
 import Link from "next/link";
 import React from "react";
 
-export function ProfileDropdown() {
+export function ProfileDropdown({ user }: { user: any }) {
+	const links = user?.isRenter ? dashboardLinks : dashboardMemberLinks;
+	console.log(user);
 	return (
 		<DropdownMenu>
 			<DropdownMenuTrigger asChild>
@@ -50,7 +30,7 @@ export function ProfileDropdown() {
 				</Button>
 			</DropdownMenuTrigger>
 			<DropdownMenuContent className="w-56">
-				{dashboardLinks.map((link, index) => (
+				{links.map((link, index) => (
 					<React.Fragment key={index}>
 						<DropdownMenuLabel className="uppercase font-medium text-xs text-gray-400">
 							{link.title}

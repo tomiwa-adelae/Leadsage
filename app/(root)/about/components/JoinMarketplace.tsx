@@ -18,7 +18,7 @@ const JoinMarketplace = () => {
 					className="w-auto h-auto"
 				/>
 				<div className="flex flex-col justify-center">
-					<h2 className="text-gray-900 font-bold text-2xl md:text-3xl leading-normal md:leading-normal">
+					<h2 className="text-gray-900 font-bold text-xl md:text-3xl leading-normal md:leading-normal">
 						Join Africa’s Leading Housing Marketplace
 					</h2>
 					<p className="text-gray-700 text-sm leading-loose my-8">
@@ -29,7 +29,7 @@ const JoinMarketplace = () => {
 						provides landlords with seamless property management
 						tools.
 					</p>
-					<ul className="space-y-4">
+					<ul className="hidden lg:block space-y-4">
 						{aboutWorkersBenefits.map((benefit, index) => (
 							<li
 								key={index}
@@ -44,7 +44,7 @@ const JoinMarketplace = () => {
 						<Button
 							size={"lg"}
 							asChild
-							className="text-green-400 w-auto mt-8 bg-[#E6F5EB] hover:text-white"
+							className="text-green-400 w-auto mt-0 lg:mt-8 bg-[#E6F5EB] hover:text-white"
 						>
 							<Link href="/services">
 								Find buildings <MoveUpRight />
@@ -56,7 +56,7 @@ const JoinMarketplace = () => {
 			<div className="grid grid-cols-2 md:grid-cols-4 justify-items-center text-center gap-10 pt-16">
 				{homeStats.map(({ number, title, suffix }, index) => (
 					<div key={index} className="grid gap-2">
-						<h3 className="font-bold text-4xl">
+						<h3 className="font-bold text-2xl lg:text-4xl">
 							<CountUp
 								start={0}
 								end={number}
@@ -65,7 +65,9 @@ const JoinMarketplace = () => {
 								suffix={suffix}
 							/>
 						</h3>
-						<strong className="text-sm font-medium">{title}</strong>
+						<strong className="text-xs lg:text-sm font-medium">
+							{title}
+						</strong>
 					</div>
 				))}
 			</div>

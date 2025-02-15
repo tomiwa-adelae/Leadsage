@@ -438,6 +438,39 @@ export const dashboardLinks = [
 	},
 ];
 
+export const dashboardMemberLinks = [
+	{
+		title: "Start",
+		links: [
+			{
+				title: "Dashboard",
+				slug: "/dashboard",
+				icon: "/assets/icons/dashboard.svg",
+			},
+			{
+				title: "Bookings",
+				slug: "/bookings",
+				icon: "/assets/icons/file.svg",
+			},
+		],
+	},
+	{
+		title: "Account",
+		links: [
+			{
+				title: "Account Settings",
+				slug: "/account-settings",
+				icon: "/assets/icons/settings.svg",
+			},
+			{
+				title: "Logout",
+				slug: "/logout",
+				icon: "/assets/icons/logout.svg",
+			},
+		],
+	},
+];
+
 export const popularProperties = [
 	{
 		title: "Maila",

@@ -17,37 +17,23 @@ import { Input } from "@/components/ui/input";
 import { toast } from "@/hooks/use-toast";
 import { Textarea } from "../ui/textarea";
 import { MoveUpRight } from "lucide-react";
-
-const FormSchema = z.object({
-	name: z.string().min(2, {
-		message: "Name must be at least 2 characters.",
-	}),
-	category: z.string().min(2, {
-		message: "Category is required.",
-	}),
-	address: z.string().min(2, {
-		message: "Address is required.",
-	}),
-	city: z.string().min(2, {
-		message: "City is required.",
-	}),
-	state: z.string().min(2, {
-		message: "State is required.",
-	}),
-	availableDate: z.string().min(2, {
-		message: "Date for availability is required.",
-	}),
-	description: z.string().min(2, {
-		message: "Description is required.",
-	}),
-	monthlyPrice: z.string().min(2, {
-		message: "Monthly price is required.",
-	}),
-});
+import { createListing } from "@/lib/actions/list.actions";
+import { useEffect, useState } from "react";
+import { CreateListingForm } from "@/lib/validations";
 
 export function CreateApartmentForm() {
-	const form = useForm<z.infer<typeof FormSchema>>({
-		resolver: zodResolver(FormSchema),
+	const [user, setUser] = useState<any>();
+
+	useEffect(() => {
+		const authenticatedUser = localStorage.getItem("user");
+		if (!authenticatedUser) return; // Prevent errors
+
+		const parsedUser = JSON.parse(authenticatedUser);
+		setUser(parsedUser);
+	}, []);
+
+	const form = useForm<z.infer<typeof CreateListingForm>>({
+		resolver: zodResolver(CreateListingForm),
 		defaultValues: {
 			name: "",
 			category: "",
@@ -60,17 +46,31 @@ export function CreateApartmentForm() {
 		},
 	});
 
-	function onSubmit(data: z.infer<typeof FormSchema>) {
-		toast({
-			title: "You submitted the following values:",
-			description: (
-				<pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
-					<code className="text-white">
-						{JSON.stringify(data, null, 2)}
-					</code>
-				</pre>
-			),
-		});
+	async function onSubmit(data: z.infer<typeof CreateListingForm>) {
+		try {
+			const res = await createListing({
+				userId: user?._id,
+				details: data,
+			});
+
+			if (res?.status == 400)
+				return toast({
+					title: "Error!",
+					description: res?.message,
+					variant: "destructive",
+				});
+
+			toast({
+				title: "Success!",
+				description: res?.message,
+			});
+		} catch (error: any) {
+			toast({
+				title: "Error!",
+				description: "An error occurred!",
+				variant: "destructive",
+			});
+		}
 	}
 
 	return (

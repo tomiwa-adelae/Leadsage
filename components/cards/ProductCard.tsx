@@ -28,12 +28,12 @@ const ProductCard = ({
 					className="group-hover:scale-[1.1] aspect-video object-cover transition ease-out"
 				/>
 			</div>
-			<div className="py-6 px-6">
+			<div className="p-3 lg:p-6">
 				<div className="flex flex-col items-start pb-4 justify-between gap-4">
-					<h4 className="text-green-400 text-lg font-semibold hover:text-green-400 transition ease-in-out">
+					<h4 className="text-green-400 text-base lg:text-lg font-semibold hover:text-green-400 transition ease-in-out">
 						{title}
 					</h4>
-					<p className="text-gray-700 text-sm">
+					<p className="text-gray-700 text-xs lg:text-sm">
 						<Image
 							src={"/assets/icons/location.svg"}
 							alt={"Location"}
@@ -47,7 +47,7 @@ const ProductCard = ({
 				<div>
 					<Separator className="my-4" />
 				</div>
-				<p className="text-gray-700 text-sm">
+				<p className="text-gray-700 text-xs lg:text-sm">
 					From <b className="text-gray-900">&#8358;{price}</b>{" "}
 					annually
 				</p>

@@ -1,18 +1,22 @@
 "use client";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { dashboardLinks } from "@/constant";
+import { dashboardLinks, dashboardMemberLinks } from "@/constant";
 import { Inknut_Antiqua } from "next/font/google";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useEffect, useState } from "react";
 
 const inknut = Inknut_Antiqua({
 	subsets: ["latin"],
 	weight: ["300", "400", "500"],
 });
 
-const Sidebar = () => {
+const Sidebar = ({ user }: { user: any }) => {
 	const pathname = usePathname();
+
+	const links = user?.isRenter ? dashboardLinks : dashboardMemberLinks;
+
 	return (
 		<div className="hidden bg-white fixed left-0 top-0 h-screen lg:flex w-[300px] flex-col z-50">
 			<ScrollArea>
@@ -23,7 +27,7 @@ const Sidebar = () => {
 						<Link href={"/"}>Leadsage</Link>
 					</h3>
 					<div className="grid gap-4 mt-8">
-						{dashboardLinks.map(({ title, links }, index) => (
+						{links.map(({ title, links }, index) => (
 							<div key={index}>
 								<h4 className="uppercase text-sm font-medium text-gray-400 container">
 									{title}

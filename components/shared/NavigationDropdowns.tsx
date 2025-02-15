@@ -16,7 +16,6 @@ import {
 import { categories, navLinks } from "@/constant";
 
 export function NavigationDropdowns({ color }: { color?: string }) {
-	console.log(color);
 	return (
 		<NavigationMenu
 			className={`hidden ${

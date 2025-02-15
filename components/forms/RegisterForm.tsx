@@ -20,10 +20,16 @@ import Link from "next/link";
 import { registerUser } from "@/lib/actions/user.actions";
 import { useRouter } from "next/navigation";
 import { RegisterFormSchema } from "@/lib/validations";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import { useSearchParams } from "next/navigation";
 
 export function RegisterForm() {
 	const router = useRouter();
+
+	const searchParams = useSearchParams();
+	const accountType = searchParams.get("type");
+
+	const [showPassword, setShowPassword] = useState<boolean>();
 
 	const form = useForm<z.infer<typeof RegisterFormSchema>>({
 		resolver: zodResolver(RegisterFormSchema),
@@ -46,7 +52,17 @@ export function RegisterForm() {
 
 	async function onSubmit(data: z.infer<typeof RegisterFormSchema>) {
 		try {
-			const res = await registerUser({ ...data });
+			// const choice =
+			const details = {
+				firstName: data.firstName,
+				lastName: data.lastName,
+				email: data.email,
+				phoneNumber: data.phoneNumber,
+				password: data.password,
+				isRenter: accountType === "member" ? false : true,
+			};
+
+			const res = await registerUser(details);
 			if (res?.status == 400)
 				return toast({
 					title: "Error!",
@@ -58,10 +74,11 @@ export function RegisterForm() {
 				title: "Success!",
 				description: res?.message,
 			});
+
 			// Save user information to database
 			localStorage.setItem("user", JSON.stringify(res?.user));
 
-			router.push("/");
+			router.push(res?.user.isRenter ? "/dashboard" : "/");
 		} catch (error: any) {
 			console.log(error);
 		}
@@ -159,9 +176,24 @@ export function RegisterForm() {
 						name="password"
 						render={({ field }) => (
 							<FormItem>
-								<FormLabel>Password</FormLabel>
+								<FormLabel className="flex items-center justify-between gap-2">
+									<span>Password</span>
+									<span
+										onClick={() =>
+											setShowPassword(!showPassword)
+										}
+										className="cursor-pointer text-xs"
+									>
+										{showPassword
+											? "Hide password"
+											: "Show password"}
+									</span>
+								</FormLabel>
 								<FormControl>
 									<Input
+										type={
+											showPassword ? "text" : "password"
+										}
 										placeholder="Enter your password"
 										{...field}
 									/>

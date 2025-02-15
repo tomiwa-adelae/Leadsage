@@ -14,7 +14,7 @@ import {
 import Image from "next/image";
 import Link from "next/link";
 import { Inknut_Antiqua } from "next/font/google";
-import { dashboardLinks, navLinks } from "@/constant";
+import { dashboardLinks, dashboardMemberLinks, navLinks } from "@/constant";
 import { usePathname } from "next/navigation";
 import { Input } from "../ui/input";
 import { useEffect, useState } from "react";
@@ -26,15 +26,9 @@ const inknut = Inknut_Antiqua({
 	weight: ["300", "400", "500"],
 });
 
-export function MobileNavbar() {
+export function MobileNavbar({ user }: { user: any }) {
+	const links = user?.isRenter ? dashboardLinks : dashboardMemberLinks;
 	const pathname = usePathname();
-
-	const [user, setUser] = useState<any>();
-
-	useEffect(() => {
-		const authenticatedUser = localStorage.getItem("user");
-		setUser(authenticatedUser);
-	}, []);
 
 	return (
 		<Sheet>
@@ -122,70 +116,87 @@ export function MobileNavbar() {
 							</>
 						)}
 					</div>
-					<div>
-						<Separator className="mt-8 mb-4" />
-						<nav className="flex flex-col font-semibold gap-4 p-4 text-xs uppercase">
-							{dashboardLinks.map(({ title, links }, index) => (
-								<div key={index}>
-									<h4 className="uppercase text-xs font-medium text-gray-400 container">
-										{title}
+					{user && (
+						<>
+							<div>
+								<Separator className="mt-8 mb-4" />
+								<nav className="flex flex-col font-semibold gap-4 p-4 text-xs uppercase">
+									{links.map(({ title, links }, index) => (
+										<div key={index}>
+											<h4 className="uppercase text-xs font-medium text-gray-400 container">
+												{title}
+											</h4>
+											<div className="grid gap-2 mt-4">
+												{links.map(
+													(
+														{ slug, title, icon },
+														index
+													) => {
+														const isActive =
+															pathname === slug ||
+															pathname.startsWith(
+																`${slug}/`
+															);
+														return (
+															<SheetClose
+																asChild
+																key={index}
+																className="p-3.5 hover:bg-gray-100 transition ease-out"
+															>
+																<Link
+																	href={slug}
+																	className={`flex items-center gap-3 justify-start ${
+																		isActive &&
+																		"text-green-400"
+																	}`}
+																>
+																	<Image
+																		src={
+																			icon
+																		}
+																		alt={
+																			title
+																		}
+																		width={
+																			1000
+																		}
+																		height={
+																			1000
+																		}
+																		className="w-[20px] h-[20px]"
+																	/>
+																	<p>
+																		{title}
+																	</p>
+																</Link>
+															</SheetClose>
+														);
+													}
+												)}
+											</div>
+										</div>
+									))}
+								</nav>
+							</div>
+							<div className="flex items-center justify-start gap-2 container pb-4">
+								<Image
+									src={"/assets/images/tomiwa-adelae.jfif"}
+									alt={"Tomiwa Adelae"}
+									width={1000}
+									height={1000}
+									className="w-11 h-11 object-cover rounded-full"
+								/>
+								<div>
+									<h4 className="font-semibold text-[16px]">
+										Tomiwa Adelae
 									</h4>
-									<div className="grid gap-2 mt-4">
-										{links.map(
-											({ slug, title, icon }, index) => {
-												const isActive =
-													pathname === slug ||
-													pathname.startsWith(
-														`${slug}/`
-													);
-												return (
-													<SheetClose
-														asChild
-														key={index}
-														className="p-3.5 hover:bg-gray-100 transition ease-out"
-													>
-														<Link
-															href={slug}
-															className={`flex items-center gap-3 justify-start ${
-																isActive &&
-																"text-green-400"
-															}`}
-														>
-															<Image
-																src={icon}
-																alt={title}
-																width={1000}
-																height={1000}
-																className="w-[20px] h-[20px]"
-															/>
-															<p>{title}</p>
-														</Link>
-													</SheetClose>
-												);
-											}
-										)}
-									</div>
+									<small className="text-xs text-gray-700 font-medium">
+										tomiwaadelae@gmail.com
+									</small>
 								</div>
-							))}
-						</nav>
-					</div>
-					<div className="flex items-center justify-start gap-2 container pb-4">
-						<Image
-							src={"/assets/images/tomiwa-adelae.jfif"}
-							alt={"Tomiwa Adelae"}
-							width={1000}
-							height={1000}
-							className="w-11 h-11 object-cover rounded-full"
-						/>
-						<div>
-							<h4 className="font-semibold text-[16px]">
-								Tomiwa Adelae
-							</h4>
-							<small className="text-xs text-gray-700 font-medium">
-								tomiwaadelae@gmail.com
-							</small>
-						</div>
-					</div>
+							</div>
+						</>
+					)}
 				</ScrollArea>
 			</SheetContent>
 		</Sheet>

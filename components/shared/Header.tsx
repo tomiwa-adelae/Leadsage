@@ -20,8 +20,8 @@ const Header = ({ color = "white" }: { color?: string }) => {
 	const [user, setUser] = useState<any>();
 
 	useEffect(() => {
-		const autheticatedUser = localStorage.getItem("user");
-		setUser(autheticatedUser);
+		const authenticatedUser: any = localStorage.getItem("user");
+		setUser(JSON.parse(authenticatedUser));
 	}, []);
 
 	return (
@@ -52,16 +52,16 @@ const Header = ({ color = "white" }: { color?: string }) => {
 						/>
 					</Button>
 					{user ? (
-						<ProfileDropdown />
+						<ProfileDropdown user={user} />
 					) : (
 						<Button asChild>
-							<Link href="/register">Join us</Link>
+							<Link href="/choose-account">Join us</Link>
 						</Button>
 					)}
 				</div>
 				<div className="flex gap-3 md:hidden">
 					{user ? (
-						<ProfileDropdown />
+						<ProfileDropdown user={user} />
 					) : (
 						<Button
 							asChild
@@ -70,10 +70,10 @@ const Header = ({ color = "white" }: { color?: string }) => {
 								color === "black" ? "text-black" : "text-white"
 							}`}
 						>
-							<Link href="/register">Join us</Link>
+							<Link href="/choose-account">Join us</Link>
 						</Button>
 					)}
-					<MobileNavbar />
+					<MobileNavbar user={user} />
 				</div>
 			</header>
 		</div>

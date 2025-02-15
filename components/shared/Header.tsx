@@ -6,7 +6,6 @@ import { NavigationDropdowns } from "./NavigationDropdowns";
 import { MobileNavbar } from "./MobileNavbar";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
-import { useEffect, useState } from "react";
 import { ProfileDropdown } from "./ProfileDropdown";
 
 const inknut = Inknut_Antiqua({
@@ -16,13 +15,6 @@ const inknut = Inknut_Antiqua({
 
 const Header = ({ color = "white" }: { color?: string }) => {
 	const pathname = usePathname();
-
-	const [user, setUser] = useState<any>();
-
-	useEffect(() => {
-		const authenticatedUser: any = localStorage.getItem("user");
-		setUser(JSON.parse(authenticatedUser));
-	}, []);
 
 	return (
 		<div
@@ -51,29 +43,24 @@ const Header = ({ color = "white" }: { color?: string }) => {
 							}`}
 						/>
 					</Button>
-					{user ? (
-						<ProfileDropdown user={user} />
-					) : (
-						<Button asChild>
-							<Link href="/choose-account">Join us</Link>
-						</Button>
-					)}
+
+					{/* <ProfileDropdown /> */}
+					<Button asChild>
+						<Link href="/choose-account">Join us</Link>
+					</Button>
 				</div>
 				<div className="flex gap-3 md:hidden">
-					{user ? (
-						<ProfileDropdown user={user} />
-					) : (
-						<Button
-							asChild
-							variant={"ghost"}
-							className={`${
-								color === "black" ? "text-black" : "text-white"
-							}`}
-						>
-							<Link href="/choose-account">Join us</Link>
-						</Button>
-					)}
-					<MobileNavbar user={user} />
+					{/* <ProfileDropdown /> */}
+					<Button
+						asChild
+						variant={"ghost"}
+						className={`${
+							color === "black" ? "text-black" : "text-white"
+						}`}
+					>
+						<Link href="/choose-account">Join us</Link>
+					</Button>
+					<MobileNavbar />
 				</div>
 			</header>
 		</div>

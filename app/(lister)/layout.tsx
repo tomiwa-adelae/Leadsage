@@ -1,7 +1,6 @@
 import Footer from "./components/Footer";
 import Sidebar from "./components/Sidebar";
 import TopNavbar from "./components/TopNavbar";
-import { usePathname, useRouter } from "next/navigation";
 
 export default function Layout({
 	children,

@@ -21,16 +21,6 @@ import { useEffect, useState } from "react";
 import { CreateListingForm } from "@/lib/validations";
 
 export function CreateApartmentForm() {
-	const [user, setUser] = useState<any>();
-
-	useEffect(() => {
-		const authenticatedUser = localStorage.getItem("user");
-		if (!authenticatedUser) return; // Prevent errors
-
-		const parsedUser = JSON.parse(authenticatedUser);
-		setUser(parsedUser);
-	}, []);
-
 	const form = useForm<z.infer<typeof CreateListingForm>>({
 		resolver: zodResolver(CreateListingForm),
 		defaultValues: {

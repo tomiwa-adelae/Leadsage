@@ -26,9 +26,7 @@ const ChooseAccountForm = () => {
 						to access host benefits.
 					</p>
 					<Button size={"md"} className="mt-2" asChild>
-						<Link href="/sign-up?type=member">
-							Continue as member
-						</Link>
+						<Link href="/sign-up">Continue as member</Link>
 					</Button>
 				</div>
 				<Separator className="my-8" />
@@ -54,7 +52,7 @@ const ChooseAccountForm = () => {
 						className="mt-2 bg-blue-400 hover:bg-blue-400/90"
 						asChild
 					>
-						<Link href="/sign-up?type=host">Continue as host</Link>
+						<Link href="/sign-up">Continue as host</Link>
 					</Button>
 				</div>
 			</div>

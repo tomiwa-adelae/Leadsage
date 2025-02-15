@@ -22,6 +22,16 @@ const nextConfig = {
                 hostname: 'pictures-nigeria.jijistatic.net',
                 port: ''
             },
+            {
+                protocol: 'https',
+                hostname: 'img.clerk.com',
+                port: ''
+            },
+            {
+                protocol: 'https',
+                hostname: 'icon-library.com',
+                port: ''
+            },
             ]
     }
 

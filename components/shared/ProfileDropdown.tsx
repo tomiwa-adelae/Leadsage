@@ -11,16 +11,27 @@ import {
 import Image from "next/image";
 import { dashboardLinks, dashboardMemberLinks } from "@/constant";
 import Link from "next/link";
+import { useClerk, useUser } from "@clerk/nextjs";
 import React from "react";
+import { useRouter } from "next/navigation";
 
 export function ProfileDropdown() {
+	const { user } = useUser();
+	const { signOut } = useClerk();
+
+	const router = useRouter();
+
+	const handleLogout = async () => {
+		await signOut();
+		router.push("/sign-in"); // Redirect to sign-in page after logout
+	};
 	return (
 		<DropdownMenu>
 			<DropdownMenuTrigger asChild>
 				<Button variant={"ghost"} size={"icon"}>
 					<Image
-						alt={"User profile picture"}
-						src={"/assets/images/tomiwa-adelae.jfif"}
+						src={user?.imageUrl!}
+						alt={`${user?.firstName} ${user?.lastName}`}
 						width={1000}
 						height={1000}
 						className="w-10 h-10 rounded-full object-cover mr-2"
@@ -55,6 +66,21 @@ export function ProfileDropdown() {
 						))}
 					</React.Fragment>
 				))}
+				<DropdownMenuItem
+					onClick={handleLogout}
+					className="cursor-pointer"
+				>
+					<Image
+						src={"/assets/icons/logout.svg"}
+						alt={"Logout"}
+						width={1000}
+						height={1000}
+						className="w-[20px] h-[20px]"
+					/>
+					<span className="uppercase text-xs font-medium">
+						Logout
+					</span>
+				</DropdownMenuItem>
 			</DropdownMenuContent>
 		</DropdownMenu>
 	);

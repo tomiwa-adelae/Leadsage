@@ -15,11 +15,11 @@ import Image from "next/image";
 import Link from "next/link";
 import { Inknut_Antiqua } from "next/font/google";
 import { dashboardLinks, dashboardMemberLinks, navLinks } from "@/constant";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { Input } from "../ui/input";
-import { useEffect, useState } from "react";
 import { Separator } from "../ui/separator";
 import { ScrollArea } from "../ui/scroll-area";
+import { useClerk, useUser } from "@clerk/nextjs";
 
 const inknut = Inknut_Antiqua({
 	subsets: ["latin"],
@@ -27,7 +27,18 @@ const inknut = Inknut_Antiqua({
 });
 
 export function MobileNavbar() {
+	const { user } = useUser();
+
 	const pathname = usePathname();
+
+	const { signOut } = useClerk();
+
+	const router = useRouter();
+
+	const handleLogout = async () => {
+		await signOut();
+		router.push("/sign-in"); // Redirect to sign-in page after logout
+	};
 
 	return (
 		<Sheet>
@@ -107,10 +118,10 @@ export function MobileNavbar() {
 						{
 							<>
 								<Button asChild variant={"ghost"}>
-									<Link href="/login">Sign in</Link>
+									<Link href="/sign-in">Sign in</Link>
 								</Button>
 								<Button asChild>
-									<Link href="/register">Join us</Link>
+									<Link href="/sign-up">Join us</Link>
 								</Button>
 							</>
 						}
@@ -186,22 +197,40 @@ export function MobileNavbar() {
 											</div>
 										)
 									)}
+									<SheetClose
+										asChild
+										className="p-3.5 hover:bg-gray-100 transition ease-out cursor-pointer"
+										onClick={handleLogout}
+									>
+										<div
+											className={`flex items-center gap-3 justify-start`}
+										>
+											<Image
+												src={"/assets/icons/logout.svg"}
+												alt={"Logout"}
+												width={1000}
+												height={1000}
+												className="w-[20px] h-[20px]"
+											/>
+											<p>Logout</p>
+										</div>
+									</SheetClose>
 								</nav>
 							</div>
 							<div className="flex items-center justify-start gap-2 container pb-4">
 								<Image
-									src={"/assets/images/tomiwa-adelae.jfif"}
-									alt={"Tomiwa Adelae"}
+									src={user?.imageUrl!}
+									alt={`${user?.firstName} ${user?.lastName}`}
 									width={1000}
 									height={1000}
 									className="w-11 h-11 object-cover rounded-full"
 								/>
 								<div>
 									<h4 className="font-semibold text-[16px]">
-										Tomiwa Adelae
+										{`${user?.firstName} ${user?.lastName}`}
 									</h4>
 									<small className="text-xs text-gray-700 font-medium">
-										tomiwaadelae@gmail.com
+										{user?.emailAddresses[0].emailAddress}
 									</small>
 								</div>
 							</div>

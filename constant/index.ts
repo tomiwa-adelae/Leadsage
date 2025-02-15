@@ -429,11 +429,11 @@ export const dashboardLinks = [
 				slug: "/account-settings",
 				icon: "/assets/icons/settings.svg",
 			},
-			{
-				title: "Logout",
-				slug: "/logout",
-				icon: "/assets/icons/logout.svg",
-			},
+			// {
+			// 	title: "Logout",
+			// 	slug: "/logout",
+			// 	icon: "/assets/icons/logout.svg",
+			// },
 		],
 	},
 ];
@@ -462,11 +462,11 @@ export const dashboardMemberLinks = [
 				slug: "/account-settings",
 				icon: "/assets/icons/settings.svg",
 			},
-			{
-				title: "Logout",
-				slug: "/logout",
-				icon: "/assets/icons/logout.svg",
-			},
+			// {
+			// 	title: "Logout",
+			// 	slug: "/logout",
+			// 	icon: "/assets/icons/logout.svg",
+			// },
 		],
 	},
 ];

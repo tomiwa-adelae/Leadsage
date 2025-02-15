@@ -7,6 +7,7 @@ import { MobileNavbar } from "./MobileNavbar";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { ProfileDropdown } from "./ProfileDropdown";
+import { SignedIn, SignedOut } from "@clerk/nextjs";
 
 const inknut = Inknut_Antiqua({
 	subsets: ["latin"],
@@ -44,22 +45,30 @@ const Header = ({ color = "white" }: { color?: string }) => {
 						/>
 					</Button>
 
-					{/* <ProfileDropdown /> */}
-					<Button asChild>
-						<Link href="/choose-account">Join us</Link>
-					</Button>
+					<SignedIn>
+						<ProfileDropdown />
+					</SignedIn>
+					<SignedOut>
+						<Button asChild>
+							<Link href="/sign-up">Join us</Link>
+						</Button>
+					</SignedOut>
 				</div>
 				<div className="flex gap-3 md:hidden">
-					{/* <ProfileDropdown /> */}
-					<Button
-						asChild
-						variant={"ghost"}
-						className={`${
-							color === "black" ? "text-black" : "text-white"
-						}`}
-					>
-						<Link href="/choose-account">Join us</Link>
-					</Button>
+					<SignedIn>
+						<ProfileDropdown />
+					</SignedIn>
+					<SignedOut>
+						<Button
+							asChild
+							variant={"ghost"}
+							className={`${
+								color === "black" ? "text-black" : "text-white"
+							}`}
+						>
+							<Link href="/sign-up">Join us</Link>
+						</Button>
+					</SignedOut>
 					<MobileNavbar />
 				</div>
 			</header>

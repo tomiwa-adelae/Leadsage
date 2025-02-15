@@ -13,9 +13,7 @@ import { dashboardLinks, dashboardMemberLinks } from "@/constant";
 import Link from "next/link";
 import React from "react";
 
-export function ProfileDropdown({ user }: { user: any }) {
-	const links = user?.isRenter ? dashboardLinks : dashboardMemberLinks;
-	console.log(user);
+export function ProfileDropdown() {
 	return (
 		<DropdownMenu>
 			<DropdownMenuTrigger asChild>
@@ -30,7 +28,7 @@ export function ProfileDropdown({ user }: { user: any }) {
 				</Button>
 			</DropdownMenuTrigger>
 			<DropdownMenuContent className="w-56">
-				{links.map((link, index) => (
+				{dashboardLinks.map((link, index) => (
 					<React.Fragment key={index}>
 						<DropdownMenuLabel className="uppercase font-medium text-xs text-gray-400">
 							{link.title}

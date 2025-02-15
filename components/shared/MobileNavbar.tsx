@@ -26,8 +26,7 @@ const inknut = Inknut_Antiqua({
 	weight: ["300", "400", "500"],
 });
 
-export function MobileNavbar({ user }: { user: any }) {
-	const links = user?.isRenter ? dashboardLinks : dashboardMemberLinks;
+export function MobileNavbar() {
 	const pathname = usePathname();
 
 	return (
@@ -105,7 +104,7 @@ export function MobileNavbar({ user }: { user: any }) {
 							/>
 						</div>
 
-						{!user && (
+						{
 							<>
 								<Button asChild variant={"ghost"}>
 									<Link href="/login">Sign in</Link>
@@ -114,68 +113,79 @@ export function MobileNavbar({ user }: { user: any }) {
 									<Link href="/register">Join us</Link>
 								</Button>
 							</>
-						)}
+						}
 					</div>
-					{user && (
+					{
 						<>
 							<div>
 								<Separator className="mt-8 mb-4" />
 								<nav className="flex flex-col font-semibold gap-4 p-4 text-xs uppercase">
-									{links.map(({ title, links }, index) => (
-										<div key={index}>
-											<h4 className="uppercase text-xs font-medium text-gray-400 container">
-												{title}
-											</h4>
-											<div className="grid gap-2 mt-4">
-												{links.map(
-													(
-														{ slug, title, icon },
-														index
-													) => {
-														const isActive =
-															pathname === slug ||
-															pathname.startsWith(
-																`${slug}/`
-															);
-														return (
-															<SheetClose
-																asChild
-																key={index}
-																className="p-3.5 hover:bg-gray-100 transition ease-out"
-															>
-																<Link
-																	href={slug}
-																	className={`flex items-center gap-3 justify-start ${
-																		isActive &&
-																		"text-green-400"
-																	}`}
+									{dashboardLinks.map(
+										({ title, links }, index) => (
+											<div key={index}>
+												<h4 className="uppercase text-xs font-medium text-gray-400 container">
+													{title}
+												</h4>
+												<div className="grid gap-2 mt-4">
+													{links.map(
+														(
+															{
+																slug,
+																title,
+																icon,
+															},
+															index
+														) => {
+															const isActive =
+																pathname ===
+																	slug ||
+																pathname.startsWith(
+																	`${slug}/`
+																);
+															return (
+																<SheetClose
+																	asChild
+																	key={index}
+																	className="p-3.5 hover:bg-gray-100 transition ease-out"
 																>
-																	<Image
-																		src={
-																			icon
+																	<Link
+																		href={
+																			slug
 																		}
-																		alt={
-																			title
-																		}
-																		width={
-																			1000
-																		}
-																		height={
-																			1000
-																		}
-																		className="w-[20px] h-[20px]"
-																	/>
-																	<p>
-																		{title}
-																	</p>
-																</Link>
-															</SheetClose>
-														);
-													}
-												)}
+																		className={`flex items-center gap-3 justify-start ${
+																			isActive &&
+																			"text-green-400"
+																		}`}
+																	>
+																		<Image
+																			src={
+																				icon
+																			}
+																			alt={
+																				title
+																			}
+																			width={
+																				1000
+																			}
+																			height={
+																				1000
+																			}
+																			className="w-[20px] h-[20px]"
+																		/>
+																		<p>
+																			{
+																				title
+																			}
+																		</p>
+																	</Link>
+																</SheetClose>
+															);
+														}
+													)}
+												</div>
 											</div>
-										</div>
-									))}
+										)
+									)}
 								</nav>
 							</div>
 							<div className="flex items-center justify-start gap-2 container pb-4">
@@ -196,7 +206,7 @@ export function MobileNavbar({ user }: { user: any }) {
 								</div>
 							</div>
 						</>
-					)}
+					}
 				</ScrollArea>
 			</SheetContent>
 		</Sheet>

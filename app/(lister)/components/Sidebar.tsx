@@ -12,10 +12,8 @@ const inknut = Inknut_Antiqua({
 	weight: ["300", "400", "500"],
 });
 
-const Sidebar = ({ user }: { user: any }) => {
+const Sidebar = () => {
 	const pathname = usePathname();
-
-	const links = user?.isRenter ? dashboardLinks : dashboardMemberLinks;
 
 	return (
 		<div className="hidden bg-white fixed left-0 top-0 h-screen lg:flex w-[300px] flex-col z-50">
@@ -27,7 +25,7 @@ const Sidebar = ({ user }: { user: any }) => {
 						<Link href={"/"}>Leadsage</Link>
 					</h3>
 					<div className="grid gap-4 mt-8">
-						{links.map(({ title, links }, index) => (
+						{dashboardLinks.map(({ title, links }, index) => (
 							<div key={index}>
 								<h4 className="uppercase text-sm font-medium text-gray-400 container">
 									{title}

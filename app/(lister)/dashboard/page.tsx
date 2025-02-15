@@ -11,35 +11,12 @@ import {
 } from "@/components/ui/table";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { getListings } from "@/lib/actions/list.actions";
 
 const page = () => {
-	const [user, setUser] = useState<any>();
-	const [lists, setLists] = useState<[]>();
-
-	useEffect(() => {
-		const authenticatedUser = localStorage.getItem("user");
-		if (!authenticatedUser) return; // Prevent errors
-
-		const parsedUser = JSON.parse(authenticatedUser);
-		setUser(parsedUser);
-		console.log(parsedUser);
-
-		const fetchLists = async () => {
-			if (parsedUser?._id) {
-				// Ensure user ID exists before fetching
-				const lists = await getListings(parsedUser._id);
-				setLists(lists);
-			}
-		};
-
-		fetchLists();
-	}, []);
-
 	return (
 		<div className="pb-12">
 			<SectionTitle
-				title={`Good morning, ${user?.firstName || ""}`}
+				title={`Good morning, Israel`}
 				subTitle="Welcome to your Leadsage dashboard."
 			/>
 			<div className="grid grid-cols-1 md:grid-cols-5 gap-8 mt-10">
@@ -60,9 +37,7 @@ const page = () => {
 							<p className="uppercase text-xs font-medium text-gray-700">
 								Spaces listed
 							</p>
-							<h3 className="font-bold text-3xl">
-								{lists?.length}
-							</h3>
+							<h3 className="font-bold text-3xl">1</h3>
 							<div>
 								<Separator className="my-6" />
 							</div>
@@ -75,7 +50,7 @@ const page = () => {
 									className="w-[20px] h-[20px]"
 								/>
 								<p className="font-medium text-xs leading-loose uppercase">
-									{lists?.length} Apartment Available
+									1 Apartment Available
 								</p>
 							</div>
 						</div>

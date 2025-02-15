@@ -582,3 +582,5 @@ export const images = [
 export const apartmentDurations = ["monthly", "annually", "bi-annually"];
 
 export const genders = ["male", "female"];
+
+export const LISTING_LIMIT = 10;

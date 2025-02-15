@@ -3,6 +3,7 @@ import Footer from "./components/Footer";
 import Sidebar from "./components/Sidebar";
 import TopNavbar from "./components/TopNavbar";
 import { auth } from "@clerk/nextjs";
+import { redirect } from "next/navigation";
 
 export default async function Layout({
 	children,
@@ -11,9 +12,14 @@ export default async function Layout({
 }>) {
 	const { userId } = auth();
 
+	if (!userId) {
+		redirect("/sign-in"); // Redirect if user is not authenticated
+	}
+
 	const user = await getUserInfo(userId!);
 
-	console.log(user);
+	if (user?.isRenter === undefined) redirect("/choose-account");
+	if (!user?.isRenter) redirect("/not-authorized");
 
 	return (
 		<div className="bg-gray-100">

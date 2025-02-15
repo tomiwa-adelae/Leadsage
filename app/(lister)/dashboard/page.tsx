@@ -1,4 +1,3 @@
-"use client";
 import SectionTitle from "@/components/shared/SectionTitle";
 import Image from "next/image";
 import { Separator } from "@/components/ui/separator";
@@ -10,13 +9,36 @@ import {
 	TableRow,
 } from "@/components/ui/table";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { auth } from "@clerk/nextjs";
+import { getUserInfo } from "@/lib/actions/user.actions";
+import { redirect } from "next/navigation";
 
-const page = () => {
+const getGreeting = () => {
+	const currentHour = new Date().getHours();
+
+	if (currentHour >= 5 && currentHour < 12) {
+		return "Good morning";
+	} else if (currentHour >= 12 && currentHour < 18) {
+		return "Good afternoon";
+	} else {
+		return "Good evening";
+	}
+};
+
+const page = async () => {
+	const { userId } = auth();
+
+	if (!userId) {
+		redirect("/sign-in"); // Redirect if user is not authenticated
+	}
+
+	const user = await getUserInfo(userId!);
+	const greeting = getGreeting(); // Get appropriate greeting
+
 	return (
 		<div className="pb-12">
 			<SectionTitle
-				title={`Good morning, Israel`}
+				title={`${greeting}, ${user.firstName}`}
 				subTitle="Welcome to your Leadsage dashboard."
 			/>
 			<div className="grid grid-cols-1 md:grid-cols-5 gap-8 mt-10">

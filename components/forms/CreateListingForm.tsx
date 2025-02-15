@@ -14,28 +14,55 @@ import {
 	FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { toast } from "@/hooks/use-toast";
 import { Textarea } from "../ui/textarea";
-import { MoveUpRight } from "lucide-react";
-import { useEffect, useState } from "react";
-import { CreateListingForm } from "@/lib/validations";
+import { LoaderCircle, MoveUpRight } from "lucide-react";
+import { CreateListingFormSchema } from "@/lib/validations";
+import { createList } from "@/lib/actions/list.actions";
+import { useToast } from "@/hooks/use-toast";
+import { useRouter } from "next/navigation";
 
-export function CreateApartmentForm() {
-	const form = useForm<z.infer<typeof CreateListingForm>>({
-		resolver: zodResolver(CreateListingForm),
+export function CreateListingForm({ userId }: { userId: string }) {
+	const { toast } = useToast();
+	const router = useRouter();
+
+	const form = useForm<z.infer<typeof CreateListingFormSchema>>({
+		resolver: zodResolver(CreateListingFormSchema),
 		defaultValues: {
 			name: "",
 			category: "",
 			address: "",
 			city: "",
 			state: "",
-			availableDate: "",
 			description: "",
 			monthlyPrice: "",
 		},
 	});
 
-	async function onSubmit(data: z.infer<typeof CreateListingForm>) {}
+	async function onSubmit(data: z.infer<typeof CreateListingFormSchema>) {
+		try {
+			const res = await createList({ details: { ...data }, userId });
+
+			if (res?.status == 400)
+				return toast({
+					title: "Error!",
+					description: res?.message,
+					variant: "destructive",
+				});
+
+			toast({
+				title: "Success!",
+				description: res?.message,
+			});
+
+			router.push("/listings");
+		} catch (error) {
+			toast({
+				title: "Error!",
+				description: "An error occurred!",
+				variant: "destructive",
+			});
+		}
+	}
 
 	return (
 		<div className="bg-white rounded-md p-6 mt-14">
@@ -161,8 +188,20 @@ export function CreateApartmentForm() {
 							</FormItem>
 						)}
 					/>
-					<Button size={"lg"} type="submit">
-						Save <MoveUpRight />
+					<Button
+						disabled={form.formState.isSubmitting}
+						size={"lg"}
+						type="submit"
+					>
+						{form.formState.isSubmitting ? (
+							<>
+								Saving <LoaderCircle className="animate-spin" />
+							</>
+						) : (
+							<>
+								Save <MoveUpRight />
+							</>
+						)}
 					</Button>
 				</form>
 			</Form>

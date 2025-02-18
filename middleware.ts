@@ -4,8 +4,8 @@ export default authMiddleware({
 	publicRoutes: [
 		"/",
 		"/about",
-		"contact",
-		"apartments",
+		"/contact",
+		"/apartments",
 		"/api/webhook/clerk",
 	],
 	ignoredRoutes: ["/api/webhook/clerk"],

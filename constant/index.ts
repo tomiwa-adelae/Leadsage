@@ -291,7 +291,7 @@ export const aboutTestimonies = [
 		portfolio: "Chief Executive Officer",
 	},
 	{
-		image: "/assets/images/tomiwa-adelae.jfif",
+		image: "/assets/images/tomiwa-adelae.JPG",
 		alt: "Tomiwa Adelae wearing a blue native shirt and a beautiful smile",
 		name: "Tomiwa Adelae",
 		portfolio: "Chief Technical Officer",

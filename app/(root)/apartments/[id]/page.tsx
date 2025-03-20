@@ -33,7 +33,7 @@ const page = async ({
 		<div>
 			<Header color="black" />
 			<div className="container">
-				<ApartmentImages isRental={user?.isRenter} images={images} />
+				{/* <ApartmentImages isRental={user?.isRenter} images={images} /> */}
 				<ApartmentDetails
 					user={user}
 					details={listing}

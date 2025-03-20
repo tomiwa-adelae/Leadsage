@@ -1,11 +1,9 @@
 import { CreateListingForm } from "@/components/forms/CreateListingForm";
 import SectionTitle from "@/components/shared/SectionTitle";
 import { Button } from "@/components/ui/button";
-import UploadApartmentImages from "@/components/UploadApartmentImages";
 import { getUserInfo } from "@/lib/actions/user.actions";
 import { auth } from "@clerk/nextjs";
 import { MoveUpRight } from "lucide-react";
-import React from "react";
 
 const page = async () => {
 	const { userId } = auth();
@@ -23,7 +21,6 @@ const page = async () => {
 				</Button>
 			</div>
 			<CreateListingForm userId={user?._id} />
-			<UploadApartmentImages />
 		</div>
 	);
 };

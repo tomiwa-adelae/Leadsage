@@ -15,7 +15,7 @@ const AccordionItem = React.forwardRef<
 	<AccordionPrimitive.Item
 		ref={ref}
 		className={cn(
-			"border-b rounded-sm p-4 data-[state=open]:bg-green-50",
+			"border-b data-[state=open]:rounded-sm p-4 data-[state=open]:bg-green-50",
 			className
 		)}
 		{...props}

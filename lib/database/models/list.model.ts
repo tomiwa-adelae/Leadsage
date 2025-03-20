@@ -5,7 +5,8 @@ interface IList extends Document {
 	user: Types.ObjectId; // Reference to User model
 	name: string;
 	category?: string; // Optional field
-	monthlyPrice?: string; // Optional field
+	rentPrice?: string; // Optional field
+	availabilityDate?: string; // Optional field
 	address?: string; // Optional field
 	city?: string; // Optional field
 	state?: string; // Optional field
@@ -28,7 +29,7 @@ const ListSchema = new Schema<IList>(
 		category: {
 			type: String,
 		},
-		monthlyPrice: {
+		rentPrice: {
 			type: String,
 		},
 		address: {
@@ -41,6 +42,9 @@ const ListSchema = new Schema<IList>(
 			type: String,
 		},
 		description: {
+			type: String,
+		},
+		availabilityDate: {
 			type: String,
 		},
 	},

@@ -36,5 +36,5 @@ export const CreateListingFormSchema = z.object({
 	city: z.string().optional(),
 	state: z.string().optional(),
 	description: z.string().optional(),
-	monthlyPrice: z.string().optional(),
+	rentPrice: z.string().optional(),
 });

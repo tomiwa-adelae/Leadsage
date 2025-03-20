@@ -4,7 +4,13 @@ import Image from "next/image";
 import Lightbox from "yet-another-react-lightbox";
 import "yet-another-react-lightbox/styles.css";
 
-export function ApartmentImages({ images }: any) {
+export function ApartmentImages({
+	images,
+	isRental,
+}: {
+	images: [];
+	isRental: string;
+}) {
 	const [open, setOpen] = React.useState(false);
 	const [currentIndex, setCurrentIndex] = React.useState(0);
 

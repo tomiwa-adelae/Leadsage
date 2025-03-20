@@ -15,15 +15,20 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "../ui/textarea";
-import { LoaderCircle, MoveUpRight } from "lucide-react";
+import { Loader2, LoaderCircle, MoveUpRight } from "lucide-react";
 import { CreateListingFormSchema } from "@/lib/validations";
 import { createList } from "@/lib/actions/list.actions";
 import { useToast } from "@/hooks/use-toast";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
+import UploadApartmentImages from "../UploadApartmentImages";
+import { formatMoneyInput, removeCommas } from "@/lib/utils";
 
 export function CreateListingForm({ userId }: { userId: string }) {
 	const { toast } = useToast();
 	const router = useRouter();
+
+	const [showUpload, setShowUpload] = useState(false);
 
 	const form = useForm<z.infer<typeof CreateListingFormSchema>>({
 		resolver: zodResolver(CreateListingFormSchema),
@@ -34,13 +39,34 @@ export function CreateListingForm({ userId }: { userId: string }) {
 			city: "",
 			state: "",
 			description: "",
-			monthlyPrice: "",
+			rentPrice: "",
 		},
 	});
 
+	const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
+		if (
+			event.key === "e" ||
+			event.key === "E" ||
+			event.key === "-" ||
+			event.key === "+"
+		) {
+			event.preventDefault();
+		}
+	};
+
 	async function onSubmit(data: z.infer<typeof CreateListingFormSchema>) {
 		try {
-			const res = await createList({ details: { ...data }, userId });
+			const details = {
+				name: data.name,
+				category: data.category,
+				address: data.address,
+				city: data.city,
+				state: data.state,
+				description: data.description,
+				rentPrice: removeCommas(data.rentPrice),
+			};
+
+			const res = await createList({ details, userId });
 
 			if (res?.status == 400)
 				return toast({
@@ -54,7 +80,7 @@ export function CreateListingForm({ userId }: { userId: string }) {
 				description: res?.message,
 			});
 
-			router.push("/listings");
+			router.push(`/apartments/${res.list?._id}`);
 		} catch (error) {
 			toast({
 				title: "Error!",
@@ -106,7 +132,7 @@ export function CreateListingForm({ userId }: { userId: string }) {
 						/>
 						<FormField
 							control={form.control}
-							name="monthlyPrice"
+							name="rentPrice"
 							render={({ field }) => (
 								<FormItem>
 									<FormLabel>Monthly price</FormLabel>
@@ -114,6 +140,56 @@ export function CreateListingForm({ userId }: { userId: string }) {
 										<Input
 											placeholder="Enter the price for the apartment per month"
 											{...field}
+											onChange={(e) => {
+												let inputValue = e.target.value;
+
+												// If the input starts with a "0" and is followed by another number, remove the "0"
+												if (
+													inputValue.startsWith(
+														"0"
+													) &&
+													inputValue.length > 1 &&
+													inputValue[1] !== "."
+												) {
+													inputValue =
+														inputValue.slice(1);
+												}
+
+												// Prevent the input from starting with a period
+												if (
+													inputValue.startsWith(".")
+												) {
+													return;
+												}
+
+												inputValue = inputValue.replace(
+													/[^0-9.]/g,
+													""
+												);
+												const parts =
+													inputValue.split(".");
+												if (parts.length > 2) {
+													inputValue =
+														parts.shift() +
+														"." +
+														parts.join("");
+												}
+												if (parts[1]) {
+													parts[1] =
+														parts[1].substring(
+															0,
+															2
+														);
+													inputValue =
+														parts.join(".");
+												}
+												const formattedValue =
+													formatMoneyInput(
+														inputValue
+													);
+												field.onChange(formattedValue);
+											}}
+											onKeyDown={handleKeyDown}
 										/>
 									</FormControl>
 									<FormMessage />
@@ -195,7 +271,8 @@ export function CreateListingForm({ userId }: { userId: string }) {
 					>
 						{form.formState.isSubmitting ? (
 							<>
-								Saving <LoaderCircle className="animate-spin" />
+								Saving...{" "}
+								<Loader2 className="w-4 h-4 animate-spin transition-all" />
 							</>
 						) : (
 							<>

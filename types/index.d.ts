@@ -28,3 +28,7 @@ declare interface CreateListParams {
 	details: any;
 	userId: string;
 }
+
+declare interface SearchParams {
+	id?: string;
+}

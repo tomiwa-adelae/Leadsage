@@ -6,6 +6,7 @@ import { getListing } from "@/lib/actions/list.actions";
 import { getUserInfo } from "@/lib/actions/user.actions";
 import { auth } from "@clerk/nextjs";
 import dynamic from "next/dynamic";
+import { redirect } from "next/navigation";
 
 const ApartmentLocation = dynamic(
 	() => import("@/components/ApartmentLocation.tsx"),
@@ -29,15 +30,21 @@ const page = async ({
 
 	const listing = await getListing(id!);
 
+	if (listing.status === 400) redirect("/not-found.tsx");
+
 	return (
 		<div>
 			<Header color="black" />
 			<div className="container">
-				{/* <ApartmentImages isRental={user?.isRenter} images={images} /> */}
+				<ApartmentImages
+					details={listing}
+					isRenter={user?.isRenter}
+					user={user}
+				/>
 				<ApartmentDetails
 					user={user}
 					details={listing}
-					isRental={user?.isRenter}
+					isRenter={user?.isRenter}
 				/>
 				<ApartmentLocation />
 			</div>

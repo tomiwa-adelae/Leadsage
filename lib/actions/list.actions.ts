@@ -260,8 +260,18 @@ export const updateListing = async ({
 			};
 		}
 
-		// Dynamically update the field
-		listing[type] = value || listing[type];
+		// Handle array updates separately (for images)
+		if (type === "images") {
+			await List.findByIdAndUpdate(
+				listingId,
+				{ $push: { images: value } }, // Append to images array
+				{ new: true }
+			);
+		} else {
+			// Update non-array fields normally
+			listing[type] = value || listing[type];
+			await listing.save();
+		}
 
 		await listing.save();
 
@@ -269,6 +279,62 @@ export const updateListing = async ({
 		revalidatePath(`/apartments/${listing._id}`);
 
 		return { status: 201, message: `Successfully edited the ${type}` };
+	} catch (error: any) {
+		handleError(error);
+		return {
+			status: error?.status || 400,
+			message:
+				error?.message ||
+				"Oops! Couldn't get any listings! Try again later.",
+		};
+	}
+};
+
+// Delete listing by renter or admin
+export const deleteListing = async ({
+	userId,
+	listingId,
+}: {
+	userId: string;
+	listingId: string;
+}) => {
+	try {
+		await connectToDatabase();
+
+		const user = await User.findById(userId);
+
+		if (!user)
+			return {
+				status: 400,
+				message: "Oops! User not found.",
+			};
+
+		if (!user.isRenter && !user.isAdmin)
+			return {
+				status: 400,
+				message: "Oops! You are not authorized to delete this listing.",
+			};
+
+		const listing = await List.findById(listingId);
+
+		if (!listing)
+			return {
+				status: 400,
+				message: "Oops! Listing is not found.",
+			};
+
+		const deletedListing = await List.findByIdAndDelete(listingId);
+
+		if (!deletedListing)
+			return {
+				status: 400,
+				message: "Oops! Document not deleted. Try again later.",
+			};
+
+		revalidatePath(`/apartments`);
+		revalidatePath(`/listings`);
+
+		return { status: 201, message: `Successfully deleted!` };
 	} catch (error: any) {
 		handleError(error);
 		return {

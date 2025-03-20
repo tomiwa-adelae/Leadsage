@@ -1,10 +1,13 @@
 "use client";
 
-import * as React from "react";
+import { useState } from "react";
+import { format } from "date-fns";
+import { CalendarIcon } from "lucide-react";
+
 import { Button } from "@/components/ui/button";
 import { Drawer, DrawerClose, DrawerContent } from "@/components/ui/drawer";
 import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea"; // Use textarea for descriptions
+import { Textarea } from "@/components/ui/textarea";
 import { updateListing } from "@/lib/actions/list.actions";
 import { toast } from "@/hooks/use-toast";
 import {
@@ -13,6 +16,14 @@ import {
 	removeCommas,
 } from "@/lib/utils";
 
+import { cn } from "@/lib/utils";
+import { Calendar } from "@/components/ui/calendar";
+import {
+	Popover,
+	PopoverContent,
+	PopoverTrigger,
+} from "@/components/ui/popover";
+
 export function OpenEditModal({
 	id,
 	open,
@@ -20,37 +31,48 @@ export function OpenEditModal({
 	closeModal,
 	editValue,
 	userId,
-	isNumber,
+	isNumber = false,
+	isDate = false,
 }: {
 	id: string;
 	open: boolean;
 	closeModal: () => void;
 	type: string;
-	editValue: string;
+	editValue: string | any;
 	userId: string;
 	isNumber?: boolean;
+	isDate?: boolean;
 }) {
-	const [loading, setLoading] = React.useState(false);
-	const [value, setValue] = React.useState(editValue);
+	const isLocationEdit = type === "location";
 
+	// State
+	const [loading, setLoading] = useState(false);
+	const [value, setValue] = useState(editValue);
+	const [date, setDate] = useState<Date>();
+
+	const [updatedAddress, setUpdatedAddress] = useState(
+		isLocationEdit ? editValue?.address : ""
+	);
+	const [updatedCity, setUpdatedCity] = useState(
+		isLocationEdit ? editValue?.city : ""
+	);
+	const [updatedState, setUpdatedState] = useState(
+		isLocationEdit ? editValue?.state : ""
+	);
+
+	// Handle numeric input restrictions
 	const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
-		if (isNumber) {
-			if (
-				event.key === "e" ||
-				event.key === "E" ||
-				event.key === "-" ||
-				event.key === "+"
-			) {
-				event.preventDefault();
-			}
+		if (isNumber && ["e", "E", "-", "+"].includes(event.key)) {
+			event.preventDefault();
 		}
 	};
 
-	const handleChange = (e: any) => {
-		if (isNumber) {
-			let inputValue = e.target.value;
+	// Handle input changes (including formatted numbers)
+	const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+		let inputValue = e.target.value;
 
-			// If the input starts with a "0" and is followed by another number, remove the "0"
+		if (isNumber) {
+			// Remove leading zeros (unless followed by a decimal point)
 			if (
 				inputValue.startsWith("0") &&
 				inputValue.length > 1 &&
@@ -59,51 +81,57 @@ export function OpenEditModal({
 				inputValue = inputValue.slice(1);
 			}
 
-			// Prevent the input from starting with a period
-			if (inputValue.startsWith(".")) {
-				return;
-			}
-
+			// Restrict input to numbers and a single decimal point
 			inputValue = inputValue.replace(/[^0-9.]/g, "");
 			const parts = inputValue.split(".");
-			if (parts.length > 2) {
+			if (parts.length > 2)
 				inputValue = parts.shift() + "." + parts.join("");
-			}
-			if (parts[1]) {
-				parts[1] = parts[1].substring(0, 2);
-				inputValue = parts.join(".");
-			}
-			const formattedValue = formatMoneyInput(inputValue);
-			setValue(formattedValue);
+			if (parts[1])
+				inputValue = `${parts[0]}.${parts[1].substring(0, 2)}`;
+
+			setValue(formatMoneyInput(inputValue));
 		} else {
-			setValue(e.target.value);
+			setValue(inputValue);
 		}
 	};
 
+	// Handle form submission
 	const handleSubmit = async () => {
 		try {
 			setLoading(true);
-			const res = await updateListing({
+
+			const payload: any = {
 				type,
-				value: isNumber ? removeCommas(value) : value,
 				userId,
 				listingId: id,
-			});
+			};
 
-			if (res?.status == 400)
-				return toast({
+			if (isNumber) {
+				payload.value = removeCommas(value);
+			} else if (isDate) {
+				payload.value = date;
+			} else if (isLocationEdit) {
+				payload.address = updatedAddress;
+				payload.city = updatedCity;
+				payload.state = updatedState;
+			} else {
+				payload.value = value;
+			}
+
+			const res = await updateListing(payload);
+
+			if (res?.status === 400) {
+				toast({
 					title: "Error!",
 					description: res?.message,
 					variant: "destructive",
 				});
+				return;
+			}
 
-			toast({
-				title: "Success!",
-				description: res?.message,
-			});
+			toast({ title: "Success!", description: res?.message });
 			closeModal();
 		} catch (error) {
-			setLoading(false);
 			toast({
 				title: "Error!",
 				description: "An error occurred!",
@@ -121,8 +149,10 @@ export function OpenEditModal({
 					<h4 className="text-sm uppercase font-medium">
 						Edit {formattedApartmentTypes[type]}
 					</h4>
+
 					<div className="mt-2">
-						{type === "description" ? (
+						{/* Textarea for description */}
+						{type === "description" && !isDate ? (
 							<Textarea
 								value={value}
 								onChange={(e) => setValue(e.target.value)}
@@ -130,28 +160,70 @@ export function OpenEditModal({
 								rows={4}
 							/>
 						) : (
-							<Input
-								onKeyDown={handleKeyDown}
-								value={value}
-								onChange={handleChange}
-								placeholder={`Edit ${formattedApartmentTypes[type]}`}
-							/>
+							!isDate && (
+								<Input
+									onKeyDown={handleKeyDown}
+									value={value}
+									onChange={handleChange}
+									placeholder={`Edit ${formattedApartmentTypes[type]}`}
+								/>
+							)
+						)}
+
+						{/* Date Picker */}
+						{isDate && (
+							<Popover modal={false}>
+								<PopoverTrigger asChild>
+									<Button
+										variant="outline"
+										className={cn(
+											"w-full rounded-md h-14 justify-start text-left font-normal",
+											!date && "text-muted-foreground"
+										)}
+									>
+										<CalendarIcon />
+										{date ? (
+											format(date, "PPP")
+										) : (
+											<span>Pick a date</span>
+										)}
+									</Button>
+								</PopoverTrigger>
+								<PopoverContent
+									className="w-auto p-0 bg-red-300 z-50 pointer-events-auto"
+									align="start"
+									side="bottom"
+									sideOffset={8}
+								>
+									<Calendar
+										mode="single"
+										selected={date}
+										onSelect={setDate}
+										initialFocus
+										className="pointer-events-auto"
+									/>
+								</PopoverContent>
+							</Popover>
 						)}
 					</div>
+
+					{/* Action Buttons */}
 					<div className="flex items-center justify-between gap-4 mt-4 flex-col md:flex-row w-full">
 						<DrawerClose asChild>
 							<Button
-								size={"lg"}
+								size="lg"
 								onClick={closeModal}
 								variant="outline"
+								className="w-full md:w-auto"
 							>
 								Cancel
 							</Button>
 						</DrawerClose>
 						<Button
-							size={"lg"}
+							size="lg"
 							onClick={handleSubmit}
 							disabled={loading}
+							className="w-full md:w-auto"
 						>
 							{loading ? "Submitting..." : "Submit"}
 						</Button>

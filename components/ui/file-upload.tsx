@@ -1,6 +1,6 @@
 import { cn } from "@/lib/utils";
 import React, { useRef, useState } from "react";
-import { motion } from "motion/react";
+// import { motion } from "motion/react";
 import { IconUpload } from "@tabler/icons-react";
 import { useDropzone } from "react-dropzone";
 import { Loader2 } from "lucide-react";
@@ -57,7 +57,7 @@ export const FileUpload = ({
 
 	return (
 		<div className="w-full" {...getRootProps()}>
-			<motion.div
+			<div
 				onClick={handleClick}
 				whileHover="animate"
 				className="p-10 group/file block rounded-lg cursor-pointer w-full relative overflow-hidden"
@@ -97,7 +97,7 @@ export const FileUpload = ({
 						) : (
 							files.length > 0 &&
 							files.map((file, idx) => (
-								<motion.div
+								<div
 									key={"file" + idx}
 									layoutId={
 										idx === 0
@@ -110,15 +110,15 @@ export const FileUpload = ({
 									)}
 								>
 									<div className="flex justify-between w-full items-center gap-4">
-										<motion.p
+										<p
 											initial={{ opacity: 0 }}
 											animate={{ opacity: 1 }}
 											layout
 											className="text-base text-neutral-700 dark:text-neutral-300 truncate max-w-xs"
 										>
 											{file.name}
-										</motion.p>
-										<motion.p
+										</p>
+										<p
 											initial={{ opacity: 0 }}
 											animate={{ opacity: 1 }}
 											layout
@@ -129,20 +129,20 @@ export const FileUpload = ({
 												(1024 * 1024)
 											).toFixed(2)}{" "}
 											MB
-										</motion.p>
+										</p>
 									</div>
 
 									<div className="flex text-sm md:flex-row flex-col items-start md:items-center w-full mt-2 justify-between text-neutral-600 dark:text-neutral-400">
-										<motion.p
+										<p
 											initial={{ opacity: 0 }}
 											animate={{ opacity: 1 }}
 											layout
 											className="px-1 py-0.5 rounded-md bg-gray-100 dark:bg-neutral-800 "
 										>
 											{file.type}
-										</motion.p>
+										</p>
 
-										<motion.p
+										<p
 											initial={{ opacity: 0 }}
 											animate={{ opacity: 1 }}
 											layout
@@ -151,13 +151,13 @@ export const FileUpload = ({
 											{new Date(
 												file.lastModified
 											).toLocaleDateString()}
-										</motion.p>
+										</p>
 									</div>
-								</motion.div>
+								</div>
 							))
 						)}
 						{!files.length && (
-							<motion.div
+							<div
 								layoutId="file-upload"
 								variants={mainVariant}
 								transition={{
@@ -182,18 +182,18 @@ export const FileUpload = ({
 								) : (
 									<IconUpload className="h-4 w-4 text-neutral-600 dark:text-neutral-300" />
 								)}
-							</motion.div>
+							</div>
 						)}
 
 						{!files.length && (
-							<motion.div
+							<div
 								variants={secondaryVariant}
 								className="absolute opacity-0 border border-dashed border-sky-400 inset-0 z-30 bg-transparent flex items-center justify-center h-32 mt-4 w-full max-w-[8rem] mx-auto rounded-md"
-							></motion.div>
+							></div>
 						)}
 					</div>
 				</div>
-			</motion.div>
+			</div>
 		</div>
 	);
 };

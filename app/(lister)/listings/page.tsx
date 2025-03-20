@@ -16,6 +16,7 @@ import { getAllListings, getMyListings } from "@/lib/actions/list.actions";
 import { LISTING_LIMIT } from "@/constant";
 import { auth } from "@clerk/nextjs";
 import { getUserInfo } from "@/lib/actions/user.actions";
+import { formatMoneyInput } from "@/lib/utils";
 
 const listings = [
 	{
@@ -101,33 +102,41 @@ const page = async ({ searchParams }: SearchParamProps) => {
 						</TableRow>
 					</TableHeader>
 					<TableBody>
-						{listings?.map((listing: any) => (
+						{lists.data?.map((list: any) => (
 							<TableRow
-								key={listing?.name}
+								key={list?.name}
 								className="hover:bg-green-100"
 							>
 								<TableCell className="font-medium">
-									{listing?.name}
+									<Link href={`/apartments/${list?._id}`}>
+										{list?.name}
+									</Link>
 								</TableCell>
-								<TableCell>{listing?.location}</TableCell>
-								<TableCell>{listing?.amount}</TableCell>
+								<TableCell>
+									{list?.address}, {list?.city}
+								</TableCell>
+								<TableCell>
+									₦{formatMoneyInput(list?.rentPrice)}
+								</TableCell>
 								<TableCell>
 									<div className="flex items-center justify-center capitalize font-semibold">
 										<Dot
 											className={`w-8 h-8 ${
-												listing?.status === "pending"
+												list?.status === "pending"
 													? "text-yellow-400"
-													: listing?.status ===
-													  "success"
+													: list?.status === "success"
 													? "text-green-400"
 													: "text-red-400"
 											}`}
 										/>
-										{listing?.status}
+										{list?.status}
 									</div>
 								</TableCell>
 								<TableCell className="flex items-center justify-end">
-									<ListingActions />
+									<ListingActions
+										id={list?._id}
+										userId={list?.user}
+									/>
 								</TableCell>
 							</TableRow>
 						))}

@@ -1,5 +1,6 @@
 "use server";
 import { v2 as cloudinary } from "cloudinary";
+import { handleError } from "../utils";
 
 cloudinary.config({
 	cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
@@ -30,5 +31,13 @@ export const uploadDocuments = async (document: any) => {
 
 			return { url: result.secure_url };
 		}
-	} catch (error) {}
+	} catch (error: any) {
+		handleError(error);
+		return {
+			status: error?.status || 400,
+			message:
+				error?.message ||
+				"Oops! Couldn't upload the document! Try again later.",
+		};
+	}
 };

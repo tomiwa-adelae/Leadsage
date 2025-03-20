@@ -16,27 +16,33 @@ import { Button } from "./ui/button";
 import Link from "next/link";
 import Image from "next/image";
 import { OpenEditModal } from "./shared/OpenEditModal";
-import { formatMoneyInput } from "@/lib/utils";
+import { formatDate, formatMoneyInput } from "@/lib/utils";
+import { OpenDeleteModal } from "./shared/OpenDeleteModal";
 
 const ApartmentDetails = ({
 	details,
-	isRental,
+	isRenter,
 	user,
 }: {
 	details: any;
-	isRental: boolean;
+	isRenter: boolean;
 	user: any;
 }) => {
 	const [openModal, setOpenModal] = useState(false);
 	const [editField, setEditField] = useState({ name: "", value: "" });
 	const [isNumber, setIsNumber] = useState(false);
+	const [isDate, setIsDate] = React.useState<boolean>(false);
+	const [openDeleteModal, setOpenDeleteModal] =
+		React.useState<boolean>(false);
 
-	const handleOpenModal = (fieldName: string, fieldValue: string) => {
+	const handleOpenModal = (
+		fieldName: string,
+		fieldValue: string | { address: string; city: string; state: string }
+	) => {
+		// @ts-ignore
 		setEditField({ name: fieldName, value: fieldValue });
 		setOpenModal(true);
 	};
-
-	console.log(user);
 
 	const features = [
 		"4 bed(s)",
@@ -50,7 +56,7 @@ const ApartmentDetails = ({
 			<div className="col-span-2 lg:col-span-3 space-y-4 border-b">
 				<h1 className="text-3xl font-bold leading-relaxed text-green-400 flex items-center justify-start gap-4">
 					{details?.name}
-					{isRental && (
+					{isRenter && (
 						<Image
 							src={"/assets/icons/edit.svg"}
 							alt={"Edit Icon"}
@@ -63,9 +69,53 @@ const ApartmentDetails = ({
 						/>
 					)}
 				</h1>
-				<p className="text-gray-700 text-sm uppercase font-medium">
-					{details?.address}, {details?.city}, {details?.state}
-				</p>
+				<div className="text-xs space-y-4 text-gray-700 font-medium">
+					<p className="flex items-center justify-start gap-4 leading-loose">
+						Address: {details?.address}
+						{isRenter && (
+							<Image
+								src={"/assets/icons/edit.svg"}
+								alt={"Edit Icon"}
+								width={24}
+								height={24}
+								className="cursor-pointer"
+								onClick={() =>
+									handleOpenModal("address", details?.address)
+								}
+							/>
+						)}
+					</p>
+					<p className="flex items-center justify-start gap-4 leading-loose">
+						City: {details?.city}
+						{isRenter && (
+							<Image
+								src={"/assets/icons/edit.svg"}
+								alt={"Edit Icon"}
+								width={24}
+								height={24}
+								className="cursor-pointer"
+								onClick={() =>
+									handleOpenModal("city", details?.city)
+								}
+							/>
+						)}
+					</p>
+					<p className="flex items-center justify-start gap-4 leading-loose">
+						State: {details?.state}
+						{isRenter && (
+							<Image
+								src={"/assets/icons/edit.svg"}
+								alt={"Edit Icon"}
+								width={24}
+								height={24}
+								className="cursor-pointer"
+								onClick={() =>
+									handleOpenModal("state", details?.state)
+								}
+							/>
+						)}
+					</p>
+				</div>
 				<ul className="flex items-center justify-start flex-wrap text-sm text-gray-700 gap-4 pb-4">
 					{features.map((feature, index) => (
 						<React.Fragment key={index}>
@@ -79,16 +129,35 @@ const ApartmentDetails = ({
 				<div>
 					<Separator />
 				</div>
-				<div className="font-semibold text-sm flex gap-8 py-2">
-					<p className="text-gray-700">APARTMENT AVAILABLE FROM</p>
-					<p className="text-green-400">07 February 2025</p>
+				<div className="font-semibold text-sm flex items-center justify-start gap-2 py-2">
+					<p className="text-gray-700">APARTMENT AVAILABLE FROM:</p>
+					<p className="text-green-400 flex items-center justify-start gap-4">
+						{details?.availabilityDate &&
+							formatDate(details?.availabilityDate)}{" "}
+						{isRenter && (
+							<Image
+								src={"/assets/icons/edit.svg"}
+								alt={"Edit Icon"}
+								width={24}
+								height={24}
+								className="cursor-pointer"
+								onClick={() => {
+									handleOpenModal(
+										"availabilityDate",
+										details?.availabilityDate
+									);
+									setIsDate(true);
+								}}
+							/>
+						)}
+					</p>
 				</div>
 				<div>
 					<Separator />
 				</div>
 				<p className="text-sm py-4 leading-loose flex items-start justify-start gap-4">
 					{details?.description}
-					{isRental && (
+					{isRenter && (
 						<Image
 							src={"/assets/icons/edit.svg"}
 							alt={"Edit Icon"}
@@ -108,7 +177,7 @@ const ApartmentDetails = ({
 			<div className="col-span-2 border rounded-xl p-8">
 				<h5 className="font-semibold text-sm">Rent price</h5>
 				<h2 className="text-2xl font-semibold my-2 text-green-400 flex items-center justify-start gap-2">
-					{isRental && (
+					{isRenter && (
 						<Image
 							src={"/assets/icons/edit.svg"}
 							alt={"Edit Icon"}
@@ -145,36 +214,73 @@ const ApartmentDetails = ({
 					</div>
 					<div className="grid gap-4">
 						{user ? (
-							<Button size={"md"} className="w-full">
-								Book space
-							</Button>
+							user.isRenter || user.isAdmin ? (
+								<>
+									<Button size={"md"} className="w-full">
+										Publish listing
+									</Button>
+									<Button
+										variant={"destructive"}
+										size={"md"}
+										className="w-full"
+										onClick={() => {
+											setOpenDeleteModal(true);
+										}}
+									>
+										Delete Listing
+									</Button>
+								</>
+							) : (
+								<Button size={"md"} className="w-full">
+									Book space
+								</Button>
+							)
 						) : (
 							<Button size={"md"} className="w-full" asChild>
 								<Link href="/login">Login</Link>
 							</Button>
 						)}
-						<Button
-							size={"md"}
-							className="w-full"
-							variant={"outline"}
-							asChild
-						>
-							<Link href="/apartments">
-								Not what you're looking for? Click here
-							</Link>
-						</Button>
+						{!user.isRenter && (
+							<Button
+								size={"md"}
+								className="w-full"
+								variant={"outline"}
+								asChild
+							>
+								<Link href="/apartments">
+									Not what you're looking for? Click here
+								</Link>
+							</Button>
+						)}
 					</div>
 				</div>
 			</div>
+
 			{openModal && (
 				<OpenEditModal
 					id={details?._id}
 					open={openModal}
-					closeModal={() => setOpenModal(false)}
+					closeModal={() => {
+						setOpenModal(false);
+						setIsDate(false);
+						setIsNumber(false);
+					}}
 					type={editField.name}
-					editValue={editField.value}
+					editValue={editField.value} // This now contains an object with address, city, and state
 					userId={details?.user}
 					isNumber={isNumber}
+					isDate={isDate}
+				/>
+			)}
+
+			{openDeleteModal && (
+				<OpenDeleteModal
+					id={details?._id}
+					open={openDeleteModal}
+					closeModal={() => {
+						setOpenDeleteModal(false);
+					}}
+					userId={details?.user}
 				/>
 			)}
 		</div>

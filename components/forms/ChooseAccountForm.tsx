@@ -37,8 +37,6 @@ const ChooseAccountForm = () => {
 			});
 			setLoading(false);
 
-			console.log(res);
-
 			if (res?.data.isRenter) {
 				router.push("/dashboard");
 			} else {

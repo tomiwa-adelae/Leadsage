@@ -1,3 +1,4 @@
+"use client";
 import { Button } from "@/components/ui/button";
 import {
 	DropdownMenu,
@@ -7,8 +8,13 @@ import {
 	DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import Image from "next/image";
+import Link from "next/link";
+import { useState } from "react";
+import { OpenDeleteModal } from "./shared/OpenDeleteModal";
 
-export function ListingActions() {
+export function ListingActions({ id, userId }: { id: string; userId: string }) {
+	const [openDeleteModal, setOpenDeleteModal] = useState<boolean>(false);
+
 	return (
 		<DropdownMenu>
 			<DropdownMenuTrigger asChild>
@@ -22,33 +28,49 @@ export function ListingActions() {
 						alt={"Vertical menu for the action"}
 						width={1000}
 						height={1000}
-						className="w-[20px] h-[20px]"
+						className="w-5 h-5"
 					/>
 				</Button>
 			</DropdownMenuTrigger>
 			<DropdownMenuContent className="w-56">
-				<DropdownMenuItem>
-					<Image
-						src={"/assets/icons/edit.svg"}
-						alt={"Edit icon"}
-						width={1000}
-						height={1000}
-						className="w-[20px] h-[20px]"
-					/>
-					<span>Update</span>
-				</DropdownMenuItem>
+				<Link href={`/apartments/${id}`}>
+					<DropdownMenuItem className="font-medium uppercase text-xs">
+						<Image
+							src={"/assets/icons/edit.svg"}
+							alt={"Edit icon"}
+							width={1000}
+							height={1000}
+							className="w-5 h-5"
+						/>
+						<span>Update</span>
+					</DropdownMenuItem>
+				</Link>
 				<DropdownMenuSeparator />
-				<DropdownMenuItem>
+				<DropdownMenuItem
+					className="font-medium uppercase text-xs"
+					onClick={() => setOpenDeleteModal(true)}
+				>
 					<Image
 						src={"/assets/icons/delete.svg"}
 						alt={"Delete icon"}
 						width={1000}
 						height={1000}
-						className="w-[20px] h-[20px]"
+						className="w-5 h-5"
 					/>
 					<span>Delete</span>
 				</DropdownMenuItem>
 			</DropdownMenuContent>
+
+			{openDeleteModal && (
+				<OpenDeleteModal
+					id={id}
+					open={openDeleteModal}
+					closeModal={() => {
+						setOpenDeleteModal(false);
+					}}
+					userId={userId}
+				/>
+			)}
 		</DropdownMenu>
 	);
 }

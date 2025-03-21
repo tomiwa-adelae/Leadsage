@@ -111,10 +111,10 @@ const page = async ({ searchParams }: SearchParamProps) => {
 											/>
 										</Link>
 									</Button>
-									<OpenDeleteModal
+									{/* <OpenDeleteModal
 										id={list?._id}
 										userId={user._id}
-									/>
+									/> */}
 								</TableCell>
 							</TableRow>
 						))}

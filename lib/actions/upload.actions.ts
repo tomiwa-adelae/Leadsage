@@ -8,7 +8,7 @@ cloudinary.config({
 	api_secret: process.env.CLOUDINARY_API_SECRET,
 });
 
-export const uploadDocuments = async (document: any) => {
+export const uploadDocuments = async (document: any, selectedImage?: any) => {
 	try {
 		if (
 			document.startsWith("data:application/pdf") ||
@@ -18,18 +18,37 @@ export const uploadDocuments = async (document: any) => {
 			document.startsWith("data:image/gif") ||
 			document.startsWith("data:image/webp")
 		) {
-			const result = await cloudinary.uploader.upload(document, {
-				folder: "leadsage",
-			});
+			let result;
 
-			return { url: result.secure_url };
+			if (selectedImage) {
+				await cloudinary.uploader.destroy(selectedImage.id, {});
+				result = await cloudinary.uploader.upload(document, {
+					folder: "leadsage",
+				});
+			} else {
+				result = await cloudinary.uploader.upload(document, {
+					folder: "leadsage",
+				});
+			}
+
+			return { url: result.secure_url, id: result.public_id };
 		} else {
-			const result = await cloudinary.uploader.upload(document, {
-				folder: "leadsage",
-				resource_type: "raw",
-			});
-
-			return { url: result.secure_url };
+			let result;
+			if (selectedImage) {
+				await cloudinary.uploader.destroy(selectedImage.id, {
+					resource_type: "raw",
+				});
+				result = await cloudinary.uploader.upload(document, {
+					folder: "leadsage",
+					resource_type: "raw",
+				});
+			} else {
+				result = await cloudinary.uploader.upload(document, {
+					folder: "leadsage",
+					resource_type: "raw",
+				});
+			}
+			return { url: result.secure_url, id: result.public_id };
 		}
 	} catch (error: any) {
 		handleError(error);

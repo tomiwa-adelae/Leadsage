@@ -13,11 +13,13 @@ export function OpenImageModal({
 	open,
 	closeModal,
 	userId,
+	selectedImage,
 }: {
 	id: string;
 	userId: string;
 	open: boolean;
 	closeModal: () => void;
+	selectedImage?: any;
 }) {
 	const [loading, setLoading] = useState(false);
 	const [image, setImage] = useState<any>("");
@@ -27,7 +29,9 @@ export function OpenImageModal({
 		try {
 			setLoading(true);
 
-			const uploadResult = await uploadDocuments(image);
+			console.log(selectedImage);
+
+			const uploadResult = await uploadDocuments(image, selectedImage);
 
 			if (uploadResult?.status === 400) {
 				toast({
@@ -38,13 +42,25 @@ export function OpenImageModal({
 				return;
 			}
 
-			const res = await updateListing({
+			console.log(uploadResult);
+
+			// Create the payload dynamically to exclude oldImage when selectedImage is null
+			const payload: any = {
 				userId,
 				listingId: id,
 				type: "images",
-				value: uploadResult?.url!,
-			});
+				value: {
+					url: uploadResult?.url!,
+					id: uploadResult?.id!,
+				},
+			};
 
+			// Only include oldImage if selectedImage exists
+			if (selectedImage) {
+				payload.value.oldImage = selectedImage?._id;
+			}
+
+			const res = await updateListing(payload);
 			toast({ title: "Success!", description: res?.message });
 			closeModal();
 		} catch (error) {
@@ -66,6 +82,7 @@ export function OpenImageModal({
 						Edit Image
 					</h4>
 					<FileUpload
+						title={selectedImage ? "Change file" : "Upload file"}
 						loading={loading}
 						onChange={(files) => {
 							const reader = new FileReader();

@@ -16,19 +16,36 @@ import {
 import { Input } from "@/components/ui/input";
 import { Textarea } from "../ui/textarea";
 import { Loader2, LoaderCircle, MoveUpRight } from "lucide-react";
-import { CreateListingFormSchema } from "@/lib/validations";
+import { CategoryFormSchema, CreateListingFormSchema } from "@/lib/validations";
 import { createList } from "@/lib/actions/list.actions";
 import { useToast } from "@/hooks/use-toast";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import UploadApartmentImages from "../UploadApartmentImages";
 import { formatMoneyInput, removeCommas } from "@/lib/utils";
+import {
+	createCategory,
+	getAllCategories,
+} from "@/lib/actions/category.actions";
+import { ICategory } from "@/lib/database/models/category.model";
+import {
+	Select,
+	SelectContent,
+	SelectGroup,
+	SelectItem,
+	SelectLabel,
+	SelectTrigger,
+	SelectValue,
+} from "@/components/ui/select";
+import { Drawer, DrawerClose, DrawerContent } from "@/components/ui/drawer";
 
 export function CreateListingForm({ userId }: { userId: string }) {
 	const { toast } = useToast();
 	const router = useRouter();
 
 	const [showUpload, setShowUpload] = useState(false);
+	const [newCategory, setNewCategory] = useState("");
+	const [categories, setCategories] = useState<ICategory[]>([]);
 
 	const form = useForm<z.infer<typeof CreateListingFormSchema>>({
 		resolver: zodResolver(CreateListingFormSchema),
@@ -42,6 +59,30 @@ export function CreateListingForm({ userId }: { userId: string }) {
 			rentPrice: "",
 		},
 	});
+
+	const formCategory = useForm<z.infer<typeof CategoryFormSchema>>({
+		resolver: zodResolver(CategoryFormSchema),
+		defaultValues: {
+			name: "",
+		},
+	});
+
+	useEffect(() => {
+		const fetchAllCategories = async () => {
+			const categoryList = await getAllCategories();
+
+			categoryList && setCategories(categoryList as ICategory[]);
+		};
+		fetchAllCategories();
+	}, []);
+
+	const handleAddCategory = async () => {
+		const newlyAddedCategory = await createCategory({
+			name: newCategory.trim(),
+		});
+
+		setCategories((prevState) => [...prevState, newlyAddedCategory]);
+	};
 
 	const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
 		if (
@@ -90,6 +131,17 @@ export function CreateListingForm({ userId }: { userId: string }) {
 		}
 	}
 
+	function onCategorySubmit(data: z.infer<typeof CategoryFormSchema>) {
+		createCategory({
+			name: data.name,
+		}).then((category) => {
+			setCategories((prevState) => [...prevState, category]);
+			toast({
+				title: "Category created successfully!",
+			});
+		});
+	}
+
 	return (
 		<div className="bg-white rounded-md p-6 mt-14">
 			<Form {...form}>
@@ -121,10 +173,101 @@ export function CreateListingForm({ userId }: { userId: string }) {
 								<FormItem>
 									<FormLabel>Category</FormLabel>
 									<FormControl>
-										<Input
-											placeholder="Enter the category for the apartment"
-											{...field}
-										/>
+										<Select
+											onValueChange={field.onChange}
+											defaultValue={field.value}
+										>
+											<SelectTrigger className="select-field">
+												<SelectValue placeholder="Select a category" />
+											</SelectTrigger>
+											<SelectContent>
+												{categories.length > 0 &&
+													categories.map(
+														(category) => (
+															<SelectItem
+																key={
+																	category._id
+																}
+																value={
+																	category._id
+																}
+																className="select-item p-regular-14"
+															>
+																{category.name}
+															</SelectItem>
+														)
+													)}
+												<Drawer>
+													<DrawerContent>
+														<div className="mx-auto w-full sm:max-w-sm lg:max-w-lg py-10 container">
+															<h4 className="text-sm uppercase font-medium">
+																Create category
+															</h4>
+
+															<Form {...form}>
+																<form
+																	onSubmit={formCategory.handleSubmit(
+																		onCategorySubmit
+																	)}
+																	className="mt-4"
+																>
+																	<FormField
+																		control={
+																			form.control
+																		}
+																		name="name"
+																		render={({
+																			field,
+																		}) => (
+																			<FormItem>
+																				<FormControl>
+																					<Input
+																						placeholder="Category name..."
+																						{...field}
+																					/>
+																				</FormControl>
+																				<FormMessage />
+																			</FormItem>
+																		)}
+																	/>
+																	<div className="flex items-center justify-between gap-4 mt-4 flex-col md:flex-row w-full">
+																		<DrawerClose
+																			asChild
+																		>
+																			<Button
+																				size="lg"
+																				variant="outline"
+																				className="w-full md:w-auto"
+																			>
+																				Cancel
+																			</Button>
+																		</DrawerClose>
+																		<Button
+																			size="lg"
+																			className="w-full md:w-auto"
+																			disabled={
+																				form
+																					.formState
+																					.isSubmitting
+																			}
+																			type="submit"
+																		>
+																			{form
+																				.formState
+																				.isSubmitting
+																				? "Adding..."
+																				: "Add"}
+																		</Button>
+																	</div>
+																</form>
+															</Form>
+
+															{/* Action Buttons */}
+														</div>
+													</DrawerContent>
+												</Drawer>
+											</SelectContent>
+										</Select>
 									</FormControl>
 									<FormMessage />
 								</FormItem>

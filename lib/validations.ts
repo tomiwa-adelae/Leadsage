@@ -38,3 +38,9 @@ export const CreateListingFormSchema = z.object({
 	description: z.string().optional(),
 	rentPrice: z.string().optional(),
 });
+
+export const CategoryFormSchema = z.object({
+	name: z.string().min(2, {
+		message: "Name must be at least 2 characters.",
+	}),
+});

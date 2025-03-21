@@ -6,7 +6,12 @@ import List from "../database/models/list.model";
 import { handleError } from "../utils";
 import User from "../database/models/user.model";
 import { revalidatePath } from "next/cache";
-import { isAborted } from "zod";
+import { v2 as cloudinary } from "cloudinary";
+cloudinary.config({
+	cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+	api_key: process.env.CLOUDINARY_API_KEY,
+	api_secret: process.env.CLOUDINARY_API_SECRET,
+});
 
 export const getAllListings = async ({
 	query,
@@ -225,7 +230,7 @@ export const updateListing = async ({
 	userId: string;
 	listingId: string;
 	type: string;
-	value: string;
+	value: string | any;
 }) => {
 	try {
 		await connectToDatabase();
@@ -260,11 +265,26 @@ export const updateListing = async ({
 			};
 		}
 
-		// Handle array updates separately (for images)
+		// Handle image replacement
 		if (type === "images") {
+			console.log(value);
+			const oldImage = listing.images.find(
+				(img: any) => img._id.toString() === value?.oldImage
+			);
+
+			if (oldImage) {
+				// Remove the old image from MongoDB
+				await List.findByIdAndUpdate(
+					listingId,
+					{ $pull: { images: { id: oldImage.id } } }, // Remove the old image
+					{ new: true }
+				);
+			}
+
+			// Add the new image to MongoDB
 			await List.findByIdAndUpdate(
 				listingId,
-				{ $push: { images: value } }, // Append to images array
+				{ $push: { images: value } },
 				{ new: true }
 			);
 		} else {
@@ -278,14 +298,14 @@ export const updateListing = async ({
 		revalidatePath(`/apartments`);
 		revalidatePath(`/apartments/${listing._id}`);
 
-		return { status: 201, message: `Successfully edited the ${type}` };
+		return { status: 201, message: `Successfully updated the ${type}` };
 	} catch (error: any) {
 		handleError(error);
 		return {
 			status: error?.status || 400,
 			message:
 				error?.message ||
-				"Oops! Couldn't get any listings! Try again later.",
+				"Oops! Couldn't update the listing! Try again later.",
 		};
 	}
 };
@@ -332,6 +352,77 @@ export const deleteListing = async ({
 			};
 
 		revalidatePath(`/apartments`);
+		revalidatePath(`/listings`);
+
+		return { status: 201, message: `Successfully deleted!` };
+	} catch (error: any) {
+		handleError(error);
+		return {
+			status: error?.status || 400,
+			message:
+				error?.message ||
+				"Oops! Couldn't get any listings! Try again later.",
+		};
+	}
+};
+
+// Delete listing image
+export const deleteListingImage = async ({
+	userId,
+	image,
+	listingId,
+}: {
+	userId: string;
+	image: any;
+	listingId: string;
+}) => {
+	try {
+		await connectToDatabase();
+
+		const user = await User.findById(userId);
+
+		if (!user)
+			return {
+				status: 400,
+				message: "Oops! User not found.",
+			};
+
+		if (!user.isRenter && !user.isAdmin)
+			return {
+				status: 400,
+				message: "Oops! You are not authorized to delete this listing.",
+			};
+
+		const listing = await List.findById(listingId);
+
+		if (!listing)
+			return {
+				status: 400,
+				message: "Oops! Listing is not found.",
+			};
+
+		// Delete from cloudinary first
+		await cloudinary.uploader.destroy(image.id, {});
+
+		const oldImage = listing.images.find(
+			(img: any) => img._id.toString() === image._id
+		);
+
+		// Remove the old image from MongoDB
+		const deletedImage = await List.findByIdAndUpdate(
+			listingId,
+			{ $pull: { images: { id: oldImage.id } } }, // Remove the old image
+			{ new: true }
+		);
+
+		if (!deletedImage)
+			return {
+				status: 400,
+				message: "Oops! Image not deleted. Try again later.",
+			};
+
+		revalidatePath(`/apartments`);
+		revalidatePath(`/apartments/${listing._id}`);
 		revalidatePath(`/listings`);
 
 		return { status: 201, message: `Successfully deleted!` };

@@ -267,7 +267,6 @@ export const updateListing = async ({
 
 		// Handle image replacement
 		if (type === "images") {
-			console.log(value);
 			const oldImage = listing.images.find(
 				(img: any) => img._id.toString() === value?.oldImage
 			);

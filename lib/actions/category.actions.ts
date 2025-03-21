@@ -1,5 +1,6 @@
 "use server";
 
+import { revalidatePath } from "next/cache";
 import { connectToDatabase } from "../database";
 import Category from "../database/models/category.model";
 import { handleError } from "../utils";
@@ -26,7 +27,12 @@ export const createCategory = async ({ name }: { name: string }) => {
 
 		const newCategory = await Category.create({ name });
 
-		return JSON.parse(JSON.stringify(newCategory));
+		revalidatePath(`/create-listing`);
+
+		return {
+			category: JSON.parse(JSON.stringify(newCategory)),
+			message: "Successfully created a new category",
+		};
 	} catch (error) {
 		handleError(error);
 	}

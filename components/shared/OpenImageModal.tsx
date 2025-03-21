@@ -29,8 +29,6 @@ export function OpenImageModal({
 		try {
 			setLoading(true);
 
-			console.log(selectedImage);
-
 			const uploadResult = await uploadDocuments(image, selectedImage);
 
 			if (uploadResult?.status === 400) {
@@ -41,8 +39,6 @@ export function OpenImageModal({
 				});
 				return;
 			}
-
-			console.log(uploadResult);
 
 			// Create the payload dynamically to exclude oldImage when selectedImage is null
 			const payload: any = {

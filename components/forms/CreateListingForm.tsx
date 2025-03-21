@@ -21,7 +21,6 @@ import { createList } from "@/lib/actions/list.actions";
 import { useToast } from "@/hooks/use-toast";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import UploadApartmentImages from "../UploadApartmentImages";
 import { formatMoneyInput, removeCommas } from "@/lib/utils";
 import {
 	createCategory,

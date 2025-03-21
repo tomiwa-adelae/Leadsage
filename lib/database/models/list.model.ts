@@ -17,6 +17,8 @@ interface IList extends Document {
 	city?: string;
 	state?: string;
 	status?: string;
+	isPublished?: boolean;
+	location?: string;
 	images?: IImage[]; // Made optional
 	description?: string;
 	createdAt: Date;
@@ -45,16 +47,35 @@ const ListSchema = new Schema<IList>(
 			type: String,
 			required: true,
 		},
-		category: String,
-		rentPrice: String,
-		address: String,
-		city: String,
-		state: String,
-		description: String,
-		availabilityDate: String,
+		category: { type: String },
+		rentPrice: {
+			type: String,
+		},
+		address: {
+			type: String,
+		},
+		city: {
+			type: String,
+		},
+		state: {
+			type: String,
+		},
+		description: {
+			type: String,
+		},
+		availabilityDate: {
+			type: String,
+		},
+		location: {
+			type: String,
+		},
 		status: {
 			type: String,
 			default: "pending",
+		},
+		isPublished: {
+			type: Boolean,
+			default: false,
 		},
 		images: {
 			type: [imagesSchema],

@@ -4,8 +4,15 @@ import { Button } from "./ui/button";
 import Link from "next/link";
 import { MoveUpRight } from "lucide-react";
 import { popularProperties } from "@/constant";
+import { getAllListings } from "@/lib/actions/list.actions";
 
-const PopularServices = () => {
+const PopularServices = async () => {
+	const listings = await getAllListings({
+		query: "",
+		page: 1,
+		limit: 5,
+	});
+
 	return (
 		<div className="container pb-16">
 			<div className="space-y-2">

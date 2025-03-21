@@ -7,14 +7,14 @@ import {
 	DrawerContent,
 	DrawerTrigger,
 } from "@/components/ui/drawer";
-import { deleteListing } from "@/lib/actions/list.actions";
+import { deleteListing, updateListing } from "@/lib/actions/list.actions";
 import { toast } from "@/hooks/use-toast";
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 
-export function OpenDeleteModal({
+export function OpenPublishModal({
 	open,
 	id,
 	userId,
@@ -32,7 +32,12 @@ export function OpenDeleteModal({
 		try {
 			setLoading(true);
 
-			const res: any = await deleteListing({ userId, listingId: id });
+			const res: any = await updateListing({
+				userId,
+				listingId: id,
+				type: "isPublished",
+				value: true,
+			});
 			if (res?.status == 400)
 				return toast({
 					title: "Error!",
@@ -44,7 +49,7 @@ export function OpenDeleteModal({
 				title: "Success!",
 				description: res?.message,
 			});
-			router.push("/listings");
+			// router.push("/listings");
 		} catch (error) {
 			setLoading(false);
 			toast({
@@ -58,34 +63,22 @@ export function OpenDeleteModal({
 	};
 
 	return (
-		<Drawer>
-			{" "}
-			<DrawerTrigger asChild>
-				<Button className="rounded-md" size={"icon"} variant="ghost">
-					<Image
-						src={"/assets/icons/delete.svg"}
-						alt={"Delete icon"}
-						width={1000}
-						height={1000}
-						className="w-5 h-5"
-					/>
-				</Button>
-			</DrawerTrigger>
+		<Drawer open={open} onClose={closeModal}>
 			<DrawerContent>
 				<div className="mx-auto w-full sm:max-w-sm lg:max-w-lg py-10 container">
 					<h4 className="text-sm uppercase font-medium">
-						✅ Confirm Publish
+						✅ Confirm publish
 					</h4>
 					<p className="text-xs leading-loose mt-2 mb-4">
-						Are you sure you want to delete this listing? This
-						action cannot be undone. Once deleted, all associated
-						data will be permanently removed.
+						Are you sure you want to publish this listing? Once
+						published, it will be visible to others. Ensure all
+						details are accurate before proceeding.
 					</p>
 					<div className="flex items-center justify-between gap-4 mt-4 flex-col md:flex-row w-full">
 						<DrawerClose asChild>
 							<Button
 								size={"lg"}
-								// onClick={closeModal}
+								onClick={closeModal}
 								variant="outline"
 								className="w-full md:w-auto"
 							>
@@ -93,13 +86,12 @@ export function OpenDeleteModal({
 							</Button>
 						</DrawerClose>
 						<Button
-							variant={"destructive"}
 							size={"lg"}
 							onClick={handleSubmit}
 							disabled={loading}
 							className="w-full md:w-auto"
 						>
-							{loading ? "Deleting..." : "Delete"}
+							{loading ? "Publishing..." : "Publish"}
 						</Button>
 					</div>
 				</div>

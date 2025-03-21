@@ -10,52 +10,14 @@ import {
 	TableHeader,
 	TableRow,
 } from "@/components/ui/table";
-import { ListingActions } from "@/components/ListingActions";
 import Link from "next/link";
-import { getAllListings, getMyListings } from "@/lib/actions/list.actions";
+import { getMyListings } from "@/lib/actions/list.actions";
 import { LISTING_LIMIT } from "@/constant";
 import { auth } from "@clerk/nextjs";
 import { getUserInfo } from "@/lib/actions/user.actions";
 import { formatMoneyInput } from "@/lib/utils";
-
-const listings = [
-	{
-		name: "Duplex",
-		location: "Lagos, Nigeria",
-		amount: "$250.00",
-		status: "pending",
-	},
-	{
-		name: "Duplex",
-		location: "Lagos, Nigeria",
-		amount: "$250.00",
-		status: "pending",
-	},
-	{
-		name: "Duplex",
-		location: "Lagos, Nigeria",
-		amount: "$250.00",
-		status: "failed",
-	},
-	{
-		name: "Duplex",
-		location: "Ibadan, Nigeria",
-		amount: "$250.00",
-		status: "failed",
-	},
-	{
-		name: "Duplex",
-		location: "Surulere, Nigeria",
-		amount: "$400.00",
-		status: "success",
-	},
-	{
-		name: "Duplex",
-		location: "Lagos, Nigeria",
-		amount: "$250.00",
-		status: "pending",
-	},
-];
+import Image from "next/image";
+import { OpenDeleteModal } from "@/components/shared/OpenDeleteModal";
 
 const page = async ({ searchParams }: SearchParamProps) => {
 	const { userId } = auth();
@@ -132,10 +94,26 @@ const page = async ({ searchParams }: SearchParamProps) => {
 										{list?.status}
 									</div>
 								</TableCell>
-								<TableCell className="flex items-center justify-end">
-									<ListingActions
+								<TableCell className="font-medium uppercase text-xs flex items-center justify-end gap-4">
+									<Button
+										size={"icon"}
+										variant="ghost"
+										asChild
+										className="rounded-md"
+									>
+										<Link href={`/apartments/${list?._id}`}>
+											<Image
+												src={"/assets/icons/edit.svg"}
+												alt={"Edit icon"}
+												width={1000}
+												height={1000}
+												className="w-5 h-5"
+											/>
+										</Link>
+									</Button>
+									<OpenDeleteModal
 										id={list?._id}
-										userId={list?.user}
+										userId={user._id}
 									/>
 								</TableCell>
 							</TableRow>

@@ -196,15 +196,13 @@ export function CreateListingForm({ userId }: { userId: string }) {
 							name="rentPrice"
 							render={({ field }) => (
 								<FormItem>
-									<FormLabel>Monthly price</FormLabel>
+									<FormLabel>Rent price / year</FormLabel>
 									<FormControl>
 										<Input
 											placeholder="Enter the price for the apartment per month"
 											{...field}
 											onChange={(e) => {
 												let inputValue = e.target.value;
-
-												// If the input starts with a "0" and is followed by another number, remove the "0"
 												if (
 													inputValue.startsWith(
 														"0"

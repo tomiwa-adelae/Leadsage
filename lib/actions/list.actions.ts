@@ -41,7 +41,11 @@ export const getAllListings = async ({
 			: {};
 		const skipAmount = (Number(page) - 1) * limit;
 
-		const lists = await List.find({ ...keyword })
+		const lists = await List.find({
+			...keyword,
+			status: "approved",
+			isPublished: true,
+		})
 			.populate("user")
 			.sort({ createdAt: -1 })
 			.skip(skipAmount)
@@ -250,6 +254,8 @@ export const updateListing = async ({
 			};
 
 		const listing = await List.findOne({ user: userId, _id: listingId });
+
+		console.log(listing, type, value);
 
 		if (!listing)
 			return {

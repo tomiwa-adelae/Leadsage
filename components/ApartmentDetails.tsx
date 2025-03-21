@@ -18,21 +18,26 @@ import Image from "next/image";
 import { OpenEditModal } from "./shared/OpenEditModal";
 import { formatDate, formatMoneyInput } from "@/lib/utils";
 import { OpenDeleteModal } from "./shared/OpenDeleteModal";
+import { OpenPublishModal } from "./shared/OpenPublishModal";
 
 const ApartmentDetails = ({
 	details,
 	isRenter,
 	user,
+	isComplete,
 }: {
 	details: any;
 	isRenter: boolean;
 	user: any;
+	isComplete: boolean;
 }) => {
 	const [openModal, setOpenModal] = useState(false);
 	const [editField, setEditField] = useState({ name: "", value: "" });
 	const [isNumber, setIsNumber] = useState(false);
 	const [isDate, setIsDate] = React.useState<boolean>(false);
 	const [openDeleteModal, setOpenDeleteModal] =
+		React.useState<boolean>(false);
+	const [openPublishModal, setOpenPublishModal] =
 		React.useState<boolean>(false);
 
 	const handleOpenModal = (
@@ -43,6 +48,14 @@ const ApartmentDetails = ({
 		setEditField({ name: fieldName, value: fieldValue });
 		setOpenModal(true);
 	};
+
+	// const handlePublishListing = async () => {
+	// 	try {
+
+	// 	} catch (error) {
+
+	// 	}
+	// }
 
 	const features = [
 		"4 bed(s)",
@@ -216,7 +229,14 @@ const ApartmentDetails = ({
 						{user ? (
 							user.isRenter || user.isAdmin ? (
 								<>
-									<Button size={"md"} className="w-full">
+									<Button
+										disabled={!isComplete}
+										size={"md"}
+										className="w-full"
+										onClick={() =>
+											setOpenPublishModal(true)
+										}
+									>
 										Publish listing
 									</Button>
 									<Button
@@ -266,7 +286,7 @@ const ApartmentDetails = ({
 						setIsNumber(false);
 					}}
 					type={editField.name}
-					editValue={editField.value} // This now contains an object with address, city, and state
+					editValue={editField.value}
 					userId={details?.user}
 					isNumber={isNumber}
 					isDate={isDate}
@@ -279,6 +299,17 @@ const ApartmentDetails = ({
 					open={openDeleteModal}
 					closeModal={() => {
 						setOpenDeleteModal(false);
+					}}
+					userId={details?.user}
+				/>
+			)}
+
+			{openPublishModal && (
+				<OpenPublishModal
+					id={details?._id}
+					open={openPublishModal}
+					closeModal={() => {
+						setOpenPublishModal(false);
 					}}
 					userId={details?.user}
 				/>

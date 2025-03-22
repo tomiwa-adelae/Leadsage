@@ -6,6 +6,7 @@ export default authMiddleware({
 		"/about",
 		"/contact",
 		"/apartments",
+		"/success-booking",
 		"/api/webhook/clerk",
 	],
 	ignoredRoutes: ["/api/webhook/clerk"],

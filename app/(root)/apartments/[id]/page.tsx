@@ -31,8 +31,6 @@ const page = async ({
 
 	const listing = await getListing(id!);
 
-	console.log(listing);
-
 	const requiredFields = [
 		listing?.name,
 		listing?.category,
@@ -56,8 +54,6 @@ const page = async ({
 		Array.isArray(listing?.images) && listing.images.length >= 3;
 
 	const isComplete = requiredFields.every(Boolean) && hasEnoughImages;
-
-	console.log(isComplete, totalFields, completedText);
 
 	if (listing.status === 400) redirect("/not-found.tsx");
 
@@ -90,7 +86,7 @@ const page = async ({
 					isRenter={user?.isRenter}
 					isComplete={isComplete}
 				/>
-				<ApartmentLocation />
+				{/* <ApartmentLocation /> */}
 			</div>
 		</div>
 	);

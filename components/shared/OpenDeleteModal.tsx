@@ -58,8 +58,8 @@ export function OpenDeleteModal({
 	};
 
 	return (
-		<Drawer>
-			{" "}
+		<Drawer open={open} onClose={closeModal}>
+			{/* {" "}
 			<DrawerTrigger asChild>
 				<Button className="rounded-md" size={"icon"} variant="ghost">
 					<Image
@@ -70,11 +70,11 @@ export function OpenDeleteModal({
 						className="w-5 h-5"
 					/>
 				</Button>
-			</DrawerTrigger>
+			</DrawerTrigger> */}
 			<DrawerContent>
 				<div className="mx-auto w-full sm:max-w-sm lg:max-w-lg py-10 container">
 					<h4 className="text-sm uppercase font-medium">
-						✅ Confirm Publish
+						🛑 Confirm Deletion
 					</h4>
 					<p className="text-xs leading-loose mt-2 mb-4">
 						Are you sure you want to delete this listing? This

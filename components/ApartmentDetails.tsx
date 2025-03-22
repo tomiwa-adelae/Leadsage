@@ -19,6 +19,8 @@ import { OpenEditModal } from "./shared/OpenEditModal";
 import { formatDate, formatMoneyInput } from "@/lib/utils";
 import { OpenDeleteModal } from "./shared/OpenDeleteModal";
 import { OpenPublishModal } from "./shared/OpenPublishModal";
+import { ConfirmBookListingModal } from "./shared/ConfirmBookListingModal";
+import { EditUserDetailsModal } from "./shared/EditUserDetailsModal";
 
 const ApartmentDetails = ({
 	details,
@@ -39,6 +41,10 @@ const ApartmentDetails = ({
 		React.useState<boolean>(false);
 	const [openPublishModal, setOpenPublishModal] =
 		React.useState<boolean>(false);
+	const [openConfirmListing, setOpenConfirmListing] =
+		React.useState<boolean>(false);
+	const [openEditDetails, setOpenEditDetails] =
+		React.useState<boolean>(false);
 
 	const handleOpenModal = (
 		fieldName: string,
@@ -48,14 +54,6 @@ const ApartmentDetails = ({
 		setEditField({ name: fieldName, value: fieldValue });
 		setOpenModal(true);
 	};
-
-	// const handlePublishListing = async () => {
-	// 	try {
-
-	// 	} catch (error) {
-
-	// 	}
-	// }
 
 	const features = [
 		"4 bed(s)",
@@ -236,8 +234,15 @@ const ApartmentDetails = ({
 										onClick={() =>
 											setOpenPublishModal(true)
 										}
+										variant={
+											details?.isPublished
+												? "warning"
+												: "default"
+										}
 									>
-										Publish listing
+										{details?.isPublished
+											? "unpublish listing"
+											: "Publish listing"}
 									</Button>
 									<Button
 										variant={"destructive"}
@@ -251,7 +256,22 @@ const ApartmentDetails = ({
 									</Button>
 								</>
 							) : (
-								<Button size={"md"} className="w-full">
+								<Button
+									onClick={() => {
+										if (
+											!user?.phoneNumber ||
+											!user?.address ||
+											!user?.city ||
+											!user?.state
+										) {
+											setOpenEditDetails(true);
+										} else {
+											setOpenConfirmListing(true);
+										}
+									}}
+									size={"md"}
+									className="w-full"
+								>
 									Book space
 								</Button>
 							)
@@ -312,6 +332,28 @@ const ApartmentDetails = ({
 						setOpenPublishModal(false);
 					}}
 					userId={details?.user}
+				/>
+			)}
+
+			{openConfirmListing && (
+				<ConfirmBookListingModal
+					id={details?._id}
+					open={openConfirmListing}
+					closeModal={() => {
+						setOpenConfirmListing(false);
+					}}
+					userId={user?._id}
+				/>
+			)}
+
+			{openEditDetails && (
+				<EditUserDetailsModal
+					user={user}
+					open={openEditDetails}
+					closeModal={() => {
+						setOpenEditDetails(false);
+						setOpenConfirmListing(true);
+					}}
 				/>
 			)}
 		</div>

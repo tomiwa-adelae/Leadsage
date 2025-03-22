@@ -190,7 +190,7 @@ export function OpenEditModal({
 									</Button>
 								</PopoverTrigger>
 								<PopoverContent
-									className="w-auto p-0 bg-red-300 z-50 pointer-events-auto"
+									className="w-auto p-0 z-50 pointer-events-auto"
 									align="start"
 									side="bottom"
 									sideOffset={8}

@@ -68,7 +68,6 @@ export function CreateListingForm({ userId }: { userId: string }) {
 	const fetchCategories = async () => {
 		const categoryList = await getAllCategories();
 
-		console.log(categoryList);
 		categoryList && setCategories(categoryList as ICategory[]);
 	};
 

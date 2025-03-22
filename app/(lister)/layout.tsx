@@ -18,8 +18,8 @@ export default async function Layout({
 
 	const user = await getUserInfo(userId!);
 
-	if (user?.isRenter === undefined) redirect("/choose-account");
-	if (!user?.isRenter) redirect("/not-authorized");
+	// if (user?.isRenter === undefined) redirect("/choose-account");
+	// if (!user?.isRenter) redirect("/not-authorized");
 
 	return (
 		<div className="bg-gray-100">

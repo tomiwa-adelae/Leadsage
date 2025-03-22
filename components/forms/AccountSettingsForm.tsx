@@ -35,52 +35,47 @@ import {
 } from "@/components/ui/popover";
 import { cn } from "@/lib/utils";
 import Image from "next/image";
+import PhoneInput from "react-phone-number-input";
+import "react-phone-number-input/style.css";
+import { AccountSettingFormSchema } from "@/lib/validations";
 
-const FormSchema = z.object({
-	firstName: z.string().min(2, {
-		message: "First name must be at least 2 characters.",
-	}),
-	lastName: z.string().min(2, {
-		message: "Last name must be at least 2 characters.",
-	}),
-	email: z.string().email().min(2, {
-		message: "Name must be at least 2 characters.",
-	}),
-	phoneNumber: z.string().min(2, {
-		message: "Phone number must be at least 2 characters.",
-	}),
-	dob: z.date({
-		required_error: "A date of birth is required.",
-	}),
-	gender: z.string().min(2, {
-		message: "Gender is required.",
-	}),
-	address: z.string().min(2, {
-		message: "Address is required.",
-	}),
-	city: z.string().min(2, {
-		message: "City is required.",
-	}),
-	state: z.string().min(2, {
-		message: "State is required.",
-	}),
-});
-
-export function AccountSettingsForm() {
-	const form = useForm<z.infer<typeof FormSchema>>({
-		resolver: zodResolver(FormSchema),
+export function AccountSettingsForm({
+	picture,
+	firstName,
+	lastName,
+	phoneNumber,
+	userId,
+	email,
+	city,
+	state,
+	address,
+	isRenter,
+}: {
+	picture: string;
+	firstName: string;
+	lastName: string;
+	phoneNumber: string;
+	userId: string;
+	email: string;
+	isRenter: string;
+	city: string;
+	state: string;
+	address: string;
+}) {
+	const form = useForm<z.infer<typeof AccountSettingFormSchema>>({
+		resolver: zodResolver(AccountSettingFormSchema),
 		defaultValues: {
-			firstName: "",
-			lastName: "",
-			email: "",
-			phoneNumber: "",
-			address: "",
-			city: "",
-			state: "",
+			firstName: firstName || "",
+			lastName: lastName || "",
+			email: email,
+			phoneNumber: phoneNumber || "",
+			address: address || "",
+			city: city || "",
+			state: state || "",
 		},
 	});
 
-	function onSubmit(data: z.infer<typeof FormSchema>) {
+	function onSubmit(data: z.infer<typeof AccountSettingFormSchema>) {
 		toast({
 			title: "You submitted the following values:",
 			description: (
@@ -97,7 +92,7 @@ export function AccountSettingsForm() {
 		<div className="bg-white rounded-md p-6 mt-14">
 			<div className="mt-6 mb-10 relative inline-block">
 				<Image
-					src={"/assets/images/tomiwa-adelae.jfif"}
+					src={picture || "/assets/images/sample-img.jpg"}
 					alt={"Profile picture"}
 					width={1000}
 					height={1000}
@@ -176,9 +171,14 @@ export function AccountSettingsForm() {
 								<FormItem>
 									<FormLabel>Phone number</FormLabel>
 									<FormControl>
-										<Input
-											placeholder="Enter your phone number"
-											{...field}
+										<PhoneInput
+											placeholder="Enter phone number"
+											value={field.value}
+											onChange={(phone: any) => {
+												field.onChange(phone);
+											}}
+											defaultCountry="NG"
+											className="flex h-14 w-full rounded-md border border-input bg-background px-3 py-2 text-base sm:text-sm"
 										/>
 									</FormControl>
 									<FormMessage />

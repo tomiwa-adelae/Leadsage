@@ -25,17 +25,18 @@ const PopularServices = async () => {
 				</p>
 			</div>
 			<div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-4 mt-8">
-				{popularProperties.map(
-					({ image, title, location, price }, index) => (
-						<ProductCard
-							key={index}
-							image={image}
-							title={title}
-							price={price}
-							location={location}
-						/>
-					)
-				)}
+				{listings.data?.map((listing: any, index: string) => (
+					<ProductCard
+						key={index}
+						id={listing._id}
+						images={listing.images}
+						name={listing.name}
+						rentPrice={listing.rentPrice}
+						address={listing.address}
+						city={listing.city}
+						state={listing.state}
+					/>
+				))}
 			</div>
 			<div className="w-full mt-8 flex items-center justify-center">
 				<Button

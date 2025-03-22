@@ -41,6 +41,7 @@ const config: Config = {
 		},
 		extend: {
 			colors: {
+				warning: "#E67324",
 				gray: {
 					"100": "#f3f3f3",
 				},

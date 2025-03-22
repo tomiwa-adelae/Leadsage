@@ -13,8 +13,9 @@ import { toast } from "@/hooks/use-toast";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
+import { bookListing } from "@/lib/actions/booking.actions";
 
-export function OpenPublishModal({
+export function ConfirmBookListingModal({
 	open,
 	id,
 	userId,
@@ -32,11 +33,9 @@ export function OpenPublishModal({
 		try {
 			setLoading(true);
 
-			const res: any = await updateListing({
-				userId,
-				listingId: id,
-				type: "isPublished",
-				value: true,
+			const res: any = await bookListing({
+				user: userId,
+				listing: id,
 			});
 			if (res?.status == 400)
 				return toast({
@@ -50,7 +49,7 @@ export function OpenPublishModal({
 				description: res?.message,
 			});
 			closeModal();
-			// router.push("/listings");
+			router.push(`/success-booking?id=${res?.booking?._id}`);
 		} catch (error) {
 			setLoading(false);
 			toast({
@@ -68,12 +67,12 @@ export function OpenPublishModal({
 			<DrawerContent>
 				<div className="mx-auto w-full sm:max-w-sm lg:max-w-lg py-10 container">
 					<h4 className="text-sm uppercase font-medium">
-						✅ Confirm publish
+						✅ Confirm booking
 					</h4>
 					<p className="text-xs leading-loose mt-2 mb-4">
-						Are you sure you want to publish this listing? Once
-						published, it will be visible to others. Ensure all
-						details are accurate before proceeding.
+						Are you sure you want to book this listing? Once you
+						book it, the renter and our team would reach out to you.
+						Ensure all details are accurate before proceeding.
 					</p>
 					<div className="flex items-center justify-between gap-4 mt-4 flex-col md:flex-row w-full">
 						<DrawerClose asChild>
@@ -92,7 +91,7 @@ export function OpenPublishModal({
 							disabled={loading}
 							className="w-full md:w-auto"
 						>
-							{loading ? "Publishing..." : "Publish"}
+							{loading ? "Booking..." : "Confirm"}
 						</Button>
 					</div>
 				</div>

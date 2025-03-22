@@ -1,4 +1,6 @@
 import { Inknut_Antiqua } from "next/font/google";
+import { Button } from "../ui/button";
+import Link from "next/link";
 
 const inknut = Inknut_Antiqua({
 	subsets: ["latin"],
@@ -9,10 +11,12 @@ const Showcase = ({
 	image,
 	title,
 	description,
+	cta = [],
 }: {
 	image: string;
 	title: string;
 	description: string;
+	cta?: { slug: string; title: string }[];
 }) => {
 	return (
 		<div className="py-14">
@@ -31,6 +35,19 @@ const Showcase = ({
 					<p className="hidden lg:block text-sm md:text-base leading-loose font-medium lg:max-w-lg">
 						{description}
 					</p>
+					<div className="flex flex-col sm:flex-row items-center justify-start gap-4 w-full">
+						{cta.map((action, index) => (
+							<Button
+								key={index}
+								variant={index === 0 ? "default" : "secondary"}
+								asChild
+								size="lg"
+								className="w-full sm:w-auto"
+							>
+								<Link href={action.slug}>{action.title}</Link>
+							</Button>
+						))}
+					</div>
 				</div>
 			</div>
 		</div>

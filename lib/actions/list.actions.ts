@@ -210,6 +210,7 @@ export const createList = async ({ details, userId }: CreateListParams) => {
 
 		revalidatePath("/listings");
 		return {
+			status: 200,
 			list: JSON.parse(JSON.stringify(list)),
 			message: "You have successfully created a listing.",
 		};
@@ -254,8 +255,6 @@ export const updateListing = async ({
 			};
 
 		const listing = await List.findOne({ user: userId, _id: listingId });
-
-		console.log(listing, type, value);
 
 		if (!listing)
 			return {

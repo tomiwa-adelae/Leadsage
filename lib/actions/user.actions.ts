@@ -3,6 +3,7 @@ import { json } from "stream/consumers";
 import { connectToDatabase } from "../database";
 import User from "../database/models/user.model";
 import { handleError } from "../utils";
+import { revalidatePath } from "next/cache";
 
 // Register user
 export const createUser = async (user: CreateUserParams) => {
@@ -60,6 +61,50 @@ export const getUserInfo = async (clerkId: string) => {
 			};
 
 		return JSON.parse(JSON.stringify(user));
+	} catch (error: any) {
+		handleError(error);
+		return {
+			status: error?.status || 400,
+			message:
+				error?.message || "Oops! Couldn't get user! Try again later.",
+		};
+	}
+};
+
+// Update user details
+export const updateUser = async ({
+	userId,
+	details,
+}: {
+	userId: string;
+	details: any;
+}) => {
+	try {
+		await connectToDatabase();
+
+		const user = await User.findById(userId);
+
+		if (!user)
+			return {
+				status: 400,
+				message: "Oops! User not found.",
+			};
+
+		user.firstName = details.firstName || user.firstName;
+		user.lastName = details.lastName || user.lastName;
+		user.phoneNumber = details.phoneNumber || user.phoneNumber;
+		user.gender = details.gender || user.gender;
+		user.dob = details.dob || user.dob;
+		user.address = details.address || user.address;
+		user.city = details.city || user.city;
+		user.state = details.state || user.state;
+
+		const updatedUser = await user.save();
+
+		revalidatePath(`/account-settings`);
+		revalidatePath(`/dashboard`);
+
+		return { status: 201, message: `Successfully updated your details` };
 	} catch (error: any) {
 		handleError(error);
 		return {

@@ -1,10 +1,9 @@
 import BookingDetails from "@/components/BookingDetails";
 import { BookingImages } from "@/components/BookingImages";
-import SectionTitle from "@/components/shared/SectionTitle";
 import { getBookingDetails } from "@/lib/actions/booking.actions";
 import { getUserInfo } from "@/lib/actions/user.actions";
 import { auth } from "@clerk/nextjs";
-import React from "react";
+import { redirect } from "next/navigation";
 
 const page = async ({ params }: { params: { id: string } }) => {
 	const { userId } = auth();
@@ -14,6 +13,8 @@ const page = async ({ params }: { params: { id: string } }) => {
 	const user = await getUserInfo(userId!);
 
 	const bookingDetails = await getBookingDetails(id!, userId!);
+
+	if (bookingDetails.status === 400) redirect("/not-found");
 
 	return (
 		<div className="pb-12 relative">

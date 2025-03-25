@@ -18,6 +18,7 @@ import { getUserInfo } from "@/lib/actions/user.actions";
 import NoBookingBox from "@/components/NoBookingBox";
 import { formatDate, formatMoneyInput } from "@/lib/utils";
 import { BookingsActions } from "@/components/shared/BookingsActions";
+import { redirect } from "next/navigation";
 
 const BookingStatus = ({ status }: { status: string }) => {
 	const statusColor =
@@ -117,6 +118,8 @@ const page = async ({ searchParams }: SearchParamProps) => {
 		limit: BOOKING_LIMIT,
 		userId: user?._id,
 	});
+
+	if (bookings.status === 400) redirect("/not-found");
 
 	return (
 		<div className="pb-12">

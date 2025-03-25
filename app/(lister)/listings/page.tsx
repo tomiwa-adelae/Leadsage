@@ -18,6 +18,7 @@ import { getUserInfo } from "@/lib/actions/user.actions";
 import { formatMoneyInput } from "@/lib/utils";
 import Image from "next/image";
 import { OpenDeleteModal } from "@/components/shared/OpenDeleteModal";
+import { redirect } from "next/navigation";
 
 const page = async ({ searchParams }: SearchParamProps) => {
 	const { userId } = auth();
@@ -33,6 +34,8 @@ const page = async ({ searchParams }: SearchParamProps) => {
 		limit: LISTING_LIMIT,
 		userId: user?._id,
 	});
+
+	if (lists.status === 400) redirect("/not-found");
 
 	return (
 		<div className="pb-12">

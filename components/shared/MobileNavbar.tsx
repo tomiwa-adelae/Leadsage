@@ -26,7 +26,7 @@ const inknut = Inknut_Antiqua({
 	weight: ["300", "400", "500"],
 });
 
-export function MobileNavbar() {
+export function MobileNavbar({ userDetails }: any) {
 	const { user } = useUser();
 
 	const pathname = usePathname();
@@ -131,72 +131,64 @@ export function MobileNavbar() {
 							<div>
 								<Separator className="my-4" />
 								<nav className="flex flex-col font-semibold gap-4 p-4 text-xs uppercase">
-									{dashboardLinks.map(
-										({ title, links }, index) => (
-											<div key={index}>
-												<h4 className="uppercase text-xs font-medium text-gray-400 container">
-													{title}
-												</h4>
-												<div className="grid gap-2 mt-4">
-													{links.map(
-														(
-															{
-																slug,
-																title,
-																icon,
-															},
-															index
-														) => {
-															const isActive =
-																pathname ===
-																	slug ||
-																pathname.startsWith(
-																	`${slug}/`
-																);
-															return (
-																<SheetClose
-																	asChild
-																	key={index}
-																	className="p-3.5 hover:bg-gray-100 transition ease-out"
-																>
-																	<Link
-																		href={
-																			slug
-																		}
-																		className={`flex items-center gap-3 justify-start ${
-																			isActive &&
-																			"text-green-400"
-																		}`}
-																	>
-																		<Image
-																			src={
-																				icon
-																			}
-																			alt={
-																				title
-																			}
-																			width={
-																				1000
-																			}
-																			height={
-																				1000
-																			}
-																			className="w-[20px] h-[20px]"
-																		/>
-																		<p>
-																			{
-																				title
-																			}
-																		</p>
-																	</Link>
-																</SheetClose>
+									{(userDetails?.isRenter
+										? dashboardLinks
+										: dashboardMemberLinks
+									).map(({ title, links }, index) => (
+										<div key={index}>
+											<h4 className="uppercase text-xs font-medium text-gray-400 container">
+												{title}
+											</h4>
+											<div className="grid gap-2 mt-4">
+												{links.map(
+													(
+														{ slug, title, icon },
+														index
+													) => {
+														const isActive =
+															pathname === slug ||
+															pathname.startsWith(
+																`${slug}/`
 															);
-														}
-													)}
-												</div>
+														return (
+															<SheetClose
+																asChild
+																key={index}
+																className="p-3.5 hover:bg-gray-100 transition ease-out"
+															>
+																<Link
+																	href={slug}
+																	className={`flex items-center gap-3 justify-start ${
+																		isActive &&
+																		"text-green-400"
+																	}`}
+																>
+																	<Image
+																		src={
+																			icon
+																		}
+																		alt={
+																			title
+																		}
+																		width={
+																			1000
+																		}
+																		height={
+																			1000
+																		}
+																		className="w-[20px] h-[20px]"
+																	/>
+																	<p>
+																		{title}
+																	</p>
+																</Link>
+															</SheetClose>
+														);
+													}
+												)}
 											</div>
-										)
-									)}
+										</div>
+									))}
 									<SheetClose
 										asChild
 										className="p-3.5 hover:bg-gray-100 transition ease-out cursor-pointer"

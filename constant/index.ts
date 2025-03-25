@@ -363,6 +363,11 @@ export const dashboardLinks = [
 				slug: "/create-listing",
 				icon: "/assets/icons/house.svg",
 			},
+			{
+				title: "Bookings",
+				slug: "/bookings",
+				icon: "/assets/icons/folder.svg",
+			},
 
 			// {
 			// 	title: "Saved",
@@ -584,3 +589,4 @@ export const apartmentDurations = ["monthly", "annually", "bi-annually"];
 export const genders = ["male", "female"];
 
 export const LISTING_LIMIT = 10;
+export const BOOKING_LIMIT = 10;

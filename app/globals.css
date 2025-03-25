@@ -81,3 +81,9 @@ body {
 .PhoneInput input {
 	outline: none;
 }
+
+.cl-formFieldInput {
+	height: 56px !important;
+	border-radius: 8px !important;
+	font-weight: 500;
+}

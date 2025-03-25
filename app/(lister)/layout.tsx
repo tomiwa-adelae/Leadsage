@@ -18,14 +18,14 @@ export default async function Layout({
 
 	const user = await getUserInfo(userId!);
 
-	// if (user?.isRenter === undefined) redirect("/choose-account");
+	if (user?.isRenter === undefined) redirect("/choose-account");
 	// if (!user?.isRenter) redirect("/not-authorized");
 
 	return (
 		<div className="bg-gray-100">
-			<Sidebar />
+			<Sidebar user={user} />
 			<div className="lg:ml-[300px]">
-				<TopNavbar />
+				<TopNavbar user={user} />
 				<div className="min-h-screen pt-8">
 					<div className="container">{children}</div>
 					<Footer />

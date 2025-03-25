@@ -10,7 +10,7 @@ interface IImage {
 interface IList extends Document {
 	user: Types.ObjectId; // Reference to User model
 	name: string;
-	category?: string;
+	category?: Types.ObjectId;
 	rentPrice?: string;
 	availabilityDate?: string;
 	address?: string;
@@ -47,7 +47,10 @@ const ListSchema = new Schema<IList>(
 			type: String,
 			required: true,
 		},
-		category: { type: String },
+		category: {
+			type: Schema.Types.ObjectId,
+			ref: "Category",
+		},
 		rentPrice: {
 			type: String,
 		},

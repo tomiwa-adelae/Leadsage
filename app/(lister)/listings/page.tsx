@@ -52,7 +52,7 @@ const page = async ({ searchParams }: SearchParamProps) => {
 				<Table className="mt-10 bg-white rounded-md">
 					<TableHeader>
 						<TableRow>
-							<TableHead>Space name</TableHead>
+							<TableHead>Listing name</TableHead>
 							<TableHead>Location</TableHead>
 							<TableHead>Amount</TableHead>
 							<TableHead className="text-center">

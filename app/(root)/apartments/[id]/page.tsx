@@ -16,13 +16,7 @@ const ApartmentLocation = dynamic(
 	}
 );
 
-const page = async ({
-	searchParams,
-	params,
-}: {
-	searchParams: { admin?: string };
-	params: { id: string };
-}) => {
+const page = async ({ params }: { params: { id: string } }) => {
 	const { userId } = auth();
 
 	const user = await getUserInfo(userId!);

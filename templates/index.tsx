@@ -1,6 +1,6 @@
-import { formatMoneyInput } from "@/lib/utils";
+import { formatDate, formatMoneyInput } from "@/lib/utils";
 
-export const generateUserEmail = (booking: any) => `
+export const generateRenterEmail = (booking: any) => `
 <!DOCTYPE html>
 <html>
 <head>
@@ -174,7 +174,7 @@ export const generateAdminEmail = (booking: any) => `
 </html>
 `;
 
-export const generateRenterEmail = (booking: any) => `
+export const generateLandlordEmail = (booking: any) => `
 <!DOCTYPE html>
 <html>
 <head>
@@ -261,3 +261,444 @@ export const generateRenterEmail = (booking: any) => `
 </body>
 </html>
 `;
+
+export const generateRenterCancellationEmail = (booking: any) => {
+	return `<!DOCTYPE html>
+<html>
+<head>
+<head>
+    <meta charset="UTF-8">
+    <title>Your Booking Has Been Cancelled!</title>
+</head>
+    <style>
+        body { font-family: Arial, sans-serif; background-color: #f4f4f4; padding: 20px; }
+        .container { background: #ffffff; padding: 20px; border-radius: 8px; max-width: 600px; margin: auto; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); }
+        h2 { color: #333; }
+        p { color: #555; line-height: 1.6; }
+        .details { background: #f8f8f8; padding: 15px; border-radius: 5px; margin-top: 15px; }
+        .footer { text-align: center; font-size: 12px; color: #777; margin-top: 20px; }
+        .btn { display: inline-block; padding: 10px 15px; background: #007bff; color: #fff; text-decoration: none; border-radius: 5px; margin-top: 10px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Your Booking Has Been Canceled</h2>
+        <p>Hi <strong>${booking.user.firstName} ${
+		booking.user.lastName
+	}</strong>,</p>
+        <p>Your booking for <strong>${
+			booking.listing.name
+		}</strong> at <strong>${booking.listing.address}, ${
+		booking.listing.city
+	}, ${booking.listing.state}</strong> has been successfully canceled.</p>
+        
+        <div class="details">
+            <p><strong>Booking Details:</strong></p>
+            <p>🏡 <strong>Listing:</strong>${booking.listing.name}</p>
+            <p>📅 <strong>Booking-in Date:</strong> ${formatDate(
+				booking.createdAt
+			)}</p>
+            <p>🛑 <strong>Cancellation Date:</strong> ${formatDate(
+				booking.updatedAt
+			)}</p>
+        </div>
+
+        <p>If you need assistance, please contact our support team.</p>
+
+        <a href="${
+			process.env.WEBSITE_URL
+		}/contact" class="btn">Contact Support</a>
+
+        <p class="footer">Thank you for choosing Leadsage! We look forward to helping you find another great space.</p>
+    </div>
+</body>
+</html>`;
+};
+
+export const generateLandlordCancellationEmail = (booking: any) => {
+	return `<!DOCTYPE html>
+<html>
+<head>
+<head>
+    <meta charset="UTF-8">
+    <title>Your Booking Has Been Cancelled!</title>
+</head>
+    <style>
+        body { font-family: Arial, sans-serif; background-color: #f4f4f4; padding: 20px; }
+        .container { background: #ffffff; padding: 20px; border-radius: 8px; max-width: 600px; margin: auto; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); }
+        h2 { color: #333; }
+        p { color: #555; line-height: 1.6; }
+        .details { background: #f8f8f8; padding: 15px; border-radius: 5px; margin-top: 15px; }
+        .footer { text-align: center; font-size: 12px; color: #777; margin-top: 20px; }
+        .btn { display: inline-block; padding: 10px 15px; background: #007bff; color: #fff; text-decoration: none; border-radius: 5px; margin-top: 10px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Booking Cancellation Notice</h2>
+        <p>Hi <strong>${booking.listing.user.firstName} ${
+		booking.listing.user.lastName
+	}</strong>,</p>
+        <p>The renter <strong>${booking.user.firstName} ${
+		booking.user.lastName
+	}</strong> has canceled their booking for your property, <strong>${
+		booking.listing.name
+	}</strong>.</p>
+        
+        <div class="details">
+            <p><strong>Booking Details:</strong></p>
+            <p>🏡 <strong>Listing:</strong> ${booking.listing.name}</p>
+            <p>👤 <strong>Renter:</strong> ${booking.user.firstName} ${
+		booking.user.lastName
+	}</p>
+            <p>📅 <strong>Original Booking-in Date:</strong> ${formatDate(
+				booking.createdAt
+			)}</p>
+            <p>🛑 <strong>Cancellation Date:</strong> ${formatDate(
+				booking.updatedAt
+			)}</p>
+        </div>
+
+        <p>You can review this cancellation in your dashboard.</p>
+
+        <a href="${process.env.WEBSITE_URL}/bookings/${
+		booking._id
+	}" class="btn">View Dashboard</a>
+
+        <p class="footer">Thank you for listing with Leadsage! We look forward to connecting you with new renters.</p>
+    </div>
+</body>
+</html>`;
+};
+
+export const generateAdminCancellationEmail = (booking: any) => {
+	return `<!DOCTYPE html>
+<html>
+<head>
+<head>
+    <meta charset="UTF-8">
+    <title>A Booking Has Been Cancelled!</title>
+</head>
+    <style>
+        body { font-family: Arial, sans-serif; background-color: #f4f4f4; padding: 20px; }
+        .container { background: #ffffff; padding: 20px; border-radius: 8px; max-width: 600px; margin: auto; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); }
+        h2 { color: #333; }
+        p { color: #555; line-height: 1.6; }
+        .details { background: #f8f8f8; padding: 15px; border-radius: 5px; margin-top: 15px; }
+        .footer { text-align: center; font-size: 12px; color: #777; margin-top: 20px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Booking Cancellation Alert</h2>
+        <p>Hello Admin,</p>
+        <p>A renter has canceled their booking. Below are the details:</p>
+        
+        <div class="details">
+            <p><strong>Booking Information:</strong></p>
+            <p>🏡 <strong>Listing:</strong>${booking.listing.name}</p>
+            <p>👤 <strong>Landlord:</strong> ${
+				booking.listing.user.firstName
+			} ${booking.listing.user.lastName} (${
+		booking.listing.user.email
+	})</p>
+            <p>👤 <strong>Renter:</strong> ${booking.user.firstName} ${
+		booking.user.lastName
+	} (${booking.user.email})</p>
+            <p>📅 <strong>Original Booking-in Date:</strong> ${formatDate(
+				booking.createdAt
+			)}</p>
+            <p>🛑 <strong>Cancellation Date:</strong> ${formatDate(
+				booking.updatedAt
+			)}</p>
+        </div>
+
+        <p>Please review this cancellation and take any necessary action.</p>
+
+        <p class="footer">Leadsage System Notification</p>
+    </div>
+</body>
+</html>`;
+};
+
+export const generateRenterApprovedEmail = (booking: any) => {
+	return `
+    <!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>🎉 Your Booking Has Been Approved!</title>
+    <style>
+        body { font-family: Arial, sans-serif; background-color: #f4f4f4; padding: 20px; }
+        .container { background: #ffffff; padding: 20px; border-radius: 8px; max-width: 600px; margin: auto; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); }
+        h2 { color: #28a745; }
+        p { color: #555; line-height: 1.6; }
+        .details { background: #f8f8f8; padding: 15px; border-radius: 5px; margin-top: 15px; }
+        .footer { text-align: center; font-size: 12px; color: #777; margin-top: 20px; }
+        .btn { display: inline-block; padding: 10px 15px; background: #007bff; color: #fff; text-decoration: none; border-radius: 5px; margin-top: 10px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>🎉 Your Booking Has Been Approved!</h2>
+        <p>Dear <strong>${booking.user.firstName} ${
+		booking.user.lastName
+	}</strong>,</p>
+        <p>Great news! Your booking request for <strong>${
+			booking.listing.name
+		}</strong> has been approved by the landlord, <strong>${
+		booking.listing.user.firstName
+	} ${booking.listing.user.lastName}</strong>.</p>
+        
+        <div class="details">
+            <p><strong>Booking Details:</strong></p>
+            <p>📍 <strong>Property:</strong> ${booking.listing.name}</p>
+            <p>📅 <strong>Original Booking-in Date:</strong> ${formatDate(
+				booking.createdAt
+			)}</p>
+            <p>💰 <strong>Total Amount:</strong> ${formatMoneyInput(
+				booking.listing.rentPrice
+			)}</p>
+             <p>✅ <strong>Approval Date:</strong> ${formatDate(
+					booking.updatedAt
+				)}</p>
+        </div>
+
+        <p>You can view your booking details below.</p>
+
+        <a href="${process.env.WEBSITE_URL}/bookings/${
+		booking._id
+	}" class="btn">View Booking</a>
+
+        <p class="footer">Thank you for choosing Leadsage!</p>
+    </div>
+</body>
+</html>`;
+};
+
+export const generateRenterRejectedEmail = (booking: any) => {
+	return `
+    <!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>❌ Your Booking Has Been Rejected!</title>
+    <style>
+        body { font-family: Arial, sans-serif; background-color: #f4f4f4; padding: 20px; }
+        .container { background: #ffffff; padding: 20px; border-radius: 8px; max-width: 600px; margin: auto; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); }
+        h2 { color: #28a745; }
+        p { color: #555; line-height: 1.6; }
+        .details { background: #f8f8f8; padding: 15px; border-radius: 5px; margin-top: 15px; }
+        .footer { text-align: center; font-size: 12px; color: #777; margin-top: 20px; }
+        .btn { display: inline-block; padding: 10px 15px; background: #007bff; color: #fff; text-decoration: none; border-radius: 5px; margin-top: 10px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>❌ Your Booking Has Been Rejected!</h2>
+        <p>Dear <strong>${booking.user.firstName} ${
+		booking.user.lastName
+	}</strong>,</p>
+        <p>Sad news! Your booking request for <strong>${
+			booking.listing.name
+		}</strong> has been rejected by the landlord, <strong>${
+		booking.listing.user.firstName
+	} ${booking.listing.user.lastName}</strong>.</p>
+        
+        <div class="details">
+            <p><strong>Booking Details:</strong></p>
+            <p>📍 <strong>Property:</strong> ${booking.listing.name}</p>
+            <p>📅 <strong>Original Booking-in Date:</strong> ${formatDate(
+				booking.createdAt
+			)}</p>
+            <p>💰 <strong>Total Amount:</strong> ${formatMoneyInput(
+				booking.listing.rentPrice
+			)}</p>
+            <p>❌ <strong>Rejection Date:</strong> ${formatDate(
+				booking.updatedAt
+			)}</p>
+        </div>
+
+        <p>You can view your booking details below.</p>
+
+        <a href="${process.env.WEBSITE_URL}/bookings/${
+		booking._id
+	}" class="btn">View Booking</a>
+
+        <p class="footer">Thank you for choosing Leadsage!</p>
+    </div>
+</body>
+</html>`;
+};
+
+export const generateLandlordApprovedEmail = (booking: any) => {
+	return `<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>✅ You Approved a Booking</title>
+</head>
+<body>
+    <div class="container">
+        <h2>✅ You Approved a Booking</h2>
+        <p>Dear <strong>${booking.listing.user.firstName} ${
+		booking.listing.user.lastName
+	}</strong>,</p>
+        <p>You have successfully approved a booking for your property, <strong>${
+			booking.listing.name
+		}</strong>.</p>
+        
+        <div class="details">
+            <p><strong>Booking Details:</strong></p>
+            <p>📍 <strong>Property:</strong> ${booking.listing.name}</p>
+            <p>👤 <strong>Renter:</strong> ${booking.user.firstName} ${
+		booking.user.lastName
+	}</p>
+            <p>📅 <strong>Original Booking-in Date:</strong> ${formatDate(
+				booking.createdAt
+			)}</p>
+              <p>✅ <strong>Approval Date:</strong> ${formatDate(
+					booking.updatedAt
+				)}</p>
+        </div>
+
+        <p>You can manage your property bookings via your dashboard.</p>
+
+        <a href="${process.env.WEBSITE_URL}/bookings/${
+		booking._id
+	}" class="btn">Manage Bookings</a>
+
+        <p class="footer">Thank you for listing with Leadsage!</p>
+    </div>
+</body>
+</html>`;
+};
+
+export const generateLandlordRejectedEmail = (booking: any) => {
+	return `<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>❌ You Rejected a Booking</title>
+</head>
+<body>
+    <div class="container">
+        <h2>❌ You Rejected a Booking</h2>
+        <p>Dear <strong>${booking.listing.user.firstName} ${
+		booking.listing.user.lastName
+	}</strong>,</p>
+        <p>You have successfully rejected a booking for your property, <strong>${
+			booking.listing.name
+		}</strong>.</p>
+        
+        <div class="details">
+            <p><strong>Booking Details:</strong></p>
+            <p>📍 <strong>Property:</strong> ${booking.listing.name}</p>
+            <p>👤 <strong>Renter:</strong> ${booking.user.firstName} ${
+		booking.user.lastName
+	}</p>
+            <p>📅 <strong>Original Booking-in Date:</strong> ${formatDate(
+				booking.createdAt
+			)}</p>
+            <p>❌ <strong>Rejection Date:</strong> ${formatDate(
+				booking.updatedAt
+			)}</p>
+        </div>
+
+        <p>You can manage your property bookings via your dashboard.</p>
+
+        <a href="${process.env.WEBSITE_URL}/bookings/${
+		booking._id
+	}" class="btn">Manage Bookings</a>
+
+        <p class="footer">Thank you for listing with Leadsage!</p>
+    </div>
+</body>
+</html>`;
+};
+
+export const generateAdminApprovedEmail = (booking: any) => {
+	return `<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>🔔 Booking Approved Notification</title>
+</head>
+<body>
+    <div class="container">
+        <h2>🔔 A Booking Has Been Approved</h2>
+        <p>Hello Admin,</p>
+        <p>The landlord, <strong>${booking.listing.user.firstName} ${
+		booking.listing.user.lastName
+	}</strong>, has approved a booking for <strong>${
+		booking.listing.name
+	}</strong>.</p>
+        
+        <div class="details">
+            <p><strong>Booking Details:</strong></p>
+            <p>🏡 <strong>Property:</strong> ${booking.listing.name}</p>
+            <p>👤 <strong>Renter:</strong> ${booking.user.firstName} ${
+		booking.user.lastName
+	} (${booking.user.email})</p>
+            <p>📅 <strong>Original Booking-in Date:</strong> ${formatDate(
+				booking.createdAt
+			)}</p>
+              <p>✅ <strong>Approval Date:</strong> ${formatDate(
+					booking.updatedAt
+				)}</p>
+        </div>
+
+        <p>Please review this booking if necessary.</p>
+
+        <a href="${process.env.WEBSITE_URL}/bookings/${
+		booking._id
+	}" class="btn">View Booking</a>
+
+        <p class="footer">Leadsage System Notification</p>
+    </div>
+</body>
+</html>`;
+};
+
+export const generateAdminRejectedEmail = (booking: any) => {
+	return `<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>🔔 Booking Rejected Notification</title>
+</head>
+<body>
+    <div class="container">
+        <h2>🔔 A Booking Has Been Rejected</h2>
+        <p>Hello Admin,</p>
+        <p>The landlord, <strong>${booking.listing.user.firstName} ${
+		booking.listing.user.lastName
+	}</strong>, has rejected a booking for <strong>${
+		booking.listing.name
+	}</strong>.</p>
+        
+        <div class="details">
+            <p><strong>Booking Details:</strong></p>
+            <p>🏡 <strong>Property:</strong> ${booking.listing.name}</p>
+            <p>👤 <strong>Renter:</strong> ${booking.user.firstName} ${
+		booking.user.lastName
+	} (${booking.user.email})</p>
+            <p>📅 <strong>Original Booking-in Date:</strong> ${formatDate(
+				booking.createdAt
+			)}</p>
+            <p>❌ <strong>Rejection Date:</strong> ${formatDate(
+				booking.updatedAt
+			)}</p>
+        </div>
+
+        <p>Please review this booking if necessary.</p>
+
+        <a href="${process.env.WEBSITE_URL}/bookings/${
+		booking._id
+	}" class="btn">View Booking</a>
+
+        <p class="footer">Leadsage System Notification</p>
+    </div>
+</body>
+</html>`;
+};

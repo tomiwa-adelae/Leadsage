@@ -12,6 +12,10 @@ const BookingSchema = new Schema(
 			required: true,
 			ref: "User",
 		},
+		status: {
+			type: String,
+			default: "inactive",
+		},
 	},
 	{ timestamps: true }
 );

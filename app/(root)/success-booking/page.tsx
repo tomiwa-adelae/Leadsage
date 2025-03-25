@@ -37,7 +37,10 @@ const page = async ({ searchParams }: PageProps) => {
 					"Your booking has been confirmed. Check your email for details."
 				}
 				cta={[
-					{ title: "Go to Dashboard", slug: "/dashboard" },
+					{
+						title: "Go to Booking",
+						slug: `/bookings/${booking?.booking._id}`,
+					},
 					{ title: "Go back home", slug: "/" },
 				]}
 			/>

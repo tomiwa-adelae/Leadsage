@@ -14,7 +14,7 @@ const inknut = Inknut_Antiqua({
 	weight: ["300", "400", "500"],
 });
 
-const TopNavbar = () => {
+const TopNavbar = ({ user }: any) => {
 	return (
 		<nav className="py-4 lg:left-[300px] w-full bg-white shadow-[0px_2px_10px_-2px_rgba(0,0,0,0.1)] z-50">
 			<div className="container flex items-center justify-between">
@@ -63,9 +63,9 @@ const TopNavbar = () => {
 							/>
 						</Link>
 					</div>
-					<ProfileDropdown />
+					<ProfileDropdown userDetails={user} />
 					<div className="lg:hidden">
-						<MobileNavbar />
+						<MobileNavbar userDetails={user} />
 					</div>
 				</div>
 			</div>

@@ -32,3 +32,10 @@ declare interface CreateListParams {
 declare interface SearchParams {
 	id?: string;
 }
+
+declare interface GetBookingsParams {
+	query: string;
+	limit: number;
+	page: number;
+	userId: string;
+}

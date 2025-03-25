@@ -15,7 +15,7 @@ import { useClerk, useUser } from "@clerk/nextjs";
 import React from "react";
 import { useRouter } from "next/navigation";
 
-export function ProfileDropdown() {
+export function ProfileDropdown({ userDetails }: any) {
 	const { user } = useUser();
 	const { signOut } = useClerk();
 
@@ -37,7 +37,10 @@ export function ProfileDropdown() {
 				/>
 			</DropdownMenuTrigger>
 			<DropdownMenuContent className="w-56">
-				{dashboardLinks.map((link, index) => (
+				{(userDetails?.isRenter
+					? dashboardLinks
+					: dashboardMemberLinks
+				).map((link, index) => (
 					<React.Fragment key={index}>
 						<DropdownMenuLabel className="uppercase font-medium text-xs text-gray-400">
 							{link.title}

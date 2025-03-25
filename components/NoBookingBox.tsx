@@ -3,12 +3,12 @@ import { Button } from "./ui/button";
 import Link from "next/link";
 import Image from "next/image";
 
-const NoListingBox = () => {
+const NoBookingBox = ({ isRenter }: { isRenter: boolean }) => {
 	return (
 		<div className="bg-white rounded-md py-8 mt-10 shadow-[0px_2px_3px_-1px_rgba(0,0,0,0.1),0px_1px_0px_0px_rgba(25,28,33,0.02),0px_0px_0px_1px_rgba(25,28,33,0.08)]">
 			<div className="container text-center flex flex-col gap-10 items-center justify-center">
 				<h3 className="font-semibold text-lg lg:text-xl">
-					No listings added yet
+					No bookings yet
 				</h3>
 				<div className="flex items-center justify-center gap-4">
 					<Image
@@ -27,16 +27,18 @@ const NoListingBox = () => {
 					/>
 				</div>
 				<p className="text-gray-700 text-sm">
-					Listing your space is the first step to take as a Leadsage
-					landlord and we’ve made that super easy for you. Now, let’s
-					show the world what they are missing.
+					{isRenter
+						? "No one has made any bookings yet! Once they make a booking, you would see them here."
+						: "You haven't made any bookings yet! Start exploring and find the perfect space that meets your needs."}
 				</p>
-				<Button size={"md"} asChild>
-					<Link href="/create-listing">List your first space</Link>
-				</Button>
+				{!isRenter && (
+					<Button size={"md"} asChild>
+						<Link href="/apartments">Browse apartments</Link>
+					</Button>
+				)}
 			</div>
 		</div>
 	);
 };
 
-export default NoListingBox;
+export default NoBookingBox;

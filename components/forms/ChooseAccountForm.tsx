@@ -97,7 +97,7 @@ const ChooseAccountForm = () => {
 							/>
 						</div>
 						<h5 className="text-base font-semibold">
-							Join as a host
+							Join as a landlord
 						</h5>
 					</div>
 					<p className="text-sm leading-loose my-3 text-gray-700">

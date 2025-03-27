@@ -33,22 +33,15 @@ const Header = ({ color = "white" }: { color?: string }) => {
 				</h3>
 				<NavigationDropdowns color={color} />
 				<div className={`gap-4 hidden md:flex`}>
-					<Button variant={"ghost"} size={"icon"}>
-						<Image
-							src={"/assets/icons/search.svg"}
-							alt={"Search Icon"}
-							width={1000}
-							height={1000}
-							className={`w-[20px] h-[20px] ${
-								pathname === "/" && "invert"
-							}`}
-						/>
-					</Button>
-
 					<SignedIn>
 						<ProfileDropdown />
 					</SignedIn>
 					<SignedOut>
+						<Button variant={"ghost"} asChild>
+							<Link href="/sign-in?type=landlord">
+								Become a Landlord
+							</Link>
+						</Button>
 						<Button variant={"ghost"} asChild>
 							<Link href="/sign-in">Login</Link>
 						</Button>

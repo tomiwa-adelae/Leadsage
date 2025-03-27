@@ -19,7 +19,7 @@ import { usePathname, useRouter } from "next/navigation";
 import { Input } from "../ui/input";
 import { Separator } from "../ui/separator";
 import { ScrollArea } from "../ui/scroll-area";
-import { SignedOut, useClerk, useUser } from "@clerk/nextjs";
+import { SignedIn, SignedOut, useClerk, useUser } from "@clerk/nextjs";
 
 const inknut = Inknut_Antiqua({
 	subsets: ["latin"],
@@ -124,7 +124,7 @@ export function MobileNavbar({ userDetails }: any) {
 							</Button>
 						</SignedOut>
 					</div>
-					{userDetails && (
+					<SignedIn>
 						<>
 							<div>
 								<Separator className="my-4" />
@@ -225,7 +225,7 @@ export function MobileNavbar({ userDetails }: any) {
 								</div>
 							</div>
 						</>
-					)}
+					</SignedIn>
 				</ScrollArea>
 			</SheetContent>
 		</Sheet>

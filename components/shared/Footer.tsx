@@ -35,10 +35,10 @@ const Footer = () => {
 				<div className="py-8 grid grid-cols-1 gap-10 md:grid-cols-2 lg:grid-cols-3">
 					{footerLinks.map(({ title, links }, index) => (
 						<div key={index}>
-							<h4 className="font-semibold text-base text-white">
+							<h4 className="font-semibold text-[17px] text-white">
 								{title}
 							</h4>
-							<ul className="space-y-6 text-xs mt-6 text-gray-200">
+							<ul className="space-y-6 text-[15px] mt-6 text-gray-200">
 								{links.map(({ title, slug }, index) => (
 									<li key={index}>
 										<Link href={slug}>{title}</Link>

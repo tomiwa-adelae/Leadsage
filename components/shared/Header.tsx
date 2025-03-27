@@ -4,8 +4,6 @@ import { Button } from "../ui/button";
 import Link from "next/link";
 import { NavigationDropdowns } from "./NavigationDropdowns";
 import { MobileNavbar } from "./MobileNavbar";
-import Image from "next/image";
-import { usePathname } from "next/navigation";
 import { ProfileDropdown } from "./ProfileDropdown";
 import { SignedIn, SignedOut } from "@clerk/nextjs";
 
@@ -15,8 +13,6 @@ const inknut = Inknut_Antiqua({
 });
 
 const Header = ({ color = "white" }: { color?: string }) => {
-	const pathname = usePathname();
-
 	return (
 		<div
 			className={`${
@@ -38,7 +34,7 @@ const Header = ({ color = "white" }: { color?: string }) => {
 					</SignedIn>
 					<SignedOut>
 						<Button variant={"ghost"} asChild>
-							<Link href="/sign-in?type=landlord">
+							<Link href="/sign-up?type=landlord">
 								Become a Landlord
 							</Link>
 						</Button>

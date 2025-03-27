@@ -5,6 +5,9 @@ export function Testimonials() {
 	return (
 		<div>
 			<div className="space-y-2 container mb-8">
+				<h4 className="font-medium text-sm lg:text-base text-green-400 mb-4">
+					Testimonials
+				</h4>
 				<h2 className="font-semibold text-2xl lg:text-3xl">
 					Trusted By Many, Loved By All
 				</h2>

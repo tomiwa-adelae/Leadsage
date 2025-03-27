@@ -116,13 +116,13 @@ export const AnimatedTestimonials = ({
 							ease: "easeInOut",
 						}}
 					>
-						<h3 className="text-xl lg:text-3xl font-bold text-gray-900">
+						<h3 className="text-xl lg:text-3xl font-bold">
 							{testimonials[active].name}
 						</h3>
-						<p className="hidden lg:text-sm text-gray-500 mt-2">
+						<p className="hidden lg:text-sm text-gray-200 mt-2">
 							{testimonials[active].designation}
 						</p>
-						<motion.p className="text-sm lg:text-base text-gray-700 lg:mt-8 leading-loose">
+						<motion.p className="text-sm lg:text-base text-gray-200 lg:mt-8 leading-loose lg:leading-loose">
 							{testimonials[active].quote
 								.split(" ")
 								.map((word, index) => (
@@ -153,15 +153,15 @@ export const AnimatedTestimonials = ({
 					<div className="flex gap-4 pt-12 md:pt-0">
 						<button
 							onClick={handlePrev}
-							className="h-7 w-7 rounded-full bg-gray-100 dark:bg-neutral-800 flex items-center justify-center group/button"
+							className="h-7 w-7 rounded-full bg-green-100 dark:bg-neutral-800 flex items-center justify-center group/button"
 						>
-							<IconArrowLeft className="h-5 w-5 text-black dark:text-neutral-400 group-hover/button:rotate-12 transition-transform duration-300" />
+							<IconArrowLeft className="h-5 w-5 group-hover/button:rotate-12  text-black  transition-transform duration-300" />
 						</button>
 						<button
 							onClick={handleNext}
-							className="h-7 w-7 rounded-full bg-gray-100 dark:bg-neutral-800 flex items-center justify-center group/button"
+							className="h-7 w-7 rounded-full bg-green-100 dark:bg-neutral-800 flex items-center justify-center group/button"
 						>
-							<IconArrowRight className="h-5 w-5 text-black dark:text-neutral-400 group-hover/button:-rotate-12 transition-transform duration-300" />
+							<IconArrowRight className="h-5 w-5 group-hover/button:-rotate-12 text-black transition-transform duration-300" />
 						</button>
 					</div>
 				</div>

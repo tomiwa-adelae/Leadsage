@@ -5,6 +5,7 @@ import { PartneringCompanies } from "@/components/PartneringCompanies";
 import PopularServices from "@/components/PopularServices";
 import Showcase from "@/app/(root)/(home)/components/Showcase";
 import { Testimonials } from "@/components/Testimonials";
+import FAQs from "@/components/shared/FAQs";
 
 const page = () => {
 	return (
@@ -16,6 +17,7 @@ const page = () => {
 			<PartneringCompanies />
 			<BrowserCategories />
 			<Testimonials />
+			<FAQs />
 		</div>
 	);
 };

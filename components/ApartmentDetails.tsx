@@ -55,13 +55,6 @@ const ApartmentDetails = ({
 		setOpenModal(true);
 	};
 
-	const features = [
-		"4 bed(s)",
-		"Shared space",
-		"Ensuite bathroom",
-		"24 hrs power",
-		"Furnished",
-	];
 	return (
 		<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4 py-8">
 			<div className="col-span-2 lg:col-span-3 space-y-4 border-b">
@@ -127,16 +120,6 @@ const ApartmentDetails = ({
 						)}
 					</p>
 				</div>
-				<ul className="flex items-center justify-start flex-wrap text-sm text-gray-700 gap-4 pb-4">
-					{features.map((feature, index) => (
-						<React.Fragment key={index}>
-							<li>{feature}</li>
-							{index !== features.length - 1 && (
-								<Dot className="inline" />
-							)}
-						</React.Fragment>
-					))}
-				</ul>
 				<div>
 					<Separator />
 				</div>

@@ -32,7 +32,7 @@ const ProductCard = ({
 					alt={name}
 					width={1000}
 					height={1000}
-					className="group-hover:scale-[1.1] aspect-video object-cover transition ease-out"
+					className="group-hover:scale-[1.1] aspect-video min-h-40 object-cover transition ease-out"
 				/>
 			</div>
 			<div className="p-3 lg:p-6">
@@ -48,18 +48,16 @@ const ProductCard = ({
 							height={1000}
 							className="w-[20px] h-[20px] inline-block mr-2"
 						/>
-						{address}, {city}, {state}
+						{city}, {state}
 					</p>
 				</div>
 				<div>
 					<Separator className="my-4" />
 				</div>
 				<p className="text-gray-700 text-xs lg:text-sm">
-					From{" "}
 					<b className="text-gray-900">
 						₦{formatMoneyInput(rentPrice)}
-					</b>{" "}
-					annually
+					</b>
 				</p>
 			</div>
 		</Link>

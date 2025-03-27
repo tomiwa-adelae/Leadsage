@@ -49,6 +49,9 @@ const Header = ({ color = "white" }: { color?: string }) => {
 						<ProfileDropdown />
 					</SignedIn>
 					<SignedOut>
+						<Button variant={"ghost"} asChild>
+							<Link href="/sign-in">Login</Link>
+						</Button>
 						<Button asChild>
 							<Link href="/sign-up">Join us</Link>
 						</Button>
@@ -59,6 +62,9 @@ const Header = ({ color = "white" }: { color?: string }) => {
 						<ProfileDropdown />
 					</SignedIn>
 					<SignedOut>
+						<Button asChild>
+							<Link href="/sign-in">Login</Link>
+						</Button>
 						<Button
 							asChild
 							variant={"ghost"}

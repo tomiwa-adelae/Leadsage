@@ -115,18 +115,16 @@ export function MobileNavbar({ userDetails }: any) {
 							/>
 						</div> */}
 
-						{
-							<SignedOut>
-								<Button asChild variant={"ghost"}>
-									<Link href="/sign-in">Sign in</Link>
-								</Button>
-								<Button asChild>
-									<Link href="/sign-up">Join us</Link>
-								</Button>
-							</SignedOut>
-						}
+						<SignedOut>
+							<Button asChild variant={"ghost"}>
+								<Link href="/sign-in">Sign in</Link>
+							</Button>
+							<Button asChild>
+								<Link href="/sign-up">Join us</Link>
+							</Button>
+						</SignedOut>
 					</div>
-					{
+					{userDetails && (
 						<>
 							<div>
 								<Separator className="my-4" />
@@ -227,7 +225,7 @@ export function MobileNavbar({ userDetails }: any) {
 								</div>
 							</div>
 						</>
-					}
+					)}
 				</ScrollArea>
 			</SheetContent>
 		</Sheet>

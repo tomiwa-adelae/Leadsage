@@ -302,7 +302,12 @@ export const updateListing = async ({
 		revalidatePath(`/apartments`);
 		revalidatePath(`/apartments/${listing._id}`);
 
-		return { status: 201, message: `Successfully updated the ${type}` };
+		return {
+			status: 201,
+			message: `Successfully updated the ${
+				type === "isPublished" ? "publish status" : type
+			}`,
+		};
 	} catch (error: any) {
 		handleError(error);
 		return {

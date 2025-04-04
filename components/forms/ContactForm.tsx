@@ -59,12 +59,10 @@ export function ContactForm() {
 	}
 
 	return (
-		<div className="shadow-[0px_2px_3px_-1px_rgba(0,0,0,0.1),0px_1px_0px_0px_rgba(25,28,33,0.02),0px_0px_0px_1px_rgba(25,28,33,0.08)] border p-12 rounded-xl w-full lg:max-w-lg mx-auto">
+		<div className="shadow-[0px_2px_3px_-1px_rgba(0,0,0,0.1),0px_1px_0px_0px_rgba(25,28,33,0.02),0px_0px_0px_1px_rgba(25,28,33,0.08)] border p-6 lg:p-12 rounded-xl w-full lg:max-w-lg mx-auto">
 			<div className="mb-6">
-				<h3 className="text-gray-900 font-semibold text-xl leading-normal">
-					Tell us about yourself
-				</h3>
-				<p className="text-gray-700 text-sm leading-loose my-4">
+				<h3 className="font-medium text-2xl">Tell us about yourself</h3>
+				<p className="text-gray-700 text-base leading-relaxed my-4">
 					Whether you have questions or you would just like to say
 					hello, contact us.
 				</p>

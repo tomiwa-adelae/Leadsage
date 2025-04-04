@@ -11,11 +11,11 @@ const page = () => {
 	return (
 		<div>
 			<Showcase />
+			<BrowserCategories />
 			<NeedSomething />
 			<PopularServices />
 			<FindBuildings />
 			<PartneringCompanies />
-			<BrowserCategories />
 			<Testimonials />
 			<FAQs />
 		</div>

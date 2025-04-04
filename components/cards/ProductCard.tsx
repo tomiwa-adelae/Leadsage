@@ -37,10 +37,10 @@ const ProductCard = ({
 			</div>
 			<div className="p-3 lg:p-6">
 				<div className="flex flex-col items-start pb-4 justify-between gap-4">
-					<h4 className="text-green-400 text-base lg:text-lg font-semibold hover:text-green-400 transition ease-in-out">
+					<h4 className="text-green-400 text-lg lg:text-xl font-medium hover:text-green-700 transition ease-in-out">
 						{name}
 					</h4>
-					<p className="text-gray-700 text-xs lg:text-sm">
+					<p className="text-gray-700 text-sm lg:text-base">
 						<Image
 							src={"/assets/icons/location.svg"}
 							alt={"Location"}
@@ -52,12 +52,10 @@ const ProductCard = ({
 					</p>
 				</div>
 				<div>
-					<Separator className="my-4" />
+					<Separator className="my-2" />
 				</div>
-				<p className="text-gray-700 text-xs lg:text-sm">
-					<b className="text-gray-900">
-						₦{formatMoneyInput(rentPrice)}
-					</b>
+				<p className="text-gray-800 font-semibold text-base py-2">
+					₦{formatMoneyInput(rentPrice)}
 				</p>
 			</div>
 		</Link>

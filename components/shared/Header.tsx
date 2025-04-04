@@ -51,7 +51,7 @@ const Header = ({ color = "white" }: { color?: string }) => {
 						<ProfileDropdown />
 					</SignedIn>
 					<SignedOut>
-						<Button asChild>
+						<Button className="hidden sm:flex" asChild>
 							<Link href="/sign-in">Login</Link>
 						</Button>
 						<Button

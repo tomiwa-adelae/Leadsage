@@ -22,11 +22,6 @@ export const categories: {
 
 export const navLinks = [
 	{
-		title: "Home",
-		slug: "/",
-		icon: "/assets/icons/house.svg",
-	},
-	{
 		title: "About us",
 		slug: "/about",
 		icon: "/assets/icons/about.svg",

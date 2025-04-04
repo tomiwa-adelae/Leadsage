@@ -1,32 +1,27 @@
 import { aboutTestimonies } from "@/constant";
-import { Quote } from "lucide-react";
 import Image from "next/image";
 import React from "react";
 
 const Testimonies = () => {
 	return (
-		<div className="bg-white py-24">
+		<div className="bg-white py-16">
 			<div className="container">
-				<h3 className="text-gray-900 font-bold text-xl md:text-3xl leading-normal text-center">
+				<h2 className="font-medium text-center text-3xl md:text-4xl mb-4">
 					What Our Clients Have to Say
-				</h3>
-				<p className="hidden lg:block text-gray-700 text-sm leading-loose my-4  text-center">
+				</h2>
+				<p className="hidden lg:block text-base text-gray-700 leading-relaxed mb-8 text-center">
 					Find your perfect home with Leadsage—trusted by tenants and
 					landlords alike.
 				</p>
 				<div>
-					{/* <Quote
-						absoluteStrokeWidth
-						className="text-green-400 w-14 h-14 mx-auto my-10"
-					/> */}
 					<Image
 						src={"/assets/icons/quote.svg"}
 						alt={"Quote icon"}
 						width={1000}
 						height={1000}
-						className="w-[70px] h-[70px] mx-auto my-10"
+						className="w-[100px] h-[100px] mx-auto my-10"
 					/>
-					<h4 className="font-semibold text-lg md:text-2xl leading-loose md:leading-loose mt-4 md:w-8/12 mx-auto text-center">
+					<h4 className="text-green-400 font-medium text-xl md:text-2xl lg:text-3xl leading-relaxed mt-4 md:w-8/12 mx-auto text-center">
 						"Leadsage made finding our dream home effortless! The
 						verified listings and smooth rental process gave us
 						peace of mind. Highly recommended!"
@@ -44,13 +39,13 @@ const Testimonies = () => {
 									alt={alt}
 									width={1000}
 									height={1000}
-									className="rounded-full w-12 h-12 md:w-16 md:h-16 object-cover"
+									className="rounded-full w-16 h-16 md:w-20 md:h-20 object-cover"
 								/>
 								<div>
-									<h4 className="text-gray-900 font-medium text-sm md:text-base">
+									<h4 className="text-gray-900 font-medium text-base md:text-lg lg:text-xl">
 										{name}
 									</h4>
-									<p className="text-gray-700 text-xs md:text-sm">
+									<p className="text-gray-700 text-sm md:text-base">
 										{portfolio}
 									</p>
 								</div>

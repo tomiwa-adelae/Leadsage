@@ -13,7 +13,7 @@ const page = () => {
 			<Header color="black" />
 			<Showcase
 				image={"/assets/images/about-showcase-bg.jpg"}
-				title={"🌍 About Leadsage Africa"}
+				title={"About Leadsage Africa"}
 				description={
 					"Learn more about our journey to revolutionize housing in Africa. At Leadsage, we connect people with their ideal homes through transparency, trust, and innovation."
 				}

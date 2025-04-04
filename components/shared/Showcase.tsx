@@ -27,12 +27,10 @@ const Showcase = ({
 				}}
 			>
 				<div className="container text-white flex flex-col items-start justify-center h-full gap-4">
-					<h1
-						className={`text-2xl md:text-3xl lg:text-4xl font-bold ${inknut.className}`}
-					>
+					<h1 className={`text-4xl md:text-5xl font-medium`}>
 						{title}
 					</h1>
-					<p className="hidden lg:block text-sm md:text-base leading-loose font-medium lg:max-w-lg">
+					<p className="hidden lg:block text-base leading-relaxed font-medium lg:max-w-xl">
 						{description}
 					</p>
 					<div className="flex flex-col sm:flex-row items-center justify-start gap-4 w-full">

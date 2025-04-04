@@ -24,14 +24,15 @@ import {
 } from "@/components/ui/select";
 import { categories } from "@/constant";
 import Image from "next/image";
+import { Search } from "lucide-react";
 
 const FormSchema = z.object({
 	keyword: z.string().min(2, {
 		message: "Search must be at least 2 characters.",
 	}),
-	category: z.string().min(2, {
-		message: "Category must be at least 2 characters.",
-	}),
+	// category: z.string().min(2, {
+	// 	message: "Category must be at least 2 characters.",
+	// }),
 });
 
 export function ShowcaseSearchForm() {
@@ -39,7 +40,7 @@ export function ShowcaseSearchForm() {
 		resolver: zodResolver(FormSchema),
 		defaultValues: {
 			keyword: "",
-			category: "",
+			// category: "",
 		},
 	});
 
@@ -57,11 +58,11 @@ export function ShowcaseSearchForm() {
 	}
 
 	return (
-		<div className="bg-white text-black rounded-sm md:rounded-full p-6 py-5 mt-8">
+		<div className="bg-white text-black rounded-full p-6 py-5 mt-8">
 			<Form {...form}>
 				<form
 					onSubmit={form.handleSubmit(onSubmit)}
-					className="flex flex-col items-center justify-between md:flex-row gap-4"
+					className="flex items-center justify-between gap-4"
 				>
 					<FormField
 						control={form.control}
@@ -88,11 +89,11 @@ export function ShowcaseSearchForm() {
 							</FormItem>
 						)}
 					/>
-					<FormField
+					{/* <FormField
 						control={form.control}
 						name="category"
 						render={({ field }) => (
-							<FormItem className="flex-1 md:border-l md:pl-8 w-full">
+							<FormItem className="hidden md:flex-1 md:border-l md:pl-8 w-full">
 								<Select
 									onValueChange={field.onChange}
 									defaultValue={field.value}
@@ -116,13 +117,13 @@ export function ShowcaseSearchForm() {
 								<FormMessage />
 							</FormItem>
 						)}
-					/>
+					/> */}
 					<Button
-						className="w-full md:w-auto"
-						size={"lg"}
+						// className="w-full md:w-auto"
+						size={"icon"}
 						type="submit"
 					>
-						Search
+						<Search />
 					</Button>
 				</form>
 			</Form>

@@ -44,6 +44,7 @@ const config: Config = {
 				warning: "#E67324",
 				gray: {
 					"100": "#f3f3f3",
+					"700": "#74767E",
 				},
 				green: {
 					"400": "#59B778",
@@ -53,7 +54,7 @@ const config: Config = {
 				red: {
 					"100": "#FBF7ED",
 				},
-				black: "#222222",
+				black: "#404145",
 				background: "hsl(var(--background))",
 				foreground: "hsl(var(--foreground))",
 				card: {

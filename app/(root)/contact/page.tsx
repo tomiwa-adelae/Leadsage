@@ -14,8 +14,10 @@ const page = () => {
 			<Header color="black" />
 			<Showcase
 				image={"/assets/images/contact-showcase-bg.jpg"}
-				title={"📞 Get in Touch with Leadsage Africa"}
-				description={"Have questions or need assistance? We're here to help! Reach out to us for inquiries, property listings, or support, and let’s make your housing journey seamless."}
+				title={"Get in Touch with Leadsage Africa"}
+				description={
+					"Have questions or need assistance? We're here to help! Reach out to us for inquiries, property listings, or support, and let’s make your housing journey seamless."
+				}
 			/>
 			<ContactDetails />
 			<LeafletMap />

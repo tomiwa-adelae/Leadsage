@@ -18,10 +18,10 @@ const JoinMarketplace = () => {
 					className="w-auto h-auto"
 				/>
 				<div className="flex flex-col justify-center">
-					<h2 className="text-gray-900 font-bold text-xl md:text-3xl leading-normal md:leading-normal">
+					<h2 className="font-medium text-3xl md:text-4xl">
 						Join Africa’s Leading Housing Marketplace
 					</h2>
-					<p className="text-gray-700 text-sm leading-loose my-8">
+					<p className="hidden lg:block text-base leading-relaxed my-4">
 						Finding the perfect home or property shouldn't be
 						complicated. At Leadsage Africa, we make it easy to
 						discover, rent, or list properties with confidence. Our
@@ -33,7 +33,7 @@ const JoinMarketplace = () => {
 						{aboutWorkersBenefits.map((benefit, index) => (
 							<li
 								key={index}
-								className="text-sm inline-flex gap-4 items-center leading-relaxed"
+								className="text-base text-black inline-flex gap-4 items-center leading-relaxed"
 							>
 								<Check className="w-5 h-5" />
 								<p>{benefit}</p>
@@ -56,7 +56,7 @@ const JoinMarketplace = () => {
 			<div className="grid grid-cols-2 md:grid-cols-4 justify-items-center text-center gap-10 pt-16">
 				{homeStats.map(({ number, title, suffix }, index) => (
 					<div key={index} className="grid gap-2">
-						<h3 className="font-bold text-2xl lg:text-4xl">
+						<h3 className="font-medium text-3xl lg:text-6xl">
 							<CountUp
 								start={0}
 								end={number}
@@ -65,9 +65,7 @@ const JoinMarketplace = () => {
 								suffix={suffix}
 							/>
 						</h3>
-						<strong className="text-xs lg:text-sm font-medium">
-							{title}
-						</strong>
+						<p className="text-sm lg:text-base">{title}</p>
 					</div>
 				))}
 			</div>

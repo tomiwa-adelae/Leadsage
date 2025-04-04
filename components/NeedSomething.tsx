@@ -5,10 +5,10 @@ const NeedSomething = () => {
 	return (
 		<div className="container py-16">
 			<div className="space-y-2">
-				<h2 className="font-semibold text-xl lg:text-3xl">
+				<h2 className="font-medium text-3xl md:text-4xl">
 					Looking for the Perfect Space?
 				</h2>
-				<p className="hidden lg:block text-sm text-gray-700 leading-loose">
+				<p className="hidden lg:block text-base text-gray-700 leading-relaxed lg:max-w-lg">
 					Explore our most popular and top-rated buildings and
 					properties that have captured the attention of tenants and
 					landlords alike.
@@ -24,12 +24,12 @@ const NeedSomething = () => {
 									alt={title}
 									width={1000}
 									height={1000}
-									className="w-[50px] h-[50px]"
+									className="w-[50px] lg:w-[70px] lg:h-[70px] h-[50px]"
 								/>
-								<h4 className="font-medium text-sm lg:text-lg text-gray-900">
+								<h4 className="font-medium text-base md:text-lg text-gray-900 lg:text-xl">
 									{title}
 								</h4>
-								<p className="text-gray-700 text-sm leading-loose hidden lg:block">
+								<p className="text-gray-700 leading-relaxed text-base hidden lg:block">
 									{description}
 								</p>
 							</div>

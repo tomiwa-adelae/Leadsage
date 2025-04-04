@@ -1,14 +1,15 @@
+import { Spotlight } from "@/components/ui/spotlight-new";
 import { yourFingerTipsDetails } from "@/constant";
-import { Medal } from "lucide-react";
 import Image from "next/image";
 import React from "react";
 
 const YourFingertips = () => {
 	return (
-		<div className="py-16 container">
+		<div className="py-16 container overflow-hidden relative">
+			<Spotlight />
 			<div className="grid grid-cols-1 md:grid-cols-2 gap-8">
 				<div className="flex flex-col justify-center">
-					<h2 className="text-gray-900 font-bold text-xl md:text-3xl leading-normal md:leading-normal">
+					<h2 className="font-medium text-3xl md:text-4xl">
 						A Whole World of Homes{" "}
 						<br className="hidden md:block" /> and Properties at
 						Your Fingertips
@@ -32,10 +33,10 @@ const YourFingertips = () => {
 											/>
 										</div>
 										<div className="space-y-1">
-											<h4 className="font-medium text-sm md:text-base lg:text-xl text-gray-900">
+											<h4 className="font-medium text-base md:text-lg lg:text-xl">
 												{title}
 											</h4>
-											<p className="hidden lg:block text-sm leading-loose text-gray-700">
+											<p className="hidden lg:block text-base leading-relaxed text-gray-700">
 												{description}
 											</p>
 										</div>

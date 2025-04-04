@@ -8,10 +8,10 @@ const ContactDetails = () => {
 		<div className="bg-white relative pt-4 pb-28">
 			<div className="container grid grid-cols-1 lg:grid-cols-2 gap-8">
 				<div className="flex flex-col items-start justify-center">
-					<h3 className="text-gray-900 font-semibold text-xl leading-normal">
+					<h2 className="font-medium text-3xl md:text-4xl">
 						Keep in Touch With Us.
-					</h3>
-					<p className="text-gray-700 text-sm leading-loose my-4">
+					</h2>
+					<p className="hidden lg:block text-base text-gray-700 leading-relaxed my-4">
 						We’re here to assist you! Whether you have questions or
 						need support, feel free to reach out. Our team is always
 						ready to help.
@@ -19,16 +19,11 @@ const ContactDetails = () => {
 					<div className="mt-8 grid gap-8">
 						{contactDetails.map(
 							({ title, description, icon }, index) => {
-								const Icon = icon;
 								return (
 									<div
 										className="flex items-start justify-start gap-8"
 										key={index}
 									>
-										{/* <Icon
-											absoluteStrokeWidth
-											className="w-9 h-9 text-green-600 mt-1"
-										/> */}
 										<Image
 											src={icon}
 											alt={title}
@@ -37,10 +32,10 @@ const ContactDetails = () => {
 											className="w-[50px] h-[50px] mt-1"
 										/>
 										<div className="space-y-0.5">
-											<h4 className="font-medium text-lg text-gray-900">
+											<h4 className="font-medium text-lg">
 												{title}
 											</h4>
-											<p className="text-sm leading-loose text-gray-700 max-w-xs">
+											<p className="text-base leading-relaxed text-gray-700">
 												{description}
 											</p>
 										</div>

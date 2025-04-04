@@ -16,10 +16,10 @@ const PopularServices = async () => {
 	return (
 		<div className="container pb-16">
 			<div className="space-y-2">
-				<h2 className="font-semibold text-2xl lg:text-3xl">
+				<h2 className="font-medium text-3xl md:text-4xl">
 					Popular Properties
 				</h2>
-				<p className="hidden lg:block text-sm text-gray-700">
+				<p className="hidden lg:block text-base text-gray-700 leading-relaxed lg:max-w-lg">
 					Check out our most viewed and top-selling properties—trusted
 					by many for their quality, location, and value.
 				</p>

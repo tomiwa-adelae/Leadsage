@@ -195,7 +195,7 @@ export function CreateListingForm({ userId }: { userId: string }) {
 							name="rentPrice"
 							render={({ field }) => (
 								<FormItem>
-									<FormLabel>Rent price / year</FormLabel>
+									<FormLabel>Rent price (yearly)</FormLabel>
 									<FormControl>
 										<Input
 											placeholder="Enter the price for the apartment per month"

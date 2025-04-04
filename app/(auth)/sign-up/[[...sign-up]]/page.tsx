@@ -8,10 +8,10 @@ export default function page() {
 			<div className="py-24 bg-green-50">
 				<div className="container">
 					<div className="text-center space-y-4">
-						<h1 className="text-2xl md:text-3xl lg:text-3xl font-bold">
+						<h1 className="text-3xl md:text-4xl lg:text-5xl font-medium">
 							Register
 						</h1>
-						<p className="text-sm md:text-base leading-loose">
+						<p className="text-base leading-relaxed">
 							Give your visitor a smooth online experience with a
 							solid UX design
 						</p>

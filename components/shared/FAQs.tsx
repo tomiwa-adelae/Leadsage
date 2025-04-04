@@ -5,14 +5,16 @@ import {
 	AccordionTrigger,
 } from "@/components/ui/accordion";
 import { faqs } from "@/constant";
+import { Spotlight } from "../ui/spotlight-new";
 const FAQs = () => {
 	return (
-		<div id="faqs" className="bg-white py-20">
+		<div id="faqs" className="bg-white py-20 overflow-hidden relative">
+			<Spotlight />
 			<div className="container">
-				<h3 className="text-gray-900 font-bold text-xl md:text-3xl leading-normal text-center">
+				<h2 className="font-medium text-center text-3xl md:text-4xl mb-4">
 					Frequently Asked Questions
-				</h3>
-				<p className="text-gray-700 text-sm leading-loose my-4  text-center">
+				</h2>
+				<p className="hidden lg:block text-base text-gray-700 leading-relaxed mb-8 text-center">
 					Have questions? We're here to help! Browse through our most
 					common inquiries and find the answers you need.
 				</p>

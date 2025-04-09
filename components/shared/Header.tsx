@@ -5,7 +5,9 @@ import Link from "next/link";
 import { NavigationDropdowns } from "./NavigationDropdowns";
 import { MobileNavbar } from "./MobileNavbar";
 import { ProfileDropdown } from "./ProfileDropdown";
-import { SignedIn, SignedOut } from "@clerk/nextjs";
+import { SignedIn, SignedOut, useAuth } from "@clerk/nextjs";
+import { getUserInfo } from "@/lib/actions/user.actions";
+import { useEffect, useState } from "react";
 
 const inknut = Inknut_Antiqua({
 	subsets: ["latin"],
@@ -13,6 +15,20 @@ const inknut = Inknut_Antiqua({
 });
 
 const Header = ({ color = "white" }: { color?: string }) => {
+	const { userId } = useAuth();
+
+	const [user, setUser] = useState<any>();
+
+	useEffect(() => {
+		const fetchUser = async () => {
+			const user = await getUserInfo(userId!);
+
+			setUser(user);
+		};
+
+		fetchUser();
+	}, []);
+
 	return (
 		<div
 			className={`${
@@ -30,7 +46,7 @@ const Header = ({ color = "white" }: { color?: string }) => {
 				<NavigationDropdowns color={color} />
 				<div className={`gap-4 hidden md:flex`}>
 					<SignedIn>
-						<ProfileDropdown />
+						<ProfileDropdown userDetails={user} />
 					</SignedIn>
 					<SignedOut>
 						<Button variant={"ghost"} asChild>
@@ -48,7 +64,7 @@ const Header = ({ color = "white" }: { color?: string }) => {
 				</div>
 				<div className="flex gap-3 md:hidden">
 					<SignedIn>
-						<ProfileDropdown />
+						<ProfileDropdown userDetails={user} />
 					</SignedIn>
 					<SignedOut>
 						<Button className="hidden sm:flex" asChild>

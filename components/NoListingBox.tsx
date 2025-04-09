@@ -26,7 +26,7 @@ const NoListingBox = () => {
 						className="w-[60px] h-[60px]"
 					/>
 				</div>
-				<p className="text-gray-700 text-sm">
+				<p className="text-muted-foreground text-sm">
 					Listing your space is the first step to take as a Leadsage
 					landlord and we’ve made that super easy for you. Now, let’s
 					show the world what they are missing.

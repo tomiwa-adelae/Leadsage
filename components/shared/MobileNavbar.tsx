@@ -69,6 +69,26 @@ export function MobileNavbar({ userDetails }: any) {
 						</SheetClose>
 					</SheetHeader>
 					<nav className="flex flex-col font-semibold gap-0.5 p-4 text-xs uppercase">
+						<SheetClose
+							asChild
+							className="p-3.5 hover:bg-gray-100 transition ease-out"
+						>
+							<Link
+								href={"/"}
+								className={`flex items-center gap-3 justify-start ${
+									pathname.startsWith("/") && "text-green-400"
+								}`}
+							>
+								<Image
+									src={"/assets/icons/house.svg"}
+									alt={"Home icon"}
+									width={1000}
+									height={1000}
+									className="w-[20px] h-[20px]"
+								/>
+								<p>Home</p>
+							</Link>
+						</SheetClose>
 						{navLinks.map(({ title, slug, icon }, index) => {
 							const isActive =
 								pathname === slug ||

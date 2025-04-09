@@ -8,7 +8,7 @@ import CountUp from "react-countup";
 
 const JoinMarketplace = () => {
 	return (
-		<div className="py-8 lg:py-16 bg-white container">
+		<div className="pb-16 lg:pb-16 bg-white container">
 			<div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-14">
 				<Image
 					src={"/assets/images/showcase-display-img.png"}
@@ -44,7 +44,7 @@ const JoinMarketplace = () => {
 						<Button
 							size={"lg"}
 							asChild
-							className="text-green-400 w-auto mt-0 lg:mt-8 bg-[#E6F5EB] hover:text-white"
+							className="text-green-400 w-auto mt-4 lg:mt-8 bg-[#E6F5EB] hover:text-white"
 						>
 							<Link href="/services">
 								Find buildings <MoveUpRight />

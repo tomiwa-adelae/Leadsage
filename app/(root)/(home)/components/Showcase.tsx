@@ -38,9 +38,7 @@ const Showcase = () => {
 										suffix={suffix}
 									/>
 								</h3>
-								<strong className="text-sm lg:text-base">
-									{title}
-								</strong>
+								<p className="text-sm lg:text-base">{title}</p>
 							</div>
 						))}
 					</div>

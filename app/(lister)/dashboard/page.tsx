@@ -18,6 +18,7 @@ import { formatDate, formatMoneyInput, getGreeting } from "@/lib/utils";
 import { BookingsActions } from "@/components/shared/BookingsActions";
 import NoBookingBox from "@/components/NoBookingBox";
 import { Dot } from "lucide-react";
+import NewDashboard from "@/components/shared/NewDashboard";
 
 const BookingStatus = ({ status }: { status: string }) => {
 	const statusColor =
@@ -135,6 +136,7 @@ const page = async ({ searchParams }: SearchParamProps) => {
 				title={`${greeting}, ${user.firstName}`}
 				subTitle="Welcome to your Leadsage dashboard."
 			/>
+			{/* <NewDashboard /> */}
 			<div className="grid grid-cols-1 md:grid-cols-5 gap-8 mt-10">
 				<div className="py-10 px-6 rounded-md bg-white shadow-[0px_2px_3px_-1px_rgba(0,0,0,0.1),0px_1px_0px_0px_rgba(25,28,33,0.02),0px_0px_0px_1px_rgba(25,28,33,0.08)] col-span-3">
 					<h3 className="font-semibold text-lg">Overview</h3>

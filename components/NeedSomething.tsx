@@ -18,7 +18,7 @@ const NeedSomething = () => {
 				{needSomethingDetails.map(
 					({ icon, title, description }, index) => {
 						return (
-							<div className="space-y-4" key={index}>
+							<div className="space-y-2" key={index}>
 								<Image
 									src={icon}
 									alt={title}

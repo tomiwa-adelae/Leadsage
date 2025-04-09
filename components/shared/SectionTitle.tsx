@@ -7,10 +7,8 @@ const SectionTitle = ({
 }) => {
 	return (
 		<div>
-			<h1 className="font-semibold text-xl md:text-2xl lg:text-3xl">
-				{title}
-			</h1>
-			<p className="font-medium text-sm mt-3">{subTitle}</p>
+			<h1 className="font-medium text-3xl md:text-4xl">{title}</h1>
+			<p className="font-medium text-base mt-3">{subTitle}</p>
 		</div>
 	);
 };

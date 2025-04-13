@@ -10,7 +10,6 @@ import {
 	FormControl,
 	FormField,
 	FormItem,
-	FormLabel,
 	FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
@@ -25,14 +24,17 @@ import {
 import { categories } from "@/constant";
 import Image from "next/image";
 import { Search } from "lucide-react";
+import { PricingDropdown } from "@/app/(root)/(home)/components/PricingDropdown";
+import { BedroomDropdown } from "@/app/(root)/(home)/components/BedroomDropdown";
+import { Separator } from "../ui/separator";
 
 const FormSchema = z.object({
 	keyword: z.string().min(2, {
 		message: "Search must be at least 2 characters.",
 	}),
-	// category: z.string().min(2, {
-	// 	message: "Category must be at least 2 characters.",
-	// }),
+	category: z.string().min(2, {
+		message: "Category must be at least 2 characters.",
+	}),
 });
 
 export function ShowcaseSearchForm() {
@@ -40,7 +42,7 @@ export function ShowcaseSearchForm() {
 		resolver: zodResolver(FormSchema),
 		defaultValues: {
 			keyword: "",
-			// category: "",
+			category: "",
 		},
 	});
 
@@ -58,7 +60,7 @@ export function ShowcaseSearchForm() {
 	}
 
 	return (
-		<div className="bg-white text-black rounded-full p-6 py-5 mt-8">
+		<div className="bg-white text-black rounded-full pl-6 pr-2 py-1 mt-8">
 			<Form {...form}>
 				<form
 					onSubmit={form.handleSubmit(onSubmit)}
@@ -89,11 +91,19 @@ export function ShowcaseSearchForm() {
 							</FormItem>
 						)}
 					/>
+					<div className="flex-1 flex items-center justify-end">
+						<div className="border-l">
+							<PricingDropdown />
+						</div>
+						<div className="border-l">
+							<BedroomDropdown />
+						</div>
+					</div>
 					{/* <FormField
 						control={form.control}
 						name="category"
 						render={({ field }) => (
-							<FormItem className="hidden md:flex-1 md:border-l md:pl-8 w-full">
+							<FormItem className="md:flex-1 md:border-l md:pl-8 w-full">
 								<Select
 									onValueChange={field.onChange}
 									defaultValue={field.value}

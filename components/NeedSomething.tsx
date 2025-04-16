@@ -8,7 +8,7 @@ const NeedSomething = () => {
 				<h2 className="font-medium text-3xl md:text-4xl">
 					Looking for the Perfect Space?
 				</h2>
-				<p className="hidden lg:block text-base text-gray-700 leading-relaxed lg:max-w-lg">
+				<p className="hidden lg:block text-base text-muted-foreground leading-relaxed lg:max-w-lg">
 					Explore our most popular and top-rated buildings and
 					properties that have captured the attention of tenants and
 					landlords alike.
@@ -29,7 +29,7 @@ const NeedSomething = () => {
 								<h4 className="font-medium text-base md:text-lg text-gray-900 lg:text-xl">
 									{title}
 								</h4>
-								<p className="text-gray-700 leading-relaxed text-base hidden lg:block">
+								<p className="text-muted-foreground leading-relaxed text-base hidden lg:block">
 									{description}
 								</p>
 							</div>

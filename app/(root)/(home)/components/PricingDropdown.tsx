@@ -78,19 +78,23 @@ export function PricingDropdown() {
 				</Button>
 			</DropdownMenuTrigger>
 			<DropdownMenuContent className="w-72">
-				<DropdownMenuLabel>Price Range</DropdownMenuLabel>
+				<DropdownMenuLabel className="uppercase text-sm text-gray-600">
+					Price Range
+				</DropdownMenuLabel>
 				<DropdownMenuSeparator />
 				<Form {...form}>
 					<form
 						onSubmit={form.handleSubmit(onSubmit)}
-						className="space-y-6 px-2 pb-4"
+						className="space-y-3 px-2 pb-4"
 					>
 						<FormField
 							control={form.control}
 							name="minimum"
 							render={({ field }) => (
 								<FormItem>
-									<FormLabel>Minimum</FormLabel>
+									<FormLabel className="text-muted-foreground text-xs uppercase">
+										Minimum
+									</FormLabel>
 									<FormControl>
 										<Input
 											type="number"
@@ -109,7 +113,9 @@ export function PricingDropdown() {
 							name="maximum"
 							render={({ field }) => (
 								<FormItem>
-									<FormLabel>Maximum</FormLabel>
+									<FormLabel className="text-muted-foreground text-xs uppercase">
+										Maximum
+									</FormLabel>
 									<FormControl>
 										<Input
 											type="number"

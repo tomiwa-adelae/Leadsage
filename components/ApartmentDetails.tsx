@@ -56,9 +56,9 @@ const ApartmentDetails = ({
 	};
 
 	return (
-		<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4 py-8">
-			<div className="col-span-2 lg:col-span-3 space-y-4 border-b">
-				<h1 className="text-3xl font-bold leading-relaxed text-green-400 flex items-center justify-start gap-4">
+		<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4 py-4 md:py-8">
+			<div className="col-span-2 lg:col-span-3 space-y-4">
+				<h1 className="text-4xl font-medium leading-relaxed text-green-400 flex items-center justify-start gap-4">
 					{details?.name}
 					{isRenter && (
 						<Image
@@ -73,7 +73,7 @@ const ApartmentDetails = ({
 						/>
 					)}
 				</h1>
-				<div className="text-xs space-y-4 text-gray-700 font-medium">
+				<div className="text-base space-y-3 text-muted-foreground">
 					<p className="flex items-center justify-start gap-4 leading-loose">
 						Address: {details?.address}
 						{isRenter && (
@@ -123,8 +123,10 @@ const ApartmentDetails = ({
 				<div>
 					<Separator />
 				</div>
-				<div className="font-semibold text-sm flex items-center justify-start gap-2 py-2">
-					<p className="text-gray-700">APARTMENT AVAILABLE FROM:</p>
+				<div className="font-medium uppercase text-base flex items-center justify-start gap-2 py-2">
+					<p className="text-muted-foreground">
+						Apartment Available from:
+					</p>
 					<p className="text-green-400 flex items-center justify-start gap-4">
 						{details?.availabilityDate &&
 							formatDate(details?.availabilityDate)}{" "}
@@ -137,8 +139,8 @@ const ApartmentDetails = ({
 								className="cursor-pointer"
 								onClick={() => {
 									handleOpenModal(
-										"availabilityDate",
-										details?.availabilityDate
+										"bathroomNumber",
+										details?.bathroomNumber
 									);
 									setIsDate(true);
 								}}
@@ -149,7 +151,63 @@ const ApartmentDetails = ({
 				<div>
 					<Separator />
 				</div>
-				<p className="text-sm py-4 leading-loose flex items-start justify-start gap-4">
+				<div className="font-medium uppercase text-base flex items-center justify-start gap-2 py-2">
+					<p className="text-muted-foreground">
+						Number of bedrooms Available:
+					</p>
+					<p className="text-green-400 flex items-center justify-start gap-4">
+						{details?.bedroomNumber &&
+							formatDate(details?.bedroomNumber)}{" "}
+						{isRenter && (
+							<Image
+								src={"/assets/icons/edit.svg"}
+								alt={"Edit Icon"}
+								width={24}
+								height={24}
+								className="cursor-pointer"
+								onClick={() => {
+									handleOpenModal(
+										"bedroomNumber",
+										details?.bedroomNumber
+									);
+									setIsDate(true);
+								}}
+							/>
+						)}
+					</p>
+				</div>
+				<div>
+					<Separator />
+				</div>
+				<div className="font-medium uppercase text-base flex items-center justify-start gap-2 py-2">
+					<p className="text-muted-foreground">
+						Number of bathrooms Available:
+					</p>
+					<p className="text-green-400 flex items-center justify-start gap-4">
+						{details?.bathroomNumber &&
+							formatDate(details?.bathroomNumber)}{" "}
+						{isRenter && (
+							<Image
+								src={"/assets/icons/edit.svg"}
+								alt={"Edit Icon"}
+								width={24}
+								height={24}
+								className="cursor-pointer"
+								onClick={() => {
+									handleOpenModal(
+										"bathroomNumber",
+										details?.bathroomNumber
+									);
+									setIsDate(true);
+								}}
+							/>
+						)}
+					</p>
+				</div>
+				<div>
+					<Separator />
+				</div>
+				<p className="text-base text-muted-foreground py-4 flex items-start justify-start gap-4">
 					{details?.description}
 					{isRenter && (
 						<Image
@@ -169,7 +227,9 @@ const ApartmentDetails = ({
 				</p>
 			</div>
 			<div className="col-span-2 border rounded-xl p-8">
-				<h5 className="font-semibold text-sm">Rent price</h5>
+				<h5 className="font-medium text-base uppercase text-muted-foreground">
+					Rent price
+				</h5>
 				<h2 className="text-2xl font-semibold my-2 text-green-400 flex items-center justify-start gap-2">
 					{isRenter && (
 						<Image
@@ -191,16 +251,18 @@ const ApartmentDetails = ({
 						NGN{" "}
 						{details?.rentPrice &&
 							formatMoneyInput(details?.rentPrice)}{" "}
-						<small className="text-sm font-medium text-gray-700">
+						<small className="text-base font-medium text-muted-foreground">
 							/ Year
 						</small>
 					</div>
 				</h2>
-				<div className="space-y-6 mt-8 text-xs">
+				<div className="space-y-6 mt-8 text-base">
 					<Separator />
 					<div className="flex gap-4 justify-between items-center">
-						<p className="font-semibold text-green-400">Total</p>
-						<p className="text-gray-700 text-lg font-bold text-right">
+						<p className="font-medium text-muted-foreground uppercase">
+							Total
+						</p>
+						<p className="text-green-400 text-2xl font-semibold text-right">
 							NGN{" "}
 							{details?.rentPrice &&
 								formatMoneyInput(details?.rentPrice)}

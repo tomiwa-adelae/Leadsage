@@ -1,8 +1,21 @@
 import ChooseAccountForm from "@/components/forms/ChooseAccountForm";
 import Header from "@/components/shared/Header";
+import { getUserInfo } from "@/lib/actions/user.actions";
+import { auth } from "@clerk/nextjs";
+import { redirect } from "next/navigation";
 import React from "react";
 
-const page = () => {
+const page = async () => {
+	const { userId } = auth();
+
+	if (!userId) {
+		redirect("/sign-in");
+	}
+
+	const user = await getUserInfo(userId!);
+
+	if (user?.isRenter !== undefined) redirect("/dashboard");
+
 	return (
 		<div>
 			<Header color="black" />

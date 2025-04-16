@@ -12,7 +12,7 @@ const FindYourBuilding = () => {
 					<h2 className="font-medium text-3xl md:text-4xl">
 						Find the Perfect Property for Your Next Chapter
 					</h2>
-					<p className="hidden lg:block text-base text-gray-700 leading-relaxed my-8">
+					<p className="hidden lg:block text-base text-muted-foreground leading-relaxed my-8">
 						Discover a wide range of homes, apartments, and
 						commercial spaces designed to fit your lifestyle and
 						budget. Whether you're looking to rent, buy, or invest,

@@ -80,7 +80,7 @@ const Header = ({ color = "white" }: { color?: string }) => {
 							<Link href="/sign-up">Join us</Link>
 						</Button>
 					</SignedOut>
-					<MobileNavbar />
+					<MobileNavbar userDetails={user} />
 				</div>
 			</header>
 		</div>

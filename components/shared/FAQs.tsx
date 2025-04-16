@@ -14,7 +14,7 @@ const FAQs = () => {
 				<h2 className="font-medium text-center text-3xl md:text-4xl mb-4">
 					Frequently Asked Questions
 				</h2>
-				<p className="hidden lg:block text-base text-gray-700 leading-relaxed mb-8 text-center">
+				<p className="hidden lg:block text-base text-muted-foreground leading-relaxed mb-8 text-center">
 					Have questions? We're here to help! Browse through our most
 					common inquiries and find the answers you need.
 				</p>

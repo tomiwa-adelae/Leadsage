@@ -60,11 +60,11 @@ export function ShowcaseSearchForm() {
 	}
 
 	return (
-		<div className="bg-white text-black rounded-full pl-6 pr-2 py-1 mt-8">
+		<div className="bg-white text-black rounded-sm md:rounded-full pl-6 pr-2 py-1 mt-8">
 			<Form {...form}>
 				<form
 					onSubmit={form.handleSubmit(onSubmit)}
-					className="flex items-center justify-between gap-4"
+					className="flex flex-col md:flex-row items-center justify-between gap-1 md:gap-4"
 				>
 					<FormField
 						control={form.control}
@@ -76,27 +76,38 @@ export function ShowcaseSearchForm() {
 										<Input
 											placeholder="What are you looking for?"
 											{...field}
-											className="pl-7 border-none"
+											className="pl-0 md:pl-7 border-none"
 										/>
 										<Image
 											src={"/assets/icons/search.svg"}
 											alt={"Search Icon"}
 											width={1000}
 											height={1000}
-											className="w-[15px] h-[15px] absolute text-gray-400 top-[50%] left-[0%] translate-y-[-50%]"
+											className="hidden md:flex w-[15px] h-[15px] absolute text-gray-400 top-[50%] left-[0%] translate-y-[-50%]"
 										/>
+										<Button
+											className="absolute md:hidden top-[50%] right-[2%] translate-y-[-50%]"
+											size={"icon"}
+											type="submit"
+										>
+											<Search />
+										</Button>
 									</div>
 								</FormControl>
 								<FormMessage />
 							</FormItem>
 						)}
 					/>
-					<div className="flex-1 flex items-center justify-end">
-						<div className="border-l">
+					<Separator className="mb-2 md:hidden" />
+					<div className="w-full flex-1 flex items-center justify-between md:justify-end pb-4 md:pb-0">
+						<div className="md:border-l w-full items-center justify-center">
 							<PricingDropdown />
 						</div>
-						<div className="border-l">
+						<div className="border-l w-full items-center justify-center">
 							<BedroomDropdown />
+						</div>
+						<div className="md:hidden border-l pl-4 flex items-center justify-center">
+							<Button className="rounded-md">Save search</Button>
 						</div>
 					</div>
 					{/* <FormField
@@ -129,7 +140,7 @@ export function ShowcaseSearchForm() {
 						)}
 					/> */}
 					<Button
-						// className="w-full md:w-auto"
+						className="hidden md:flex"
 						size={"icon"}
 						type="submit"
 					>

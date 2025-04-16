@@ -19,7 +19,7 @@ const PopularServices = async () => {
 				<h2 className="font-medium text-3xl md:text-4xl">
 					Popular Properties
 				</h2>
-				<p className="hidden lg:block text-base text-gray-700 leading-relaxed lg:max-w-lg">
+				<p className="hidden lg:block text-base text-muted-foreground leading-relaxed lg:max-w-lg">
 					Check out our most viewed and top-selling properties—trusted
 					by many for their quality, location, and value.
 				</p>

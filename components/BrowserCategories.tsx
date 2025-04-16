@@ -12,7 +12,7 @@ const BrowserCategories = () => {
 					<h2 className="font-medium text-3xl md:text-4xl">
 						Our Categories
 					</h2>
-					<p className="hidden lg:block text-base text-gray-700 leading-relaxed lg:max-w-lg">
+					<p className="hidden lg:block text-base text-muted-foreground leading-relaxed lg:max-w-lg">
 						Explore a wide variety of properties categorized to suit
 						your needs, from residential homes to commercial spaces.
 						Find exactly what you're looking for with ease.

@@ -585,3 +585,127 @@ export const genders = ["male", "female"];
 
 export const LISTING_LIMIT = 10;
 export const BOOKING_LIMIT = 10;
+
+export const states = [
+	"Abia",
+	"Adamawa",
+	"Akwa Ibom",
+	"Anambra",
+	"Bauchi",
+	"Bayelsa",
+	"Benue",
+	"Borno",
+	"Cross River",
+	"Delta",
+	"Ebonyi",
+	"Edo",
+	"Ekiti",
+	"Enugu",
+	"Gombe",
+	"Imo",
+	"Jigawa",
+	"Kaduna",
+	"Kano",
+	"Katsina",
+	"Kebbi",
+	"Kogi",
+	"Kwara",
+	"Lagos",
+	"Nasarawa",
+	"Niger",
+	"Ogun",
+	"Ondo",
+	"Osun",
+	"Oyo",
+	"Plateau",
+	"Rivers",
+	"Sokoto",
+	"Taraba",
+	"Yobe",
+	"Zamfara",
+	"FCT (Abuja)",
+] as const;
+
+export const amenities = [
+	{
+		title: "Laundry",
+		required: true,
+		amenities: [
+			{ id: "washer-dryer included", label: "Washer-dryer included" },
+			{ id: "washer-dryer hookups", label: "Washer-dryer hookups" },
+			{ id: "no laundry facilities", label: "No laundry facilities" },
+			{ id: "shared or in building", label: "Shared or in building" },
+		],
+	},
+	{
+		title: "Cooling",
+		required: false,
+		amenities: [
+			{ id: "central", label: "Central" },
+			{ id: "wall", label: "Wall" },
+			{ id: "window", label: "Window" },
+		],
+	},
+	{
+		title: "Heating",
+		required: false,
+		amenities: [
+			{ id: "baseboard", label: "Baseboard" },
+			{ id: "forced air", label: "Forced air" },
+			{ id: "heat pump", label: "Heat pump" },
+		],
+	},
+	{
+		title: "Appliances",
+		required: false,
+		amenities: [
+			{ id: "dishwasher", label: "Dishwasher" },
+			{ id: "freezer", label: "Freezer" },
+			{ id: "microwave", label: "Microwave" },
+			{ id: "oven", label: "Oven" },
+			{ id: "refrigerator", label: "Refrigerator" },
+		],
+	},
+	{
+		title: "Flooring",
+		required: false,
+		amenities: [
+			{ id: "carpet", label: "Carpet" },
+			{ id: "hardwood", label: "Hardwood" },
+			{ id: "tile", label: "Tile" },
+			{ id: "oven", label: "Oven" },
+			{ id: "refrigerator", label: "Refrigerator" },
+		],
+	},
+	{
+		title: "Parking",
+		required: false,
+		amenities: [
+			{ id: "attached garage", label: "Attached garage" },
+			{ id: "detached garage", label: "Detached garage" },
+			{ id: "Off-street parking", label: "Off-street parking" },
+		],
+	},
+	{
+		title: "Outdoor amenities",
+		required: false,
+		amenities: [
+			{ id: "balcony or deck", label: "Balcony or deck" },
+			{ id: "pool", label: "Pool" },
+		],
+	},
+	{
+		title: "Accessibility",
+		required: false,
+		amenities: [{ id: "disabled access", label: "Disabled access" }],
+	},
+	{
+		title: "Other amenities",
+		required: false,
+		amenities: [
+			{ id: "furnished", label: "Furnished" },
+			{ id: "bicycle storage", label: "Bicycle storage" },
+			{ id: "eV charging station", label: "EV charging station" },
+		],
+	},
+] as const;

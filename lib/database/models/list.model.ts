@@ -1,14 +1,20 @@
-import { Document, Schema, model, models, Types } from "mongoose";
+import { Document, Schema, model, models, Types, Model } from "mongoose";
 
-// Define TypeScript interface for the Image schema
-interface IImage {
-	url?: string; // Made optional
-	id?: string; // Made optional
+export interface IImage {
+	url?: string;
+	id?: string;
 }
 
-// Define TypeScript interface for List document
-interface IList extends Document {
-	user: Types.ObjectId; // Reference to User model
+export interface IAmenity {
+	name: string;
+}
+
+export interface ITouringDate {
+	date: string;
+}
+
+export interface IList extends Document {
+	user: Types.ObjectId;
 	name: string;
 	category?: Types.ObjectId;
 	rentPrice?: string;
@@ -19,29 +25,39 @@ interface IList extends Document {
 	status?: string;
 	isPublished?: boolean;
 	location?: string;
-	images?: IImage[]; // Made optional
+	images?: IImage[];
 	description?: string;
+	bedrooms?: string;
+	bathrooms?: string;
+	squareMeters?: string;
+	amenities?: IAmenity[];
+	petPolicy?: boolean;
+	touringDate?: ITouringDate[];
 	createdAt: Date;
 	updatedAt: Date;
 }
 
-const imagesSchema = new Schema<IImage>({
-	url: {
-		type: String,
-		required: false, // Made optional
-	},
-	id: {
-		type: String,
-		required: false, // Made optional
-	},
+const ImageSchema = new Schema<IImage>({
+	url: { type: String, required: false },
+	id: { type: String, required: false },
 });
+
+const AmenitySchema = new Schema<IAmenity>({
+	name: { type: String, required: true },
+});
+
+const TouringDateSchema = new Schema<ITouringDate>({
+	date: { type: String, required: true },
+});
+
+// ---------- Main Schema ---------- //
 
 const ListSchema = new Schema<IList>(
 	{
 		user: {
 			type: Schema.Types.ObjectId,
-			required: true,
 			ref: "User",
+			required: true,
 		},
 		name: {
 			type: String,
@@ -69,6 +85,27 @@ const ListSchema = new Schema<IList>(
 		availabilityDate: {
 			type: String,
 		},
+		bedrooms: {
+			type: String,
+		},
+		bathrooms: {
+			type: String,
+		},
+		squareMeters: {
+			type: String,
+		},
+		amenities: {
+			type: [AmenitySchema],
+			default: [],
+		},
+		petPolicy: {
+			type: Boolean,
+			default: false,
+		},
+		touringDate: {
+			type: [TouringDateSchema],
+			default: [],
+		},
 		location: {
 			type: String,
 		},
@@ -81,14 +118,14 @@ const ListSchema = new Schema<IList>(
 			default: false,
 		},
 		images: {
-			type: [imagesSchema],
-			required: false, // Made optional
-			default: [], // Ensures it's an empty array if not provided
+			type: [ImageSchema],
+			default: [],
 		},
 	},
 	{ timestamps: true }
 );
 
-const List = models.List || model<IList>("List", ListSchema);
+// ---------- Model ---------- //
 
+const List: Model<IList> = models.List || model<IList>("List", ListSchema);
 export default List;

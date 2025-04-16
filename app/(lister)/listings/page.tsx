@@ -87,14 +87,20 @@ const page = async ({ searchParams }: SearchParamProps) => {
 									<div className="flex items-center justify-center capitalize font-semibold">
 										<Dot
 											className={`w-8 h-8 ${
+												list.isPublished &&
 												list?.status === "pending"
 													? "text-yellow-400"
 													: list?.status === "success"
 													? "text-green-400"
 													: "text-red-400"
+											} ${
+												!list.isPublished &&
+												"text-yellow-400"
 											}`}
 										/>
-										{list?.status}
+										{list?.isPublished
+											? list?.status
+											: "Not published"}
 									</div>
 								</TableCell>
 								<TableCell className="font-medium uppercase text-xs flex items-center justify-end gap-4">

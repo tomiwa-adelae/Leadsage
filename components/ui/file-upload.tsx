@@ -32,10 +32,12 @@ export const FileUpload = ({
 	onChange,
 	loading = false,
 	title = "Upload file",
+	showTitle = true,
 }: {
 	onChange?: (files: File[]) => void;
 	loading?: boolean;
 	title?: string;
+	showTitle?: boolean;
 }) => {
 	const [files, setFiles] = useState<File[]>([]);
 	const fileInputRef = useRef<HTMLInputElement>(null);
@@ -76,12 +78,16 @@ export const FileUpload = ({
 					<GridPattern />
 				</div>
 				<div className="flex flex-col items-center justify-center">
-					<p className="relative z-20 font-bold text-neutral-700 dark:text-neutral-300 text-base">
-						{title}
-					</p>
-					<p className="relative z-20 font-normal text-neutral-400 dark:text-neutral-400 text-base mt-2 text-center">
-						Drag or drop your files here or click to upload
-					</p>
+					{showTitle && (
+						<>
+							<p className="relative z-20 font-bold text-neutral-700 dark:text-neutral-300 text-base">
+								{title}
+							</p>
+							<p className="relative z-20 font-normal text-neutral-400 dark:text-neutral-400 text-base mt-2 text-center">
+								Drag or drop your files here or click to upload
+							</p>
+						</>
+					)}
 					<div className="relative w-full mt-10 max-w-xl mx-auto">
 						{loading ? (
 							<Loader2 className="w-10 h-10 animate-spin transition-all mx-auto text-primary" />

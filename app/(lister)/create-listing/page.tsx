@@ -31,12 +31,12 @@ const page = async ({ searchParams }: PageProps) => {
 					subTitle="Lorem ipsum dolor sit amet, consectetur."
 				/>
 			</div>
-			<CreateListingForm
+			{/* <CreateListingForm
 				listingId={listingId}
 				userId={user?._id}
 				steps={steps}
 				listing={listing}
-			/>
+			/> */}
 		</div>
 	);
 };

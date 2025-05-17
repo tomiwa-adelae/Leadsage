@@ -448,183 +448,187 @@
 // // 	);
 // // };
 
-"use client";
-import React, { useState } from "react";
-import BasicInformationForm from "./listing/BasicInformationForm";
-import PropertyInformationForm from "./listing/PropertyInformationForm";
-import RentDetailsForm from "./listing/RentDetailsForm";
-import MediaForm from "./listing/MediaForm";
-import AmenitiesForm from "./listing/AmenitiesForm";
-import PolicyForm from "./listing/PolicyForm";
-import CostForm from "./listing/CostForm";
-import FinalDetailsForm from "./listing/FinalDetailsForm";
-import ReviewForm from "./listing/ReviewForm";
-import { IList } from "@/lib/database/models/list.model";
+// "use client";
+// import React, { useState } from "react";
+// import BasicInformationForm from "./listing/BasicInformationForm";
+// import PropertyInformationForm from "./listing/PropertyInformationForm";
+// import RentDetailsForm from "./listing/RentDetailsForm";
+// import MediaForm from "./listing/MediaForm";
+// import AmenitiesForm from "./listing/AmenitiesForm";
+// import PolicyForm from "./listing/PolicyForm";
+// import CostForm from "./listing/CostForm";
+// import FinalDetailsForm from "./listing/FinalDetailsForm";
+// import ReviewForm from "./listing/ReviewForm";
+// import { IList } from "@/lib/database/models/list.model";
 
-export const CreateListingForm = ({
-	userId,
-	listingId,
-	steps,
-	listing,
-}: {
-	userId: string;
-	listingId?: string;
-	steps?: number;
-	listing: IList;
-}) => {
-	console.log(listing);
+// export const CreateListingForm = ({
+// 	userId,
+// 	listingId,
+// 	steps,
+// 	listing,
+// }: {
+// 	userId: string;
+// 	listingId?: string;
+// 	steps?: number;
+// 	listing: IList;
+// }) => {
+// 	console.log(listing);
 
-	const [step, setStep] = useState(Number(steps) || 1);
+// 	const [step, setStep] = useState(Number(steps) || 1);
 
-	const [formData, setFormData] = useState({
-		// Basic Information Fields
-		name: listing.name || "",
-		// Property Information Fields
-		category: listing.category || "",
-		city: listing.city || "",
-		address: listing.address || "",
-		state: listing.state || "",
+// 	const [formData, setFormData] = useState({
+// 		// Basic Information Fields
+// 		name: listing.name || "",
+// 		// Property Information Fields
+// 		category: listing.category || "",
+// 		city: listing.city || "",
+// 		address: listing.address || "",
+// 		state: listing.state || "",
 
-		// Rent details fields
-		squareMeters: listing.squareMeters || "",
-		availabilityDate: listing.availabilityDate || "",
-		description: listing.description || "",
-		bedrooms: listing.bedrooms || "",
-		bathrooms: listing.bathrooms || "",
+// 		// Rent details fields
+// 		squareMeters: listing.squareMeters || "",
+// 		availabilityDate: listing.availabilityDate || "",
+// 		description: listing.description || "",
+// 		bedrooms: listing.bedrooms || "",
+// 		bathrooms: listing.bathrooms || "",
 
-		// Media fields
-		images: [],
+// 		// Media fields
+// 		images: [],
 
-		// Amenities fields
-		amenities: [],
+// 		// Amenities fields
+// 		amenities: [],
 
-		// Policy fields
-		petPolicy: listing.petPolicy || "",
-		smokingPolicy: listing.smokingPolicy || "",
+// 		// Policy fields
+// 		petPolicy: listing.petPolicy || "",
+// 		smokingPolicy: listing.smokingPolicy || "",
 
-		// Cost fields
-		rent: listing.rent || "",
-		securityDeposit: listing.securityDeposit || "",
-		rentNegotiable: listing.rentNegotiable || "",
+// 		// Cost fields
+// 		rent: listing.rent || "",
+// 		securityDeposit: listing.securityDeposit || "",
+// 		rentNegotiable: listing.rentNegotiable || "",
 
-		// Final details fields
-		fullName: "",
-		email: "",
-		phoneNumber: "",
-		touringDate: [],
-		listedBy: listing.listedBy || "",
-	});
+// 		// Final details fields
+// 		fullName: "",
+// 		email: "",
+// 		phoneNumber: "",
+// 		touringDate: [],
+// 		listedBy: listing.listedBy || "",
+// 	});
 
-	const handleChange =
-		(input: keyof typeof formData) =>
-		(
-			e:
-				| string
-				| string[]
-				| boolean
-				| File[]
-				| React.ChangeEvent<HTMLInputElement>
-				| React.ChangeEvent<HTMLTextAreaElement>
-		) => {
-			setFormData((prev) => ({
-				...prev,
-				[input]:
-					typeof e === "boolean"
-						? e
-						: Array.isArray(e) || e instanceof FileList
-						? e
-						: typeof e === "string"
-						? e
-						: e.target.value,
-			}));
-		};
+// 	const handleChange =
+// 		(input: keyof typeof formData) =>
+// 		(
+// 			e:
+// 				| string
+// 				| string[]
+// 				| boolean
+// 				| File[]
+// 				| React.ChangeEvent<HTMLInputElement>
+// 				| React.ChangeEvent<HTMLTextAreaElement>
+// 		) => {
+// 			setFormData((prev) => ({
+// 				...prev,
+// 				[input]:
+// 					typeof e === "boolean"
+// 						? e
+// 						: Array.isArray(e) || e instanceof FileList
+// 						? e
+// 						: typeof e === "string"
+// 						? e
+// 						: e.target.value,
+// 			}));
+// 		};
 
-	// ✅ Step navigation handlers
-	const nextStep = () => setStep((prev: any) => prev + 1);
-	const prevStep = () => setStep((prev: any) => prev - 1);
+// 	// ✅ Step navigation handlers
+// 	const nextStep = () => setStep((prev: any) => prev + 1);
+// 	const prevStep = () => setStep((prev: any) => prev - 1);
 
-	return (
-		<div className="mt-10">
-			{step === 1 && (
-				<BasicInformationForm
-					nextStep={nextStep}
-					handleChange={handleChange}
-					values={formData}
-					userId={userId}
-					listingId={listingId}
-				/>
-			)}
-			{step === 2 && (
-				<PropertyInformationForm
-					nextStep={nextStep}
-					prevStep={prevStep}
-					handleChange={handleChange}
-					values={{
-						...formData,
-					}}
-					userId={userId}
-					listingId={listingId}
-				/>
-			)}
-			{step === 3 && (
-				<RentDetailsForm
-					nextStep={nextStep}
-					prevStep={prevStep}
-					handleChange={handleChange}
-					// @ts-ignore
-					values={{
-						...formData,
-					}}
-					userId={userId}
-					listingId={listingId}
-				/>
-			)}
-			{step === 4 && (
-				<MediaForm nextStep={nextStep} prevStep={prevStep} />
-			)}
-			{step === 5 && (
-				<AmenitiesForm
-					nextStep={nextStep}
-					prevStep={prevStep}
-					handleChange={handleChange}
-					values={{
-						...formData,
-					}}
-				/>
-			)}
-			{step === 6 && (
-				<PolicyForm
-					nextStep={nextStep}
-					prevStep={prevStep}
-					handleChange={handleChange}
-					values={{
-						...formData,
-					}}
-				/>
-			)}
-			{step === 7 && (
-				<CostForm
-					nextStep={nextStep}
-					prevStep={prevStep}
-					handleChange={handleChange}
-					values={{
-						...formData,
-					}}
-				/>
-			)}
-			{step === 8 && (
-				<FinalDetailsForm
-					nextStep={nextStep}
-					prevStep={prevStep}
-					handleChange={handleChange}
-					values={{
-						...formData,
-					}}
-				/>
-			)}
-			{step === 9 && (
-				<ReviewForm nextStep={nextStep} prevStep={prevStep} />
-			)}
-		</div>
-	);
+// 	return (
+// 		<div className="mt-10">
+// 			{step === 1 && (
+// 				<BasicInformationForm
+// 					nextStep={nextStep}
+// 					handleChange={handleChange}
+// 					values={formData}
+// 					userId={userId}
+// 					listingId={listingId}
+// 				/>
+// 			)}
+// 			{step === 2 && (
+// 				<PropertyInformationForm
+// 					nextStep={nextStep}
+// 					prevStep={prevStep}
+// 					handleChange={handleChange}
+// 					values={{
+// 						...formData,
+// 					}}
+// 					userId={userId}
+// 					listingId={listingId}
+// 				/>
+// 			)}
+// 			{step === 3 && (
+// 				<RentDetailsForm
+// 					nextStep={nextStep}
+// 					prevStep={prevStep}
+// 					handleChange={handleChange}
+// 					// @ts-ignore
+// 					values={{
+// 						...formData,
+// 					}}
+// 					userId={userId}
+// 					listingId={listingId}
+// 				/>
+// 			)}
+// 			{step === 4 && (
+// 				<MediaForm nextStep={nextStep} prevStep={prevStep} />
+// 			)}
+// 			{step === 5 && (
+// 				<AmenitiesForm
+// 					nextStep={nextStep}
+// 					prevStep={prevStep}
+// 					handleChange={handleChange}
+// 					values={{
+// 						...formData,
+// 					}}
+// 				/>
+// 			)}
+// 			{step === 6 && (
+// 				<PolicyForm
+// 					nextStep={nextStep}
+// 					prevStep={prevStep}
+// 					handleChange={handleChange}
+// 					values={{
+// 						...formData,
+// 					}}
+// 				/>
+// 			)}
+// 			{step === 7 && (
+// 				<CostForm
+// 					nextStep={nextStep}
+// 					prevStep={prevStep}
+// 					handleChange={handleChange}
+// 					values={{
+// 						...formData,
+// 					}}
+// 				/>
+// 			)}
+// 			{step === 8 && (
+// 				<FinalDetailsForm
+// 					nextStep={nextStep}
+// 					prevStep={prevStep}
+// 					handleChange={handleChange}
+// 					values={{
+// 						...formData,
+// 					}}
+// 				/>
+// 			)}
+// 			{step === 9 && (
+// 				<ReviewForm nextStep={nextStep} prevStep={prevStep} />
+// 			)}
+// 		</div>
+// 	);
+// };
+
+export const CreateListingForm = () => {
+	return <div>Default</div>;
 };

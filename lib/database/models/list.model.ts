@@ -17,7 +17,9 @@ export interface IList extends Document {
 	user: Types.ObjectId;
 	name: string;
 	category?: Types.ObjectId;
-	rentPrice?: string;
+	rent?: string;
+	securityDeposit?: string;
+	rentNegotiable?: string;
 	availabilityDate?: string;
 	address?: string;
 	city?: string;
@@ -29,9 +31,11 @@ export interface IList extends Document {
 	description?: string;
 	bedrooms?: string;
 	bathrooms?: string;
+	listedBy?: string;
 	squareMeters?: string;
 	amenities?: IAmenity[];
 	petPolicy?: boolean;
+	smokingPolicy?: boolean;
 	touringDate?: ITouringDate[];
 	createdAt: Date;
 	updatedAt: Date;
@@ -59,16 +63,13 @@ const ListSchema = new Schema<IList>(
 			ref: "User",
 			required: true,
 		},
-		name: {
-			type: String,
-			required: true,
-		},
 		category: {
 			type: Schema.Types.ObjectId,
 			ref: "Category",
 		},
-		rentPrice: {
+		name: {
 			type: String,
+			required: true,
 		},
 		address: {
 			type: String,
@@ -79,19 +80,19 @@ const ListSchema = new Schema<IList>(
 		state: {
 			type: String,
 		},
-		description: {
+		squareMeters: {
 			type: String,
 		},
 		availabilityDate: {
+			type: String,
+		},
+		description: {
 			type: String,
 		},
 		bedrooms: {
 			type: String,
 		},
 		bathrooms: {
-			type: String,
-		},
-		squareMeters: {
 			type: String,
 		},
 		amenities: {
@@ -102,11 +103,24 @@ const ListSchema = new Schema<IList>(
 			type: Boolean,
 			default: false,
 		},
+		smokingPolicy: {
+			type: Boolean,
+			default: false,
+		},
+		rent: {
+			type: String,
+		},
+		rentNegotiable: {
+			type: String,
+		},
+		securityDeposit: {
+			type: String,
+		},
 		touringDate: {
 			type: [TouringDateSchema],
 			default: [],
 		},
-		location: {
+		listedBy: {
 			type: String,
 		},
 		status: {

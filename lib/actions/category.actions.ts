@@ -31,7 +31,8 @@ export const createCategory = async ({ name }: { name: string }) => {
 
 		return {
 			category: JSON.parse(JSON.stringify(newCategory)),
-			message: "Successfully created a new category",
+			message:
+				"You have created a new category. Now add it to the listing",
 		};
 	} catch (error) {
 		handleError(error);

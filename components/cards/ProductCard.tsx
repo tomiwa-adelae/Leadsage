@@ -3,6 +3,7 @@ import React from "react";
 import { Separator } from "../ui/separator";
 import Link from "next/link";
 import { formatMoneyInput } from "@/lib/utils";
+import { DEFAULT_LISTING_IMAGE } from "@/constant";
 
 const ProductCard = ({
 	images,
@@ -24,15 +25,15 @@ const ProductCard = ({
 	return (
 		<Link
 			href={`/apartments/${id}`}
-			className="inline-block border rounded-xl overflow-hidden cursor-pointer group shadow-[0px_2px_3px_-1px_rgba(0,0,0,0.1),0px_1px_0px_0px_rgba(25,28,33,0.02),0px_0px_0px_1px_rgba(25,28,33,0.08)]"
+			className="inline-block border rounded-xl overflow-hidden cursor-pointer group shadow-[0px_2px_3px_-1px_rgba(0,0,0,0.1),0px_1px_0px_0px_rgba(25,28,33,0.02),0px_0px_0px_1px_rgba(25,28,33,0.08)] w-[300px] lg:w-[350px]"
 		>
 			<div className="overflow-hidden">
 				<Image
-					src={images[0].url}
+					src={images[0]?.url || DEFAULT_LISTING_IMAGE}
 					alt={name}
 					width={1000}
 					height={1000}
-					className="group-hover:scale-[1.1] aspect-video min-h-40 object-cover transition ease-out"
+					className="group-hover:scale-[1.1] aspect-video min-h-60 w-full object-cover transition ease-out"
 				/>
 			</div>
 			<div className="p-3 lg:p-6">
@@ -56,6 +57,7 @@ const ProductCard = ({
 				</div>
 				<p className="text-gray-800 font-semibold text-base py-2">
 					₦{formatMoneyInput(rentPrice)}
+					{/* ₦600,000 */}
 				</p>
 			</div>
 		</Link>

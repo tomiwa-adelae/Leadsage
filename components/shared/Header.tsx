@@ -8,6 +8,8 @@ import { ProfileDropdown } from "./ProfileDropdown";
 import { SignedIn, SignedOut, useAuth } from "@clerk/nextjs";
 import { getUserInfo } from "@/lib/actions/user.actions";
 import { useEffect, useState } from "react";
+import Image from "next/image";
+
 
 const inknut = Inknut_Antiqua({
 	subsets: ["latin"],
@@ -38,11 +40,15 @@ const Header = ({ color = "white" }: { color?: string }) => {
 			<header
 				className={`py-4 container flex items-center justify-between`}
 			>
-				<h3
-					className={`uppercase font-bold text-xl lg:text-2xl hover:text-green-400 transition ease-out ${inknut.className}`}
-				>
-					<Link href={"/"}>Leadsage</Link>
-				</h3>
+				<Link href={"/"}>
+				<Image
+					src={"/assets/images/logo.png"}
+					alt={"Leadsage Logo"}
+					width={1000}
+					height={1000}
+					className="w-28 h-28"
+				/>
+			</Link>
 				<NavigationDropdowns color={color} />
 				<div className={`gap-4 hidden md:flex`}>
 					<SignedIn>

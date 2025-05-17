@@ -149,7 +149,7 @@ export const getListing = async (id: string) => {
 				message: "Oops! Listing ID not found.",
 			};
 
-		const listing = await List.findById(id);
+		const listing = await List.findById(id).populate("user");
 
 		if (!listing)
 			return {
@@ -221,6 +221,78 @@ export const createList = async ({ details, userId }: CreateListParams) => {
 			message:
 				error?.message ||
 				"Oops! Couldn't get any listings! Try again later.",
+		};
+	}
+};
+
+export const updateListingDetails = async ({
+	listingId,
+	userId,
+	details,
+}: {
+	listingId: string;
+	userId: string;
+	details: any;
+}) => {
+	try {
+		await connectToDatabase();
+
+		const user = await User.findById(userId);
+
+		if (!listingId)
+			return {
+				status: 400,
+				message: "Oops! Listing ID is missing.",
+			};
+
+		if (!user)
+			return {
+				status: 400,
+				message: "Oops! User not found.",
+			};
+
+		if (!user.isRenter)
+			return {
+				status: 400,
+				message: "Oops! You are not authorized to update this listing.",
+			};
+
+		const listing = await List.findOne({ user: userId, _id: listingId });
+
+		if (!listing)
+			return {
+				status: 400,
+				message: "Oops! Listing is not found.",
+			};
+
+		listing.name = details.name || listing.name;
+		listing.category = details.category || listing.category;
+		listing.address = details.address || listing.address;
+		listing.city = details.city || listing.city;
+		listing.state = details.state || listing.state;
+		listing.squareMeters = details.squareMeters || listing.squareMeters;
+		listing.availabilityDate =
+			details.availabilityDate || listing.availabilityDate;
+		listing.bedrooms = details.bedrooms || listing.bedrooms;
+		listing.bathrooms = details.bathrooms || listing.bathrooms;
+		listing.description = details.description || listing.description;
+
+		await listing.save();
+		revalidatePath(`/apartments`);
+		revalidatePath(`/apartments/${listing._id}`);
+
+		return {
+			status: 201,
+			message: `Change successful!`,
+			list: JSON.parse(JSON.stringify(listing)),
+		};
+	} catch (error: any) {
+		handleError(error);
+		return {
+			status: error?.status || 400,
+			message:
+				error?.message ||
+				"Oops! Couldn't update the listing! Try again later.",
 		};
 	}
 };

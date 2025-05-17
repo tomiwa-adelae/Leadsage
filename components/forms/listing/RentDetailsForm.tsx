@@ -36,10 +36,16 @@ import { cn } from "@/lib/utils";
 import { format } from "date-fns";
 import { Calendar } from "@/components/ui/calendar";
 import { Textarea } from "@/components/ui/textarea";
+import { useToast } from "@/hooks/use-toast";
+import { useRouter } from "next/navigation";
+import { updateListingDetails } from "@/lib/actions/list.actions";
+import RequiredAsterisk from "@/components/shared/RequiredAsterisk";
 
 type FormValues = z.infer<typeof RentDetailsFormSchema>;
 
 interface RentDetailsProps {
+	userId: string;
+	listingId?: string;
 	nextStep: () => void;
 	prevStep: () => void;
 	handleChange: (
@@ -49,33 +55,62 @@ interface RentDetailsProps {
 }
 
 const RentDetailsForm: React.FC<RentDetailsProps> = ({
+	userId,
+	listingId,
 	nextStep,
 	prevStep,
 	handleChange,
 	values,
 }) => {
-	const [loading, setLoading] = useState(false);
+	const { toast } = useToast();
+	const router = useRouter();
 
 	const form = useForm<FormValues>({
 		resolver: zodResolver(RentDetailsFormSchema),
 		defaultValues: values, // ✅ Pre-fill values when going back
 	});
 
-	const [categories, setCategories] = useState<ICategory[]>([]);
-	const [openNewCategory, setOpenNewCategory] = useState<boolean>(false);
+	async function onSubmit(data: z.infer<typeof RentDetailsFormSchema>) {
+		try {
+			const details = {
+				...data,
+			};
 
-	const fetchCategories = async () => {
-		const categoryList = await getAllCategories();
+			if (!listingId) {
+				return toast({
+					title: "Error!",
+					description: "Listing ID is missing!",
+					variant: "destructive",
+				});
+			} else {
+				const res = await updateListingDetails({
+					details,
+					userId,
+					listingId,
+				});
+				if (res?.status == 400)
+					return toast({
+						title: "Error!",
+						description: res?.message,
+						variant: "destructive",
+					});
 
-		categoryList && setCategories(categoryList as ICategory[]);
-	};
+				toast({
+					title: "Success!",
+					description: res?.message,
+				});
 
-	const onSubmit = form.handleSubmit(
-		(data) => {
-			nextStep();
-		},
-		(errors) => {}
-	);
+				nextStep();
+				router.push(`/create-listing?id=${res.list?._id}&steps=${4}`);
+			}
+		} catch (error) {
+			toast({
+				title: "Error!",
+				description: "An error occurred!",
+				variant: "destructive",
+			});
+		}
+	}
 
 	return (
 		<div className="py-10 px-6 rounded-md bg-white shadow-[0px_2px_3px_-1px_rgba(0,0,0,0.1),0px_1px_0px_0px_rgba(25,28,33,0.02),0px_0px_0px_1px_rgba(25,28,33,0.08)]">
@@ -110,7 +145,7 @@ const RentDetailsForm: React.FC<RentDetailsProps> = ({
 												handleChange("squareMeters")(e);
 											}}
 										/>
-										<span className="w-[15px] h-[15px] absolute text-gray-400 top-[50%] right-[0%] translate-y-[-50%] text-muted-foreground">
+										<span className="absolute text-gray-400 top-[50%] right-[2%] translate-y-[-50%] text-muted-foreground">
 											sq. ft
 										</span>
 									</div>
@@ -124,7 +159,9 @@ const RentDetailsForm: React.FC<RentDetailsProps> = ({
 						name="availabilityDate"
 						render={({ field }) => (
 							<FormItem className="flex flex-col">
-								<FormLabel>Available from</FormLabel>
+								<FormLabel>
+									Available from <RequiredAsterisk />
+								</FormLabel>
 								<Popover>
 									<PopoverTrigger asChild>
 										<FormControl>
@@ -151,6 +188,7 @@ const RentDetailsForm: React.FC<RentDetailsProps> = ({
 									>
 										<Calendar
 											mode="single"
+											// @ts-ignore
 											selected={field.value}
 											onSelect={field.onChange}
 											disabled={(date: any) =>
@@ -170,7 +208,9 @@ const RentDetailsForm: React.FC<RentDetailsProps> = ({
 							name="bedrooms"
 							render={({ field }) => (
 								<FormItem>
-									<FormLabel>Total bedrooms</FormLabel>
+									<FormLabel>
+										Total bedrooms <RequiredAsterisk />
+									</FormLabel>
 									<Select
 										onValueChange={(value) => {
 											field.onChange(value);
@@ -207,7 +247,9 @@ const RentDetailsForm: React.FC<RentDetailsProps> = ({
 							name="bathrooms"
 							render={({ field }) => (
 								<FormItem>
-									<FormLabel>Total bathrooms</FormLabel>
+									<FormLabel>
+										Total bathrooms <RequiredAsterisk />
+									</FormLabel>
 									<Select
 										onValueChange={(value) => {
 											field.onChange(value);
@@ -245,7 +287,9 @@ const RentDetailsForm: React.FC<RentDetailsProps> = ({
 						name="description"
 						render={({ field }) => (
 							<FormItem>
-								<FormLabel>Description</FormLabel>
+								<FormLabel>
+									Description <RequiredAsterisk />
+								</FormLabel>
 								<FormControl>
 									<Textarea
 										placeholder="Include anything you'd want renters to know (e.g., furnishing, nearby landmarks, or rules)."
@@ -268,18 +312,14 @@ const RentDetailsForm: React.FC<RentDetailsProps> = ({
 							Back
 						</Button>
 						<Button
-							disabled={loading}
+							disabled={form.formState.isSubmitting}
 							size="lg"
 							type="submit"
 							className="ml-2"
 						>
-							{loading ? (
-								<>
-									<Loader2 className="w-4 h-4 animate-spin transition-all" />
-								</>
-							) : (
-								"Continue"
-							)}
+							{form.formState.isSubmitting
+								? "Saving..."
+								: "Continue"}
 						</Button>
 					</div>
 				</form>

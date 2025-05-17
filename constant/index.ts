@@ -709,3 +709,22 @@ export const amenities = [
 		],
 	},
 ] as const;
+
+export const listedBy = [
+	"Property owner",
+	"Management company or broker",
+	"Tenant",
+];
+
+export const touringDates = [
+	{ id: "mondays", label: "Mondays" },
+	{ id: "tuesdays", label: "Tuesdays" },
+	{ id: "wednesdays", label: "Wednesdays" },
+	{ id: "thursdays", label: "Thursdays" },
+	{ id: "fridays", label: "Fridays" },
+	{ id: "saturdays", label: "Saturdays" },
+	{ id: "sundays", label: "Sundays" },
+] as const;
+
+export const DEFAULT_LISTING_IMAGE =
+	"https://res.cloudinary.com/dh0rc6p1c/image/upload/v1743769687/leadsage/rzhrdiqhnmzawuoyx6ri.jpg";

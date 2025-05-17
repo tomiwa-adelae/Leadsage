@@ -115,12 +115,6 @@ const ChooseAccountForm = () => {
 					</Button>
 				</div>
 			</div>
-			<p className="text-gray-400 text-sm text-center mt-6">
-				Have an account?{" "}
-				<Link href="/sign-in" className="font-semibold text-green-400">
-					Log In
-				</Link>
-			</p>
 		</>
 	);
 };

@@ -43,7 +43,7 @@ export function AddNewCategoryForm({
 			<DrawerContent className="z-[1000] pointer-events-auto">
 				<div className="mx-auto w-full sm:max-w-sm lg:max-w-lg py-10 container">
 					<h4 className="text-sm uppercase font-medium">
-						Create category
+						Add new category
 					</h4>
 					<div className="mt-2">
 						<Input

@@ -1,3 +1,4 @@
+"use client";
 import { PropertyInformationFormSchema } from "@/lib/validations";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
@@ -19,18 +20,21 @@ import {
 	SelectTrigger,
 	SelectValue,
 } from "@/components/ui/select";
-import { FileUpload } from "@/components/ui/file-upload";
-import React, { useState } from "react";
-import { uploadDocuments } from "@/lib/actions/upload.actions";
-import { Loader2 } from "lucide-react";
+import React, { useEffect, useState } from "react";
 import { getAllCategories } from "@/lib/actions/category.actions";
 import { ICategory } from "@/lib/database/models/category.model";
 import { AddNewCategoryForm } from "../AddNewCategoryForm";
 import { states } from "@/constant";
+import RequiredAsterisk from "@/components/shared/RequiredAsterisk";
+import { useToast } from "@/hooks/use-toast";
+import { updateListingDetails } from "@/lib/actions/list.actions";
+import { useRouter } from "next/navigation";
 
 type FormValues = z.infer<typeof PropertyInformationFormSchema>;
 
 interface PropertyInformationProps {
+	userId: string;
+	listingId?: string;
 	nextStep: () => void;
 	prevStep: () => void;
 	handleChange: (
@@ -40,12 +44,15 @@ interface PropertyInformationProps {
 }
 
 const PropertyInformationForm: React.FC<PropertyInformationProps> = ({
+	userId,
+	listingId,
 	nextStep,
 	prevStep,
 	handleChange,
 	values,
 }) => {
-	const [loading, setLoading] = useState(false);
+	const { toast } = useToast();
+	const router = useRouter();
 
 	const form = useForm<FormValues>({
 		resolver: zodResolver(PropertyInformationFormSchema),
@@ -61,12 +68,53 @@ const PropertyInformationForm: React.FC<PropertyInformationProps> = ({
 		categoryList && setCategories(categoryList as ICategory[]);
 	};
 
-	const onSubmit = form.handleSubmit(
-		(data) => {
-			nextStep();
-		},
-		(errors) => {}
-	);
+	useEffect(() => {
+		fetchCategories();
+	}, []);
+
+	async function onSubmit(
+		data: z.infer<typeof PropertyInformationFormSchema>
+	) {
+		try {
+			const details = {
+				...data,
+			};
+
+			if (!listingId) {
+				return toast({
+					title: "Error!",
+					description: "Listing ID is missing!",
+					variant: "destructive",
+				});
+			} else {
+				const res = await updateListingDetails({
+					details,
+					userId,
+					listingId,
+				});
+				if (res?.status == 400)
+					return toast({
+						title: "Error!",
+						description: res?.message,
+						variant: "destructive",
+					});
+
+				toast({
+					title: "Success!",
+					description: res?.message,
+				});
+
+				nextStep();
+				router.push(`/create-listing?id=${res.list?._id}&steps=${3}`);
+			}
+		} catch (error) {
+			toast({
+				title: "Error!",
+				description: "An error occurred!",
+				variant: "destructive",
+			});
+		}
+	}
 
 	return (
 		<div className="py-10 px-6 rounded-md bg-white shadow-[0px_2px_3px_-1px_rgba(0,0,0,0.1),0px_1px_0px_0px_rgba(25,28,33,0.02),0px_0px_0px_1px_rgba(25,28,33,0.08)]">
@@ -91,7 +139,9 @@ const PropertyInformationForm: React.FC<PropertyInformationProps> = ({
 						name="category"
 						render={({ field }: any) => (
 							<FormItem>
-								<FormLabel>Category</FormLabel>
+								<FormLabel>
+									Category <RequiredAsterisk />
+								</FormLabel>
 								<div className="flex items-center justify-center">
 									<Select
 										onValueChange={(value) => {
@@ -107,6 +157,12 @@ const PropertyInformationForm: React.FC<PropertyInformationProps> = ({
 											</SelectTrigger>
 										</FormControl>
 										<SelectContent>
+											{categories.length === 0 && (
+												<p className="italic text-base text-center py-8">
+													No categories yet. Add new
+													category
+												</p>
+											)}
 											{categories.length > 0 &&
 												categories.map((category) => (
 													<SelectItem
@@ -138,7 +194,9 @@ const PropertyInformationForm: React.FC<PropertyInformationProps> = ({
 						name="address"
 						render={({ field }) => (
 							<FormItem className="col-span-2 md:col-span-1">
-								<FormLabel>Street Address</FormLabel>
+								<FormLabel>
+									Street Address <RequiredAsterisk />
+								</FormLabel>
 								<FormControl>
 									<Input
 										placeholder="Be specific. Include house number, street name, and area if available"
@@ -159,7 +217,9 @@ const PropertyInformationForm: React.FC<PropertyInformationProps> = ({
 							name="city"
 							render={({ field }) => (
 								<FormItem className="col-span-2 md:col-span-1">
-									<FormLabel>City</FormLabel>
+									<FormLabel>
+										City <RequiredAsterisk />
+									</FormLabel>
 									<FormControl>
 										<Input
 											placeholder="Enter the city where the property is located"
@@ -179,7 +239,9 @@ const PropertyInformationForm: React.FC<PropertyInformationProps> = ({
 							name="state"
 							render={({ field }) => (
 								<FormItem>
-									<FormLabel>State</FormLabel>
+									<FormLabel>
+										State <RequiredAsterisk />
+									</FormLabel>
 									<Select
 										onValueChange={(value) => {
 											field.onChange(value);
@@ -213,18 +275,14 @@ const PropertyInformationForm: React.FC<PropertyInformationProps> = ({
 							Back
 						</Button>
 						<Button
-							disabled={loading}
+							disabled={form.formState.isSubmitting}
 							size="lg"
 							type="submit"
 							className="ml-2"
 						>
-							{loading ? (
-								<>
-									<Loader2 className="w-4 h-4 animate-spin transition-all" />
-								</>
-							) : (
-								"Continue"
-							)}
+							{form.formState.isSubmitting
+								? "Saving..."
+								: "Continue"}
 						</Button>
 					</div>
 				</form>

@@ -59,11 +59,11 @@ export const RentDetailsFormSchema = z.object({
 	description: z.string().min(2, {
 		message: "Description must be at least 2 characters.",
 	}),
-	bedrooms: z.string().min(2, {
-		message: "Bedrooms must be at least 2 characters.",
+	bedrooms: z.string({
+		required_error: "Number of bedrooms is required.",
 	}),
-	bathrooms: z.string().min(2, {
-		message: "Bathrooms must be at least 2 characters.",
+	bathrooms: z.string({
+		required_error: "Number of bathrooms is required.",
 	}),
 });
 
@@ -75,9 +75,51 @@ export const AmenitiesFormSchema = z.object({
 		}),
 });
 
+export const PolicyFormSchema = z.object({
+	petPolicy: z.string().min(2, {
+		message: "Pet policy is required.",
+	}),
+	smokingPolicy: z.string().min(2, {
+		message: "Smoke policy is required.",
+	}),
+});
+
 export const CategoryFormSchema = z.object({
 	name: z.string().min(2, {
 		message: "Name must be at least 2 characters.",
+	}),
+});
+
+export const CostFormSchema = z.object({
+	rent: z.string().min(2, {
+		message: "Rent is required.",
+	}),
+	rentNegotiable: z.string().min(2, {
+		message: "Negotiation is required.",
+	}),
+	securityDeposit: z.string().optional(),
+});
+
+export const FinalDetailsFormSchema = z.object({
+	fullName: z.string().min(2, {
+		message: "Name must be at least 2 characters.",
+	}),
+	email: z.string().email().min(2, {
+		message: "Name must be at least 2 characters.",
+	}),
+	phoneNumber: z
+		.string()
+		.regex(/^(\+?\d{10,15})$/, { message: "Enter a valid phone number." })
+		.refine(isValidPhoneNumber, {
+			message: "Invalid phone number",
+		}),
+	touringDate: z
+		.array(z.string())
+		.refine((value) => value.some((item) => item), {
+			message: "You have to select at least four subjects.",
+		}),
+	listedBy: z.string().min(2, {
+		message: "Negotiation is required.",
 	}),
 });
 

@@ -455,31 +455,64 @@ import PropertyInformationForm from "./listing/PropertyInformationForm";
 import RentDetailsForm from "./listing/RentDetailsForm";
 import MediaForm from "./listing/MediaForm";
 import AmenitiesForm from "./listing/AmenitiesForm";
+import PolicyForm from "./listing/PolicyForm";
+import CostForm from "./listing/CostForm";
+import FinalDetailsForm from "./listing/FinalDetailsForm";
+import ReviewForm from "./listing/ReviewForm";
+import { IList } from "@/lib/database/models/list.model";
 
-export const CreateListingForm = () => {
-	const [step, setStep] = useState(5);
+export const CreateListingForm = ({
+	userId,
+	listingId,
+	steps,
+	listing,
+}: {
+	userId: string;
+	listingId?: string;
+	steps?: number;
+	listing: IList;
+}) => {
+	console.log(listing);
+
+	const [step, setStep] = useState(Number(steps) || 1);
 
 	const [formData, setFormData] = useState({
 		// Basic Information Fields
-		name: "",
+		name: listing.name || "",
 		// Property Information Fields
-		category: "",
-		city: "",
-		address: "",
-		state: "",
+		category: listing.category || "",
+		city: listing.city || "",
+		address: listing.address || "",
+		state: listing.state || "",
 
 		// Rent details fields
-		squareMeters: "",
-		availabilityDate: "",
-		description: "",
-		bedrooms: "",
-		bathrooms: "",
+		squareMeters: listing.squareMeters || "",
+		availabilityDate: listing.availabilityDate || "",
+		description: listing.description || "",
+		bedrooms: listing.bedrooms || "",
+		bathrooms: listing.bathrooms || "",
 
 		// Media fields
 		images: [],
 
 		// Amenities fields
 		amenities: [],
+
+		// Policy fields
+		petPolicy: listing.petPolicy || "",
+		smokingPolicy: listing.smokingPolicy || "",
+
+		// Cost fields
+		rent: listing.rent || "",
+		securityDeposit: listing.securityDeposit || "",
+		rentNegotiable: listing.rentNegotiable || "",
+
+		// Final details fields
+		fullName: "",
+		email: "",
+		phoneNumber: "",
+		touringDate: [],
+		listedBy: listing.listedBy || "",
 	});
 
 	const handleChange =
@@ -507,8 +540,8 @@ export const CreateListingForm = () => {
 		};
 
 	// ✅ Step navigation handlers
-	const nextStep = () => setStep((prev) => prev + 1);
-	const prevStep = () => setStep((prev) => prev - 1);
+	const nextStep = () => setStep((prev: any) => prev + 1);
+	const prevStep = () => setStep((prev: any) => prev - 1);
 
 	return (
 		<div className="mt-10">
@@ -517,6 +550,8 @@ export const CreateListingForm = () => {
 					nextStep={nextStep}
 					handleChange={handleChange}
 					values={formData}
+					userId={userId}
+					listingId={listingId}
 				/>
 			)}
 			{step === 2 && (
@@ -527,6 +562,8 @@ export const CreateListingForm = () => {
 					values={{
 						...formData,
 					}}
+					userId={userId}
+					listingId={listingId}
 				/>
 			)}
 			{step === 3 && (
@@ -534,20 +571,16 @@ export const CreateListingForm = () => {
 					nextStep={nextStep}
 					prevStep={prevStep}
 					handleChange={handleChange}
+					// @ts-ignore
 					values={{
 						...formData,
 					}}
+					userId={userId}
+					listingId={listingId}
 				/>
 			)}
 			{step === 4 && (
-				<MediaForm
-					nextStep={nextStep}
-					prevStep={prevStep}
-					handleChange={handleChange}
-					values={{
-						...formData,
-					}}
-				/>
+				<MediaForm nextStep={nextStep} prevStep={prevStep} />
 			)}
 			{step === 5 && (
 				<AmenitiesForm
@@ -558,6 +591,39 @@ export const CreateListingForm = () => {
 						...formData,
 					}}
 				/>
+			)}
+			{step === 6 && (
+				<PolicyForm
+					nextStep={nextStep}
+					prevStep={prevStep}
+					handleChange={handleChange}
+					values={{
+						...formData,
+					}}
+				/>
+			)}
+			{step === 7 && (
+				<CostForm
+					nextStep={nextStep}
+					prevStep={prevStep}
+					handleChange={handleChange}
+					values={{
+						...formData,
+					}}
+				/>
+			)}
+			{step === 8 && (
+				<FinalDetailsForm
+					nextStep={nextStep}
+					prevStep={prevStep}
+					handleChange={handleChange}
+					values={{
+						...formData,
+					}}
+				/>
+			)}
+			{step === 9 && (
+				<ReviewForm nextStep={nextStep} prevStep={prevStep} />
 			)}
 		</div>
 	);

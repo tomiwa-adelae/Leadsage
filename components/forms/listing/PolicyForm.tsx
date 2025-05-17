@@ -1,4 +1,4 @@
-import { AmenitiesFormSchema } from "@/lib/validations";
+import { PolicyFormSchema } from "@/lib/validations";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import {
@@ -16,9 +16,15 @@ import React, { useState } from "react";
 import { Loader2 } from "lucide-react";
 import RequiredAsterisk from "@/components/shared/RequiredAsterisk";
 import { amenities } from "@/constant";
-import { Input } from "@/components/ui/input";
+import {
+	Select,
+	SelectContent,
+	SelectItem,
+	SelectTrigger,
+	SelectValue,
+} from "@/components/ui/select";
 
-type FormValues = z.infer<typeof AmenitiesFormSchema>;
+type FormValues = z.infer<typeof PolicyFormSchema>;
 
 interface AmenitiesProps {
 	nextStep: () => void;
@@ -29,7 +35,7 @@ interface AmenitiesProps {
 	values: FormValues;
 }
 
-const AmenitiesForm: React.FC<AmenitiesProps> = ({
+const PolicyForm: React.FC<AmenitiesProps> = ({
 	nextStep,
 	prevStep,
 	handleChange,
@@ -38,7 +44,7 @@ const AmenitiesForm: React.FC<AmenitiesProps> = ({
 	const [loading, setLoading] = useState(false);
 
 	const form = useForm<FormValues>({
-		resolver: zodResolver(AmenitiesFormSchema),
+		resolver: zodResolver(PolicyFormSchema),
 		defaultValues: values, // ✅ Pre-fill values when going back
 	});
 
@@ -54,12 +60,13 @@ const AmenitiesForm: React.FC<AmenitiesProps> = ({
 		<div className="py-10 px-6 rounded-md bg-white shadow-[0px_2px_3px_-1px_rgba(0,0,0,0.1),0px_1px_0px_0px_rgba(25,28,33,0.02),0px_0px_0px_1px_rgba(25,28,33,0.08)]">
 			<div className="mb-6">
 				<h3 className="text-lg uppercase mb-1 font-semibold text-primary">
-					Highlight Your Amenities
+					Set Your Property Policies
 				</h3>
 				<p className="text-base text-muted-foreground">
-					Let renters know what makes your apartment stand out. Select
-					the features and facilities your space offers to enhance
-					visibility and attract the right audience.
+					Define the house rules and expectations for your property.
+					Clear policies help you attract the right renters, prevent
+					misunderstandings, and ensure a smooth rental experience for
+					both parties.
 				</p>
 			</div>
 			<Form {...form}>
@@ -68,86 +75,72 @@ const AmenitiesForm: React.FC<AmenitiesProps> = ({
 					onSubmit={form.handleSubmit(onSubmit)}
 					className="space-y-6"
 				>
-					<FormField
-						control={form.control}
-						name="amenities"
-						render={({ field }) => (
-							<FormItem className="grid gap-4">
-								{amenities.map((amenities, index) => (
-									<div>
-										<FormLabel className="mb-4">
-											{amenities.title}{" "}
-											{amenities.required && (
-												<RequiredAsterisk />
-											)}
-										</FormLabel>
-										<div className="flex flex-wrap gap-8">
-											{amenities.amenities.map(
-												(amenity) => {
-													const selectedValues: string[] =
-														field.value || [];
-
-													return (
-														<FormField
-															key={amenity.id}
-															control={
-																form.control
-															}
-															name="amenities"
-															render={() => (
-																<FormItem className="flex flex-row items-start space-x-3 space-y-0 mt-2">
-																	<FormControl>
-																		<Checkbox
-																			checked={selectedValues.includes(
-																				amenity.label
-																			)}
-																			onCheckedChange={(
-																				checked
-																			) => {
-																				const updatedLaundry =
-																					checked
-																						? [
-																								...selectedValues,
-																								amenity.label,
-																						  ]
-																						: selectedValues.filter(
-																								(
-																									value
-																								) =>
-																									value !==
-																									amenity.label
-																						  );
-
-																				field.onChange(
-																					updatedLaundry
-																				);
-																				handleChange(
-																					"amenities"
-																				)(
-																					// @ts-ignore
-																					updatedLaundry
-																				);
-																			}}
-																		/>
-																	</FormControl>
-																	<FormLabel className="font-normal text-base">
-																		{
-																			amenity.label
-																		}
-																	</FormLabel>
-																</FormItem>
-															)}
-														/>
-													);
-												}
-											)}
-										</div>
-									</div>
-								))}
-								<FormMessage />
-							</FormItem>
-						)}
-					/>
+					<div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+						<FormField
+							control={form.control}
+							name="petPolicy"
+							render={({ field }) => (
+								<FormItem>
+									<FormLabel>Pet policy</FormLabel>
+									<Select
+										onValueChange={(value) => {
+											field.onChange(value);
+											handleChange("petPolicy")(value);
+										}}
+										defaultValue={field.value}
+									>
+										<FormControl>
+											<SelectTrigger>
+												<SelectValue placeholder="Select your pet policy" />
+											</SelectTrigger>
+										</FormControl>
+										<SelectContent>
+											<SelectItem value={"Yes"}>
+												Yes
+											</SelectItem>
+											<SelectItem value={"No"}>
+												No
+											</SelectItem>
+										</SelectContent>
+									</Select>
+									<FormMessage />
+								</FormItem>
+							)}
+						/>
+						<FormField
+							control={form.control}
+							name="smokingPolicy"
+							render={({ field }) => (
+								<FormItem>
+									<FormLabel>Smoking Policy</FormLabel>
+									<Select
+										onValueChange={(value) => {
+											field.onChange(value);
+											handleChange("smokingPolicy")(
+												value
+											);
+										}}
+										defaultValue={field.value}
+									>
+										<FormControl>
+											<SelectTrigger>
+												<SelectValue placeholder="Select your smoking policy" />
+											</SelectTrigger>
+										</FormControl>
+										<SelectContent>
+											<SelectItem value={"Yes"}>
+												Yes
+											</SelectItem>
+											<SelectItem value={"No"}>
+												No
+											</SelectItem>
+										</SelectContent>
+									</Select>
+									<FormMessage />
+								</FormItem>
+							)}
+						/>
+					</div>
 					<div className="flex justify-between mt-6">
 						<Button size="lg" onClick={prevStep} variant="outline">
 							Back
@@ -173,4 +166,4 @@ const AmenitiesForm: React.FC<AmenitiesProps> = ({
 	);
 };
 
-export default AmenitiesForm;
+export default PolicyForm;

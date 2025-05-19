@@ -312,74 +312,74 @@ export const updateListing = async ({
 	try {
 		await connectToDatabase();
 
-		const user = await User.findById(userId);
+		// const user = await User.findById(userId);
 
-		if (!user)
-			return {
-				status: 400,
-				message: "Oops! User not found.",
-			};
+		// if (!user)
+		// 	return {
+		// 		status: 400,
+		// 		message: "Oops! User not found.",
+		// 	};
 
-		if (!user.isRenter)
-			return {
-				status: 400,
-				message: "Oops! You are not authorized to update this listing.",
-			};
+		// if (!user.isRenter)
+		// 	return {
+		// 		status: 400,
+		// 		message: "Oops! You are not authorized to update this listing.",
+		// 	};
 
-		const listing = await List.findOne({ user: userId, _id: listingId });
+		// const listing = await List.findOne({ user: userId, _id: listingId });
 
-		if (!listing)
-			return {
-				status: 400,
-				message: "Oops! Listing is not found.",
-			};
+		// if (!listing)
+		// 	return {
+		// 		status: 400,
+		// 		message: "Oops! Listing is not found.",
+		// 	};
 
-		// Ensure the type exists on the listing object before updating
-		if (!(type in listing)) {
-			return {
-				status: 400,
-				message: `Oops! Invalid field '${type}' for updating.`,
-			};
-		}
+		// // Ensure the type exists on the listing object before updating
+		// if (!(type in listing)) {
+		// 	return {
+		// 		status: 400,
+		// 		message: `Oops! Invalid field '${type}' for updating.`,
+		// 	};
+		// }
 
-		// Handle image replacement
-		if (type === "images") {
-			const oldImage = listing.images.find(
-				(img: any) => img._id.toString() === value?.oldImage
-			);
+		// // Handle image replacement
+		// if (type === "images") {
+		// 	const oldImage = listing.images.find(
+		// 		(img: any) => img._id.toString() === value?.oldImage
+		// 	);
 
-			if (oldImage) {
-				// Remove the old image from MongoDB
-				await List.findByIdAndUpdate(
-					listingId,
-					{ $pull: { images: { id: oldImage.id } } }, // Remove the old image
-					{ new: true }
-				);
-			}
+		// 	if (oldImage) {
+		// 		// Remove the old image from MongoDB
+		// 		await List.findByIdAndUpdate(
+		// 			listingId,
+		// 			{ $pull: { images: { id: oldImage.id } } }, // Remove the old image
+		// 			{ new: true }
+		// 		);
+		// 	}
 
-			// Add the new image to MongoDB
-			await List.findByIdAndUpdate(
-				listingId,
-				{ $push: { images: value } },
-				{ new: true }
-			);
-		} else {
-			// Update non-array fields normally
-			listing[type] = value || listing[type];
-			await listing.save();
-		}
+		// 	// Add the new image to MongoDB
+		// 	await List.findByIdAndUpdate(
+		// 		listingId,
+		// 		{ $push: { images: value } },
+		// 		{ new: true }
+		// 	);
+		// } else {
+		// 	// Update non-array fields normally
+		// 	listing[type] = value || listing[type];
+		// 	await listing.save();
+		// }
 
-		await listing.save();
+		// await listing.save();
 
-		revalidatePath(`/apartments`);
-		revalidatePath(`/apartments/${listing._id}`);
+		// revalidatePath(`/apartments`);
+		// revalidatePath(`/apartments/${listing._id}`);
 
-		return {
-			status: 201,
-			message: `Successfully updated the ${
-				type === "isPublished" ? "publish status" : type
-			}`,
-		};
+		// return {
+		// 	status: 201,
+		// 	message: `Successfully updated the ${
+		// 		type === "isPublished" ? "publish status" : type
+		// 	}`,
+		// };
 	} catch (error: any) {
 		handleError(error);
 		return {

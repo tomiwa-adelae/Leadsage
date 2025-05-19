@@ -38,7 +38,7 @@ import { Calendar } from "@/components/ui/calendar";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
 import { useRouter } from "next/navigation";
-import { updateListingDetails } from "@/lib/actions/list.actions";
+// import { updateListingDetails } from "@/lib/actions/list.actions";
 import RequiredAsterisk from "@/components/shared/RequiredAsterisk";
 
 type FormValues = z.infer<typeof RentDetailsFormSchema>;
@@ -77,31 +77,29 @@ const RentDetailsForm: React.FC<RentDetailsProps> = ({
 			};
 
 			if (!listingId) {
-				return toast({
-					title: "Error!",
-					description: "Listing ID is missing!",
-					variant: "destructive",
-				});
-			} else {
-				const res = await updateListingDetails({
-					details,
-					userId,
-					listingId,
-				});
-				if (res?.status == 400)
-					return toast({
-						title: "Error!",
-						description: res?.message,
-						variant: "destructive",
-					});
-
-				toast({
-					title: "Success!",
-					description: res?.message,
-				});
-
-				nextStep();
-				router.push(`/create-listing?id=${res.list?._id}&steps=${4}`);
+				// 	return toast({
+				// 		title: "Error!",
+				// 		description: "Listing ID is missing!",
+				// 		variant: "destructive",
+				// 	});
+				// } else {
+				// 	const res = await updateListingDetails({
+				// 		details,
+				// 		userId,
+				// 		listingId,
+				// 	});
+				// 	if (res?.status == 400)
+				// 		return toast({
+				// 			title: "Error!",
+				// 			description: res?.message,
+				// 			variant: "destructive",
+				// 		});
+				// 	toast({
+				// 		title: "Success!",
+				// 		description: res?.message,
+				// 	});
+				// 	nextStep();
+				// 	router.push(`/create-listing?id=${res.list?._id}&steps=${4}`);
 			}
 		} catch (error) {
 			toast({

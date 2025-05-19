@@ -11,7 +11,7 @@ import {
 	TableRow,
 } from "@/components/ui/table";
 import Link from "next/link";
-import { getMyListings } from "@/lib/actions/list.actions";
+// import { getMyListings } from "@/lib/actions/list.actions";
 import { LISTING_LIMIT } from "@/constant";
 import { auth } from "@clerk/nextjs";
 import { getUserInfo } from "@/lib/actions/user.actions";
@@ -28,14 +28,14 @@ const page = async ({ searchParams }: SearchParamProps) => {
 
 	const user = await getUserInfo(userId!);
 
-	const lists = await getMyListings({
-		page,
-		query,
-		limit: LISTING_LIMIT,
-		userId: user?._id,
-	});
+	// const lists = await getMyListings({
+	// 	page,
+	// 	query,
+	// 	limit: LISTING_LIMIT,
+	// 	userId: user?._id,
+	// });
 
-	if (lists.status === 400) redirect("/not-found");
+	// if (lists.status === 400) redirect("/not-found");
 
 	return (
 		<div className="pb-12">
@@ -50,7 +50,7 @@ const page = async ({ searchParams }: SearchParamProps) => {
 					</Link>
 				</Button>
 			</div>
-			{lists.data.length === 0 && <NoListingBox />}
+			{/* {lists.data.length === 0 && <NoListingBox />}
 			{lists.data.length !== 0 && (
 				<Table className="mt-10 bg-white rounded-md">
 					<TableHeader>
@@ -120,16 +120,16 @@ const page = async ({ searchParams }: SearchParamProps) => {
 											/>
 										</Link>
 									</Button>
-									{/* <OpenDeleteModal
+									<OpenDeleteModal
 										id={list?._id}
 										userId={user._id}
-									/> */}
+									/>
 								</TableCell>
 							</TableRow>
 						))}
 					</TableBody>
 				</Table>
-			)}
+			)} */}
 		</div>
 	);
 };

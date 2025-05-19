@@ -16,7 +16,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { BasicInformationFormSchema } from "@/lib/validations";
 import RequiredAsterisk from "@/components/shared/RequiredAsterisk";
-import { createList, updateListingDetails } from "@/lib/actions/list.actions";
+// import { createList, updateListingDetails } from "@/lib/actions/list.actions";
 import { useToast } from "@/hooks/use-toast";
 import { useRouter } from "next/navigation";
 
@@ -52,32 +52,32 @@ const BasicInformationForm: React.FC<BasicInformationFormProps> = ({
 				...data,
 			};
 
-			let res;
+			// let res;
 
-			if (listingId) {
-				res = await updateListingDetails({
-					details,
-					userId,
-					listingId,
-				});
-			} else {
-				res = await createList({ details, userId });
-			}
-			if (res?.status == 400)
-				return toast({
-					title: "Error!",
-					description: res?.message,
-					variant: "destructive",
-				});
+			// if (listingId) {
+			// 	res = await updateListingDetails({
+			// 		details,
+			// 		userId,
+			// 		listingId,
+			// 	});
+			// } else {
+			// 	res = await createList({ details, userId });
+			// }
+			// if (res?.status == 400)
+			// 	return toast({
+			// 		title: "Error!",
+			// 		description: res?.message,
+			// 		variant: "destructive",
+			// 	});
 
-			toast({
-				title: "Success!",
-				description: res?.message,
-			});
+			// toast({
+			// 	title: "Success!",
+			// 	description: res?.message,
+			// });
 
-			nextStep();
+			// nextStep();
 
-			router.push(`/create-listing?id=${res.list?._id}&steps=${2}`);
+			// router.push(`/create-listing?id=${res.list?._id}&steps=${2}`);
 		} catch (error) {
 			toast({
 				title: "Error!",

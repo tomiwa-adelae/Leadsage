@@ -15,7 +15,7 @@ import { Input } from "@/components/ui/input";
 
 import { Button } from "@/components/ui/button";
 import { Drawer, DrawerClose, DrawerContent } from "@/components/ui/drawer";
-import { updateListing } from "@/lib/actions/list.actions";
+// import { updateListing } from "@/lib/actions/list.actions";
 import { toast } from "@/hooks/use-toast";
 import PhoneInput from "react-phone-number-input";
 import "react-phone-number-input/style.css";
@@ -53,18 +53,18 @@ export function EditUserDetailsModal({
 					state: data.state || user?.state,
 				},
 			};
-			const res = await updateUser(payload);
-			if (res?.status === 400) {
-				toast({
-					title: "Error!",
-					description: res?.message,
-					variant: "destructive",
-				});
-				return;
-			}
+			// const res = await updateUser(payload);
+			// if (res?.status === 400) {
+			// 	toast({
+			// 		title: "Error!",
+			// 		description: res?.message,
+			// 		variant: "destructive",
+			// 	});
+			// 	return;
+			// }
 
-			toast({ title: "Success!", description: res?.message });
-			closeModal();
+			// toast({ title: "Success!", description: res?.message });
+			// closeModal();
 		} catch (error) {
 			toast({
 				title: "Error!",

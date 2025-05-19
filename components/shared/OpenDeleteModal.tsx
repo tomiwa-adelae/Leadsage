@@ -7,7 +7,7 @@ import {
 	DrawerContent,
 	DrawerTrigger,
 } from "@/components/ui/drawer";
-import { deleteListing } from "@/lib/actions/list.actions";
+// import { deleteListing } from "@/lib/actions/list.actions";
 import { toast } from "@/hooks/use-toast";
 
 import { useState } from "react";
@@ -32,18 +32,18 @@ export function OpenDeleteModal({
 		try {
 			setLoading(true);
 
-			const res: any = await deleteListing({ userId, listingId: id });
-			if (res?.status == 400)
-				return toast({
-					title: "Error!",
-					description: res?.message,
-					variant: "destructive",
-				});
+			// const res: any = await deleteListing({ userId, listingId: id });
+			// if (res?.status == 400)
+			// 	return toast({
+			// 		title: "Error!",
+			// 		description: res?.message,
+			// 		variant: "destructive",
+			// 	});
 
-			toast({
-				title: "Success!",
-				description: res?.message,
-			});
+			// toast({
+			// 	title: "Success!",
+			// 	description: res?.message,
+			// });
 			router.push("/listings");
 		} catch (error) {
 			setLoading(false);

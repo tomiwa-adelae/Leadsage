@@ -2,7 +2,7 @@
 
 import { Button } from "@/components/ui/button";
 import { Drawer, DrawerClose, DrawerContent } from "@/components/ui/drawer";
-import { deleteListing, deleteListingImage } from "@/lib/actions/list.actions";
+// import { deleteListing, deleteListingImage } from "@/lib/actions/list.actions";
 import { toast } from "@/hooks/use-toast";
 
 import { useState } from "react";
@@ -26,19 +26,19 @@ export function OpenDeleteImageModal({
 		try {
 			setLoading(true);
 
-			const res = await deleteListingImage({ userId, image, listingId });
+			// const res = await deleteListingImage({ userId, image, listingId });
 
-			if (res?.status == 400)
-				return toast({
-					title: "Error!",
-					description: res?.message,
-					variant: "destructive",
-				});
+			// if (res?.status == 400)
+			// 	return toast({
+			// 		title: "Error!",
+			// 		description: res?.message,
+			// 		variant: "destructive",
+			// 	});
 
-			toast({
-				title: "Success!",
-				description: res?.message,
-			});
+			// toast({
+			// 	title: "Success!",
+			// 	description: res?.message,
+			// });
 			closeModal();
 		} catch (error) {
 			setLoading(false);

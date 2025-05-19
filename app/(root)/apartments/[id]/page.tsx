@@ -2,7 +2,7 @@ import ApartmentDetails from "@/components/ApartmentDetails";
 import { ApartmentImages } from "@/components/ApartmentImages";
 import Header from "@/components/shared/Header";
 import { images } from "@/constant";
-import { getListing } from "@/lib/actions/list.actions";
+// import { getListing } from "@/lib/actions/list.actions";
 import { getUserInfo } from "@/lib/actions/user.actions";
 import { auth } from "@clerk/nextjs";
 import dynamic from "next/dynamic";
@@ -23,47 +23,47 @@ const page = async ({ params }: { params: { id: string } }) => {
 
 	const id = params.id;
 
-	const listing = await getListing(id!);
+	// const listing = await getListing(id!);
 
-	const requiredFields = [
-		listing?.name,
-		listing?.category,
-		listing?.rentPrice,
-		listing?.address,
-		listing?.city,
-		listing?.state,
-		listing?.description,
-		listing?.images,
-		listing?.availabilityDate,
-		// listing?.location,
-	];
+	// const requiredFields = [
+	// 	listing?.name,
+	// 	listing?.category,
+	// 	listing?.rentPrice,
+	// 	listing?.address,
+	// 	listing?.city,
+	// 	listing?.state,
+	// 	listing?.description,
+	// 	listing?.images,
+	// 	listing?.availabilityDate,
+	// 	// listing?.location,
+	// ];
 
-	const totalFields = requiredFields.length;
+	// const totalFields = requiredFields.length;
 
-	const completedFields = requiredFields.filter(Boolean).length;
+	// const completedFields = requiredFields.filter(Boolean).length;
 
-	const completedText = `${completedFields} / ${totalFields}`;
+	// const completedText = `${completedFields} / ${totalFields}`;
 
-	const hasEnoughImages =
-		Array.isArray(listing?.images) && listing.images.length >= 3;
+	// const hasEnoughImages =
+	// 	Array.isArray(listing?.images) && listing.images.length >= 3;
 
-	const isComplete = requiredFields.every(Boolean) && hasEnoughImages;
+	// const isComplete = requiredFields.every(Boolean) && hasEnoughImages;
 
-	if (listing.status === 400) redirect("/not-found.tsx");
+	// if (listing.status === 400) redirect("/not-found.tsx");
 
 	return (
 		<div>
 			<Header color="black" />
 			<div className="container">
-				{!isComplete && (
+				{/* {!isComplete && (
 					<Marquee className="mt-4 font-medium text-sm bg-primary/50 py-4">
 						This listing is currently unpublished and not visible to
 						others. Complete{" "}
 						<span className="mx-2">{completedText}</span> more
 						fields to publish it
 					</Marquee>
-				)}
-				{isComplete && !listing?.isPublished && (
+				)} */}
+				{/* {isComplete && !listing?.isPublished && (
 					<Marquee className="mt-4 font-medium text-sm bg-primary/50 py-4">
 						This listing is currently unpublished and not visible to
 						others. Publish it now
@@ -79,7 +79,7 @@ const page = async ({ params }: { params: { id: string } }) => {
 					details={listing}
 					isRenter={user?.isRenter}
 					isComplete={isComplete}
-				/>
+				/> */}
 				{/* <ApartmentLocation /> */}
 			</div>
 		</div>

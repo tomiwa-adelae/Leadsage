@@ -27,7 +27,7 @@ import { AddNewCategoryForm } from "../AddNewCategoryForm";
 import { states } from "@/constant";
 import RequiredAsterisk from "@/components/shared/RequiredAsterisk";
 import { useToast } from "@/hooks/use-toast";
-import { updateListingDetails } from "@/lib/actions/list.actions";
+// import { updateListingDetails } from "@/lib/actions/list.actions";
 import { useRouter } from "next/navigation";
 
 type FormValues = z.infer<typeof PropertyInformationFormSchema>;
@@ -87,25 +87,25 @@ const PropertyInformationForm: React.FC<PropertyInformationProps> = ({
 					variant: "destructive",
 				});
 			} else {
-				const res = await updateListingDetails({
-					details,
-					userId,
-					listingId,
-				});
-				if (res?.status == 400)
-					return toast({
-						title: "Error!",
-						description: res?.message,
-						variant: "destructive",
-					});
+				// const res = await updateListingDetails({
+				// 	details,
+				// 	userId,
+				// 	listingId,
+				// });
+				// if (res?.status == 400)
+				// 	return toast({
+				// 		title: "Error!",
+				// 		description: res?.message,
+				// 		variant: "destructive",
+				// 	});
 
-				toast({
-					title: "Success!",
-					description: res?.message,
-				});
+				// toast({
+				// 	title: "Success!",
+				// 	description: res?.message,
+				// });
 
 				nextStep();
-				router.push(`/create-listing?id=${res.list?._id}&steps=${3}`);
+				// router.push(`/create-listing?id=${res.list?._id}&steps=${3}`);
 			}
 		} catch (error) {
 			toast({

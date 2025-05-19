@@ -7,7 +7,7 @@ import {
 	DrawerContent,
 	DrawerTrigger,
 } from "@/components/ui/drawer";
-import { updateListing } from "@/lib/actions/list.actions";
+// import { updateListing } from "@/lib/actions/list.actions";
 import { toast } from "@/hooks/use-toast";
 
 import { useState } from "react";
@@ -33,23 +33,23 @@ export function ConfirmBookListingModal({
 		try {
 			setLoading(true);
 
-			const res: any = await bookListing({
-				user: userId,
-				listing: id,
-			});
-			if (res?.status == 400)
-				return toast({
-					title: "Error!",
-					description: res?.message,
-					variant: "destructive",
-				});
+			// const res: any = await bookListing({
+			// 	user: userId,
+			// 	listing: id,
+			// });
+			// if (res?.status == 400)
+			// 	return toast({
+			// 		title: "Error!",
+			// 		description: res?.message,
+			// 		variant: "destructive",
+			// 	});
 
-			toast({
-				title: "Success!",
-				description: res?.message,
-			});
-			closeModal();
-			router.push(`/success-booking?id=${res?.booking?._id}`);
+			// toast({
+			// 	title: "Success!",
+			// 	description: res?.message,
+			// });
+			// closeModal();
+			// router.push(`/success-booking?id=${res?.booking?._id}`);
 		} catch (error) {
 			setLoading(false);
 			toast({

@@ -7,7 +7,7 @@ import {
 	DrawerContent,
 	DrawerTrigger,
 } from "@/components/ui/drawer";
-import { updateListing } from "@/lib/actions/list.actions";
+// import { updateListing } from "@/lib/actions/list.actions";
 import { toast } from "@/hooks/use-toast";
 
 import { useState } from "react";
@@ -32,25 +32,25 @@ export function OpenPublishModal({
 		try {
 			setLoading(true);
 
-			const res: any = await updateListing({
-				userId,
-				listingId: id,
-				type: "isPublished",
-				value: true,
-			});
-			if (res?.status == 400)
-				return toast({
-					title: "Error!",
-					description: res?.message,
-					variant: "destructive",
-				});
+			// const res: any = await updateListing({
+			// 	userId,
+			// 	listingId: id,
+			// 	type: "isPublished",
+			// 	value: true,
+			// });
+			// if (res?.status == 400)
+			// 	return toast({
+			// 		title: "Error!",
+			// 		description: res?.message,
+			// 		variant: "destructive",
+			// 	});
 
-			toast({
-				title: "Success!",
-				description: res?.message,
-			});
-			closeModal();
-			// router.push("/listings");
+			// toast({
+			// 	title: "Success!",
+			// 	description: res?.message,
+			// });
+			// closeModal();
+			// // router.push("/listings");
 		} catch (error) {
 			setLoading(false);
 			toast({

@@ -1,6 +1,6 @@
-import { CreateListingForm } from "@/components/forms/CreateListingForm";
+// import { CreateListingForm } from "@/components/forms/CreateListingForm";
 import SectionTitle from "@/components/shared/SectionTitle";
-import { getListing } from "@/lib/actions/list.actions";
+// import { getListing } from "@/lib/actions/list.actions";
 import { getUserInfo } from "@/lib/actions/user.actions";
 import { auth } from "@clerk/nextjs";
 
@@ -19,9 +19,9 @@ const page = async ({ searchParams }: PageProps) => {
 
 	let listing;
 
-	if (listingId) {
-		listing = await getListing(listingId);
-	}
+	// if (listingId) {
+	// 	listing = await getListing(listingId);
+	// }
 
 	return (
 		<div className="pb-12">

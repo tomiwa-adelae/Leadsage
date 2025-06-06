@@ -1,29 +1,19 @@
 import { CreateListingForm } from "@/components/forms/CreateListingForm";
 import BasicInformationForm from "@/components/forms/listing/BasicInformationForm";
+import PropertyInformationForm from "@/components/forms/listing/PropertyInformationForm";
 import SectionTitle from "@/components/shared/SectionTitle";
 import { getListing } from "@/lib/actions/list.actions";
 import { getUserInfo } from "@/lib/actions/user.actions";
 import { auth } from "@clerk/nextjs";
 
-interface PageProps {
-	searchParams: { listingId?: string };
-}
-
-const page = async ({ searchParams }: PageProps) => {
-	const listingId: any = searchParams?.listingId;
+const page = async ({ params }: { params: { id: string } }) => {
 	const { userId } = auth();
+
+	const listingId = params.id;
 
 	const user = await getUserInfo(userId!);
 
-	let listing;
-
-	if (listingId) {
-		listing = await getListing(listingId);
-	}
-
-	console.log();
-
-	console.log(`lisitng`, listing);
+	let listing = await getListing(listingId);
 
 	return (
 		<div className="pb-12">
@@ -33,9 +23,13 @@ const page = async ({ searchParams }: PageProps) => {
 					subTitle="Lorem ipsum dolor sit amet, consectetur."
 				/>
 			</div>
-			<BasicInformationForm
+			<PropertyInformationForm
+				listingId={listingId}
 				userId={user?._id}
-				name={listing?.listing?.name}
+				category={listing?.listing?.category}
+				address={listing?.listing?.address}
+				city={listing?.listing.city}
+				state={listing?.listing?.state}
 			/>
 		</div>
 	);

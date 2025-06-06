@@ -1,8 +1,8 @@
 import { Document, Schema, model, models, Types, Model } from "mongoose";
 
 export interface IImage {
-	url?: string;
-	id?: string;
+	src?: string;
+	imageId?: string;
 }
 
 export interface IAmenity {
@@ -19,7 +19,7 @@ export interface IList extends Document {
 	category?: Types.ObjectId;
 	rent?: string;
 	securityDeposit?: string;
-	rentNegotiable?: string;
+	rentNegotiable?: boolean;
 	availabilityDate?: string;
 	address?: string;
 	city?: string;
@@ -42,8 +42,8 @@ export interface IList extends Document {
 }
 
 const ImageSchema = new Schema<IImage>({
-	url: { type: String, required: false },
-	id: { type: String, required: false },
+	src: { type: String },
+	imageId: { type: String },
 });
 
 const AmenitySchema = new Schema<IAmenity>({

@@ -22,7 +22,7 @@ export default async function Layout({
 	// if (!user?.isRenter) redirect("/not-authorized");
 
 	return (
-		<div className="bg-gray-100">
+		<div className="bg-[#F7F7F7]">
 			<Sidebar user={user} />
 			<div className="lg:ml-[300px]">
 				<TopNavbar user={user} />

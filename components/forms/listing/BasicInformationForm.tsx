@@ -19,65 +19,39 @@ import RequiredAsterisk from "@/components/shared/RequiredAsterisk";
 // import { createList, updateListingDetails } from "@/lib/actions/list.actions";
 import { useToast } from "@/hooks/use-toast";
 import { useRouter } from "next/navigation";
+import { addListingName } from "@/lib/actions/list.actions";
 
 type FormValues = z.infer<typeof BasicInformationFormSchema>;
 
 interface BasicInformationFormProps {
 	userId: string;
-	listingId?: string;
-	nextStep: () => void;
-	handleChange: (
-		input: keyof FormValues
-	) => (e: string | React.ChangeEvent<HTMLInputElement>) => void;
-	values: FormValues;
+	name?: string;
 }
 
 const BasicInformationForm: React.FC<BasicInformationFormProps> = ({
-	nextStep,
-	handleChange,
-	values,
 	userId,
-	listingId,
+	name,
 }) => {
 	const { toast } = useToast();
 	const router = useRouter();
 	const form = useForm<FormValues>({
 		resolver: zodResolver(BasicInformationFormSchema),
-		defaultValues: values,
+		defaultValues: {
+			name,
+		},
 	});
 
 	async function onSubmit(data: z.infer<typeof BasicInformationFormSchema>) {
 		try {
-			const details = {
-				...data,
-			};
-
-			// let res;
-
-			// if (listingId) {
-			// 	res = await updateListingDetails({
-			// 		details,
-			// 		userId,
-			// 		listingId,
-			// 	});
-			// } else {
-			// 	res = await createList({ details, userId });
-			// }
-			// if (res?.status == 400)
-			// 	return toast({
-			// 		title: "Error!",
-			// 		description: res?.message,
-			// 		variant: "destructive",
-			// 	});
-
-			// toast({
-			// 	title: "Success!",
-			// 	description: res?.message,
-			// });
-
-			// nextStep();
-
-			// router.push(`/create-listing?id=${res.list?._id}&steps=${2}`);
+			const res = await addListingName({ userId, ...data });
+			if (res.status === 400)
+				return toast({ title: res.message, variant: "destructive" });
+			toast({
+				title: res.message,
+			});
+			return router.push(
+				`/create-listing/${res?.listing?._id}/property-information`
+			);
 		} catch (error) {
 			toast({
 				title: "Error!",
@@ -115,10 +89,6 @@ const BasicInformationForm: React.FC<BasicInformationFormProps> = ({
 									<Input
 										placeholder="Enter the name for the apartment"
 										{...field}
-										onChange={(e) => {
-											field.onChange(e);
-											handleChange("name")(e);
-										}}
 									/>
 								</FormControl>
 								<FormMessage />
@@ -132,9 +102,7 @@ const BasicInformationForm: React.FC<BasicInformationFormProps> = ({
 						size={"lg"}
 					>
 						{form.formState.isSubmitting
-							? listingId
-								? "Changing..."
-								: "Saving..."
+							? "Creating..."
 							: "Continue"}
 					</Button>
 				</form>

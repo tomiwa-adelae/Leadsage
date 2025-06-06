@@ -1,29 +1,18 @@
-import { CreateListingForm } from "@/components/forms/CreateListingForm";
-import BasicInformationForm from "@/components/forms/listing/BasicInformationForm";
+import { CostForm } from "@/components/forms/listing/CostForm";
+import { RentDetailsForm } from "@/components/forms/listing/RentDetailsForm";
 import SectionTitle from "@/components/shared/SectionTitle";
 import { getListing } from "@/lib/actions/list.actions";
 import { getUserInfo } from "@/lib/actions/user.actions";
 import { auth } from "@clerk/nextjs";
 
-interface PageProps {
-	searchParams: { listingId?: string };
-}
-
-const page = async ({ searchParams }: PageProps) => {
-	const listingId: any = searchParams?.listingId;
+const page = async ({ params }: { params: { id: string } }) => {
 	const { userId } = auth();
+
+	const listingId = params.id;
 
 	const user = await getUserInfo(userId!);
 
-	let listing;
-
-	if (listingId) {
-		listing = await getListing(listingId);
-	}
-
-	console.log();
-
-	console.log(`lisitng`, listing);
+	let listing = await getListing(listingId);
 
 	return (
 		<div className="pb-12">
@@ -33,9 +22,12 @@ const page = async ({ searchParams }: PageProps) => {
 					subTitle="Lorem ipsum dolor sit amet, consectetur."
 				/>
 			</div>
-			<BasicInformationForm
+			<CostForm
+				listingId={listingId}
 				userId={user?._id}
-				name={listing?.listing?.name}
+				rent={listing?.listing?.rent}
+				rentNegotiable={listing?.listing?.rentNegotiable}
+				securityDeposit={listing?.listing?.securityDeposit}
 			/>
 		</div>
 	);

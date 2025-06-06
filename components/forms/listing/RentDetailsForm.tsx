@@ -1,3 +1,4 @@
+"use client";
 import { RentDetailsFormSchema } from "@/lib/validations";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
@@ -19,14 +20,8 @@ import {
 	SelectTrigger,
 	SelectValue,
 } from "@/components/ui/select";
-import { FileUpload } from "@/components/ui/file-upload";
-import React, { useState } from "react";
-import { uploadDocuments } from "@/lib/actions/upload.actions";
-import { CalendarIcon, Loader2 } from "lucide-react";
-import { getAllCategories } from "@/lib/actions/category.actions";
-import { ICategory } from "@/lib/database/models/category.model";
-import { AddNewCategoryForm } from "../AddNewCategoryForm";
-import { states } from "@/constant";
+import React from "react";
+import { CalendarIcon } from "lucide-react";
 import {
 	Popover,
 	PopoverContent,
@@ -38,69 +33,55 @@ import { Calendar } from "@/components/ui/calendar";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
 import { useRouter } from "next/navigation";
-// import { updateListingDetails } from "@/lib/actions/list.actions";
 import RequiredAsterisk from "@/components/shared/RequiredAsterisk";
+import Link from "next/link";
+import { addListingRentDetails } from "@/lib/actions/list.actions";
 
 type FormValues = z.infer<typeof RentDetailsFormSchema>;
 
 interface RentDetailsProps {
 	userId: string;
-	listingId?: string;
-	nextStep: () => void;
-	prevStep: () => void;
-	handleChange: (
-		input: keyof FormValues
-	) => (e: string | React.ChangeEvent<HTMLInputElement>) => void;
-	values: FormValues;
+	listingId: string;
+	bathrooms?: string;
+	bedrooms?: string;
+	description?: string;
+	squareMeters?: string;
 }
 
-const RentDetailsForm: React.FC<RentDetailsProps> = ({
+export const RentDetailsForm: React.FC<RentDetailsProps> = ({
 	userId,
 	listingId,
-	nextStep,
-	prevStep,
-	handleChange,
-	values,
+	description,
+	squareMeters,
+	bedrooms,
+	bathrooms,
 }) => {
 	const { toast } = useToast();
 	const router = useRouter();
 
 	const form = useForm<FormValues>({
 		resolver: zodResolver(RentDetailsFormSchema),
-		defaultValues: values, // ✅ Pre-fill values when going back
+		defaultValues: {
+			description,
+			bedrooms,
+			squareMeters,
+			bathrooms,
+		},
 	});
 
 	async function onSubmit(data: z.infer<typeof RentDetailsFormSchema>) {
 		try {
-			const details = {
+			const res = await addListingRentDetails({
+				userId,
+				listingId,
 				...data,
-			};
-
-			if (!listingId) {
-				// 	return toast({
-				// 		title: "Error!",
-				// 		description: "Listing ID is missing!",
-				// 		variant: "destructive",
-				// 	});
-				// } else {
-				// 	const res = await updateListingDetails({
-				// 		details,
-				// 		userId,
-				// 		listingId,
-				// 	});
-				// 	if (res?.status == 400)
-				// 		return toast({
-				// 			title: "Error!",
-				// 			description: res?.message,
-				// 			variant: "destructive",
-				// 		});
-				// 	toast({
-				// 		title: "Success!",
-				// 		description: res?.message,
-				// 	});
-				// 	nextStep();
-				// 	router.push(`/create-listing?id=${res.list?._id}&steps=${4}`);
-			}
+			});
+			if (res.status === 400)
+				return toast({ title: res.message, variant: "destructive" });
+			toast({
+				title: res.message,
+			});
+			return router.push(`/create-listing/${res?.listing?._id}/media`);
 		} catch (error) {
 			toast({
 				title: "Error!",
@@ -138,10 +119,6 @@ const RentDetailsForm: React.FC<RentDetailsProps> = ({
 										<Input
 											placeholder="Enter the total size of the property."
 											{...field}
-											onChange={(e) => {
-												field.onChange(e);
-												handleChange("squareMeters")(e);
-											}}
 										/>
 										<span className="absolute text-gray-400 top-[50%] right-[2%] translate-y-[-50%] text-muted-foreground">
 											sq. ft
@@ -212,7 +189,6 @@ const RentDetailsForm: React.FC<RentDetailsProps> = ({
 									<Select
 										onValueChange={(value) => {
 											field.onChange(value);
-											handleChange("bedrooms")(value);
 										}}
 										value={field.value}
 										defaultValue={field.value}
@@ -251,7 +227,6 @@ const RentDetailsForm: React.FC<RentDetailsProps> = ({
 									<Select
 										onValueChange={(value) => {
 											field.onChange(value);
-											handleChange("bathrooms")(value);
 										}}
 										value={field.value}
 										defaultValue={field.value}
@@ -293,12 +268,6 @@ const RentDetailsForm: React.FC<RentDetailsProps> = ({
 										placeholder="Include anything you'd want renters to know (e.g., furnishing, nearby landmarks, or rules)."
 										className="resize-none"
 										{...field}
-										onChange={(e) => {
-											field.onChange(e.target.value);
-											handleChange("description")(
-												e.target.value
-											);
-										}}
 									/>
 								</FormControl>
 								<FormMessage />
@@ -306,8 +275,12 @@ const RentDetailsForm: React.FC<RentDetailsProps> = ({
 						)}
 					/>
 					<div className="flex justify-between mt-6">
-						<Button size="lg" onClick={prevStep} variant="outline">
-							Back
+						<Button asChild size="lg" variant="outline">
+							<Link
+								href={`/create-listing/${listingId}/property-information`}
+							>
+								Back
+							</Link>
 						</Button>
 						<Button
 							disabled={form.formState.isSubmitting}
@@ -325,5 +298,3 @@ const RentDetailsForm: React.FC<RentDetailsProps> = ({
 		</div>
 	);
 };
-
-export default RentDetailsForm;

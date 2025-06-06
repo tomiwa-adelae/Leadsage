@@ -18,12 +18,12 @@ export function OpenDeleteModal({
 	open,
 	id,
 	userId,
-	closeModal,
-}: {
+}: // closeModal,
+{
 	open: boolean;
 	id: any;
 	userId: any;
-	closeModal: () => void;
+	// closeModal: () => void;
 }) {
 	const router = useRouter();
 	const [loading, setLoading] = useState(false);
@@ -58,7 +58,7 @@ export function OpenDeleteModal({
 	};
 
 	return (
-		<Drawer open={open} onClose={closeModal}>
+		<Drawer open={open} onClose={() => {}}>
 			{/* {" "}
 			<DrawerTrigger asChild>
 				<Button className="rounded-md" size={"icon"} variant="ghost">

@@ -1,3 +1,4 @@
+"use client";
 import { FinalDetailsFormSchema } from "@/lib/validations";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
@@ -21,7 +22,6 @@ import {
 } from "@/components/ui/select";
 import { FileUpload } from "@/components/ui/file-upload";
 import React, { useState } from "react";
-import { uploadDocuments } from "@/lib/actions/upload.actions";
 import { Loader2 } from "lucide-react";
 import { getAllCategories } from "@/lib/actions/category.actions";
 import { ICategory } from "@/lib/database/models/category.model";
@@ -31,46 +31,61 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import PhoneInput from "react-phone-number-input";
 import "react-phone-number-input/style.css";
 import { Checkbox } from "@/components/ui/checkbox";
+import { useRouter } from "next/navigation";
+import { useToast } from "@/hooks/use-toast";
+import Link from "next/link";
+import { addListingFinalDetails } from "@/lib/actions/list.actions";
 
 type FormValues = z.infer<typeof FinalDetailsFormSchema>;
 
 interface PropertyInformationProps {
-	nextStep: () => void;
-	prevStep: () => void;
-	handleChange: (
-		input: keyof FormValues
-	) => (e: string | React.ChangeEvent<HTMLInputElement>) => void;
-	values: FormValues;
+	userId: string;
+	listingId: string;
+	name: string;
+	email: string;
+	phoneNumber: string;
 }
 
 const FinalDetailsForm: React.FC<PropertyInformationProps> = ({
-	nextStep,
-	prevStep,
-	handleChange,
-	values,
+	userId,
+	listingId,
+	name,
+	email,
+	phoneNumber,
 }) => {
-	const [loading, setLoading] = useState(false);
+	const { toast } = useToast();
+	const router = useRouter();
 
 	const form = useForm<FormValues>({
 		resolver: zodResolver(FinalDetailsFormSchema),
-		defaultValues: values, // ✅ Pre-fill values when going back
+		defaultValues: {
+			fullName: name,
+			email,
+			phoneNumber,
+		},
 	});
 
-	const [categories, setCategories] = useState<ICategory[]>([]);
-	const [openNewCategory, setOpenNewCategory] = useState<boolean>(false);
-
-	const fetchCategories = async () => {
-		const categoryList = await getAllCategories();
-
-		categoryList && setCategories(categoryList as ICategory[]);
-	};
-
-	const onSubmit = form.handleSubmit(
-		(data) => {
-			nextStep();
-		},
-		(errors) => {}
-	);
+	async function onSubmit(data: z.infer<typeof FinalDetailsFormSchema>) {
+		try {
+			const res = await addListingFinalDetails({
+				userId,
+				listingId,
+				...data,
+			});
+			if (res.status === 400)
+				return toast({ title: res.message, variant: "destructive" });
+			toast({
+				title: res.message,
+			});
+			return router.push(`/create-listing/${res?.listing?._id}/review`);
+		} catch (error) {
+			toast({
+				title: "Error!",
+				description: "An error occurred!",
+				variant: "destructive",
+			});
+		}
+	}
 
 	return (
 		<div className="py-10 px-6 rounded-md bg-white shadow-[0px_2px_3px_-1px_rgba(0,0,0,0.1),0px_1px_0px_0px_rgba(25,28,33,0.02),0px_0px_0px_1px_rgba(25,28,33,0.08)]">
@@ -101,7 +116,6 @@ const FinalDetailsForm: React.FC<PropertyInformationProps> = ({
 										className="flex flex-col space-y-1"
 										onValueChange={(value) => {
 											field.onChange(value);
-											handleChange("listedBy")(value);
 										}}
 									>
 										{listedBy.map((by, index) => (
@@ -133,12 +147,9 @@ const FinalDetailsForm: React.FC<PropertyInformationProps> = ({
 								<FormLabel>Name</FormLabel>
 								<FormControl>
 									<Input
+										disabled
 										placeholder="E.g. John Doe"
 										{...field}
-										onChange={(e) => {
-											field.onChange(e);
-											handleChange("fullName")(e);
-										}}
 									/>
 								</FormControl>
 								<FormMessage />
@@ -153,12 +164,9 @@ const FinalDetailsForm: React.FC<PropertyInformationProps> = ({
 								<FormLabel>Email</FormLabel>
 								<FormControl>
 									<Input
+										disabled
 										placeholder="E.g. johndoe@gmail.com"
 										{...field}
-										onChange={(e) => {
-											field.onChange(e);
-											handleChange("email")(e);
-										}}
 									/>
 								</FormControl>
 								<FormMessage />
@@ -177,9 +185,6 @@ const FinalDetailsForm: React.FC<PropertyInformationProps> = ({
 										value={field.value}
 										onChange={(phone) => {
 											field.onChange(phone);
-											handleChange("phoneNumber")(
-												phone || ""
-											);
 										}}
 										defaultCountry="NG"
 										className="flex h-14 w-full rounded-md border border-input bg-background px-3 py-2 text-base sm:text-sm"
@@ -189,7 +194,7 @@ const FinalDetailsForm: React.FC<PropertyInformationProps> = ({
 							</FormItem>
 						)}
 					/>
-					<FormField
+					{/* <FormField
 						control={form.control}
 						name="touringDate"
 						render={({ field }) => (
@@ -253,24 +258,22 @@ const FinalDetailsForm: React.FC<PropertyInformationProps> = ({
 								<FormMessage />
 							</FormItem>
 						)}
-					/>
+					/> */}
 					<div className="flex justify-between mt-6">
-						<Button size="lg" onClick={prevStep} variant="outline">
-							Back
+						<Button asChild size="lg" variant="outline">
+							<Link href={`/create-listing/${listingId}/cost`}>
+								Back
+							</Link>
 						</Button>
 						<Button
-							disabled={loading}
+							disabled={form.formState.isSubmitting}
 							size="lg"
 							type="submit"
 							className="ml-2"
 						>
-							{loading ? (
-								<>
-									<Loader2 className="w-4 h-4 animate-spin transition-all" />
-								</>
-							) : (
-								"Continue"
-							)}
+							{form.formState.isSubmitting
+								? "Saving..."
+								: "Continue"}
 						</Button>
 					</div>
 				</form>

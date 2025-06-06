@@ -113,11 +113,11 @@ export const FinalDetailsFormSchema = z.object({
 		.refine(isValidPhoneNumber, {
 			message: "Invalid phone number",
 		}),
-	touringDate: z
-		.array(z.string())
-		.refine((value) => value.some((item) => item), {
-			message: "You have to select at least four subjects.",
-		}),
+	// touringDate: z
+	// 	.array(z.string())
+	// 	.refine((value) => value.some((item) => item), {
+	// 		message: "You have to select at least four subjects.",
+	// 	}),
 	listedBy: z.string().min(2, {
 		message: "Negotiation is required.",
 	}),

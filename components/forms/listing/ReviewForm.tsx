@@ -1,19 +1,62 @@
+"use client";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import Image from "next/image";
 import { Badge } from "@/components/ui/badge";
+import { IList } from "@/lib/database/models/list.model";
+import Link from "next/link";
+import { useState } from "react";
+import { addListingPublish } from "@/lib/actions/list.actions";
+import { useToast } from "@/hooks/use-toast";
+import { useRouter } from "next/navigation";
+import { DEFAULT_LISTING_IMAGE } from "@/constant";
 
 interface ReviewFormProps {
-	nextStep: () => void;
-	prevStep: () => void;
-	formData: any;
+	userId: string;
+	listingId: string;
+	user: any;
+	listing: IList;
 }
 
-const ReviewForm: React.FC<ReviewFormProps> = ({
-	nextStep,
-	prevStep,
-	formData,
+export const ReviewForm: React.FC<ReviewFormProps> = ({
+	userId,
+	listingId,
+	user,
+	listing,
 }) => {
+	const { toast } = useToast();
+	const router = useRouter();
+	const [loading, setLoading] = useState(false);
+
+	const handleSubmit = async () => {
+		try {
+			setLoading(true);
+
+			const res = await addListingPublish({
+				userId,
+				listingId,
+			});
+			if (res.status === 400)
+				return toast({ title: res.message, variant: "destructive" });
+			toast({
+				title: res.message,
+			});
+			setLoading(false);
+			return router.push(`/listings/${res?.listing?._id}?success=true`);
+		} catch (error) {
+			setLoading(false);
+			toast({
+				title: "Error!",
+				description: "An error occurred!",
+				variant: "destructive",
+			});
+		} finally {
+			setLoading(false);
+		}
+	};
+
+	console.log(listing.images);
+
 	return (
 		<div className="py-10 px-6 rounded-md bg-white shadow-[0px_2px_3px_-1px_rgba(0,0,0,0.1),0px_1px_0px_0px_rgba(25,28,33,0.02),0px_0px_0px_1px_rgba(25,28,33,0.08)]">
 			<div className="mb-6">
@@ -36,11 +79,12 @@ const ReviewForm: React.FC<ReviewFormProps> = ({
 						<Button variant="ghost">Edit</Button>
 					</div>
 					<div className="space-y-2 text-muted-foreground font-medium text-sm leading-relaxed">
-						<p>Listing name: The Trio Duplex</p>
-						<p>Category: The Trio Duplex</p>
-						<p>Address: The Trio Duplex</p>
-						<p>City: The Trio Duplex</p>
-						<p>State: The Trio Duplex</p>
+						<p>Listing name: {listing?.name}</p>
+						{/* @ts-ignore */}
+						<p>Category: {listing?.category?.name!}</p>
+						<p>Address: {listing?.address}</p>
+						<p>City: {listing?.city}</p>
+						<p>State: {listing?.state}</p>
 					</div>
 				</div>
 				<Separator className="my-8" />
@@ -52,12 +96,11 @@ const ReviewForm: React.FC<ReviewFormProps> = ({
 						<Button variant="ghost">Edit</Button>
 					</div>
 					<div className="space-y-2 text-muted-foreground font-medium text-sm leading-relaxed">
-						<p>Square meter: The Trio Duplex</p>
-						<p>Availability Date: The Trio Duplex</p>
-						<p>Address: The Trio Duplex</p>
-						<p>Number of Bedrooms: The Trio Duplex</p>
-						<p>Number of Bathrooms: The Trio Duplex</p>
-						<p>Description: The Trio Duplex</p>
+						<p>Square meter: {listing?.squareMeters}</p>
+						<p>Availability Date: {listing?.availabilityDate}</p>
+						<p>Number of Bedrooms: {listing?.bedrooms}</p>
+						<p>Number of Bathrooms: {listing?.bathrooms}</p>
+						<p>Description: {listing?.description}</p>
 					</div>
 				</div>
 				<Separator className="my-8" />
@@ -69,34 +112,17 @@ const ReviewForm: React.FC<ReviewFormProps> = ({
 						<Button variant="ghost">Edit</Button>
 					</div>
 					<div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-						<Image
-							src={"/assets/images/apartment-1.jpg"}
-							alt={"Apartment"}
+						{/* {listing.images?.map((image, index) => (
+
+							<Image
+							key={index}
+							src={image.src || DEFAULT_LISTING_IMAGE}
+							alt={image.name || 'Apartment image'}
 							width={1000}
 							height={1000}
 							className="aspect-video size-full object-cover rounded-md"
-						/>
-						<Image
-							src={"/assets/images/apartment-1.jpg"}
-							alt={"Apartment"}
-							width={1000}
-							height={1000}
-							className="aspect-video size-full object-cover rounded-md"
-						/>
-						<Image
-							src={"/assets/images/apartment-1.jpg"}
-							alt={"Apartment"}
-							width={1000}
-							height={1000}
-							className="aspect-video size-full object-cover rounded-md"
-						/>
-						<Image
-							src={"/assets/images/apartment-1.jpg"}
-							alt={"Apartment"}
-							width={1000}
-							height={1000}
-							className="aspect-video size-full object-cover rounded-md"
-						/>
+							/>
+						))} */}
 					</div>
 				</div>
 				<Separator className="my-8" />
@@ -107,10 +133,16 @@ const ReviewForm: React.FC<ReviewFormProps> = ({
 						</h3>
 						<Button variant="ghost">Edit</Button>
 					</div>
-					<div className="flex flex-wrap">
-						<Badge className="rounded-md" variant="outline">
-							Badge
-						</Badge>
+					<div className="flex flex-wrap gap-4">
+						{listing?.amenities?.map((amenity, index) => (
+							<Badge
+								key={index}
+								className="rounded-md"
+								variant="outline"
+							>
+								{amenity.name}
+							</Badge>
+						))}
 					</div>
 				</div>
 				<Separator className="my-8" />
@@ -122,8 +154,13 @@ const ReviewForm: React.FC<ReviewFormProps> = ({
 						<Button variant="ghost">Edit</Button>
 					</div>
 					<div className="space-y-2 text-muted-foreground font-medium text-sm leading-relaxed">
-						<p>Are pet allowed? Yes</p>
-						<p>Is smoking allowed? Yes</p>
+						<p>
+							Are pet allowed? {listing?.petPolicy ? "Yes" : "No"}
+						</p>
+						<p>
+							Is smoking allowed?{" "}
+							{listing?.smokingPolicy ? "Yes" : "No"}
+						</p>
 					</div>
 				</div>
 				<Separator className="my-8" />
@@ -135,9 +172,12 @@ const ReviewForm: React.FC<ReviewFormProps> = ({
 						<Button variant="ghost">Edit</Button>
 					</div>
 					<div className="space-y-2 text-muted-foreground font-medium text-sm leading-relaxed">
-						<p>Rent Amount: #200,000.77</p>
-						<p>Security Deposit: #20,000.77</p>
-						<p>Is rent negotiable? Yes</p>
+						<p>Rent Amount: ₦{listing?.rent}</p>
+						<p>Security Deposit: ₦{listing?.securityDeposit}</p>
+						<p>
+							Is rent negotiable?{" "}
+							{listing?.rentNegotiable ? "Yes" : "No"}
+						</p>
 					</div>
 				</div>
 				<Separator className="my-8" />
@@ -149,34 +189,33 @@ const ReviewForm: React.FC<ReviewFormProps> = ({
 						<Button variant="ghost">Edit</Button>
 					</div>
 					<div className="space-y-2 text-muted-foreground font-medium text-sm leading-relaxed">
-						<p>Who is listing this propery? Owner</p>
-						<p>What's your full name? Tomiwa Adelae</p>
-						<p>What's your email? adelaetomiwa6@gmail.com</p>
-						<p>What's your phone number? +23409088557733</p>
+						<p>Who is listing this propery? {listing?.listedBy}</p>
 						<p>
-							What dates are you available for touring? Mondays,
-							Tuesdays & Thursdays
+							What's your full name? {user?.firstName}{" "}
+							{user?.lastName}
 						</p>
+						<p>What's your email? {user?.email}</p>
+						<p>What's your phone number? {user?.phoneNumber}</p>
 					</div>
 				</div>
 				{/* <Separator className="my-8" /> */}
 			</div>
 			<div className="flex justify-between mt-6">
-				<Button size="lg" onClick={prevStep} variant="outline">
-					Back
+				<Button asChild size="lg" variant="outline">
+					<Link href={`/create-listing/${listingId}/final-details`}>
+						Back
+					</Link>
 				</Button>
 				<Button
-					// disabled={loading}
+					disabled={loading}
 					size="lg"
 					type="submit"
 					className="ml-2"
+					onClick={handleSubmit}
 				>
-					{/* {loading ? "Saving..." : "Continue"} */}
-					Continue
+					{loading ? "Creating..." : "Create listing"}
 				</Button>
 			</div>
 		</div>
 	);
 };
-
-export default ReviewForm;

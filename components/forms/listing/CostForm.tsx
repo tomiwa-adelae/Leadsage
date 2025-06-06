@@ -1,3 +1,4 @@
+"use client";
 import { CostFormSchema } from "@/lib/validations";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
@@ -19,45 +20,63 @@ import {
 	SelectTrigger,
 	SelectValue,
 } from "@/components/ui/select";
-import { FileUpload } from "@/components/ui/file-upload";
 import React, { useState } from "react";
-import { uploadDocuments } from "@/lib/actions/upload.actions";
-import { Loader2 } from "lucide-react";
-import { getAllCategories } from "@/lib/actions/category.actions";
-import { ICategory } from "@/lib/database/models/category.model";
-import { AddNewCategoryForm } from "../AddNewCategoryForm";
-import { states } from "@/constant";
+import Link from "next/link";
+import { useToast } from "@/hooks/use-toast";
+import { useRouter } from "next/navigation";
+import { addListingCost } from "@/lib/actions/list.actions";
 
 type FormValues = z.infer<typeof CostFormSchema>;
 
 interface PropertyInformationProps {
-	nextStep: () => void;
-	prevStep: () => void;
-	handleChange: (
-		input: keyof FormValues
-	) => (e: string | React.ChangeEvent<HTMLInputElement>) => void;
-	values: FormValues;
+	userId: string;
+	listingId: string;
+	securityDeposit?: string;
+	rent?: string;
+	rentNegotiable?: boolean;
 }
 
-const CostForm: React.FC<PropertyInformationProps> = ({
-	nextStep,
-	prevStep,
-	handleChange,
-	values,
+export const CostForm: React.FC<PropertyInformationProps> = ({
+	userId,
+	listingId,
+	rent,
+	securityDeposit,
+	rentNegotiable,
 }) => {
-	const [loading, setLoading] = useState(false);
+	const { toast } = useToast();
+	const router = useRouter();
 
 	const form = useForm<FormValues>({
 		resolver: zodResolver(CostFormSchema),
-		defaultValues: values, // ✅ Pre-fill values when going back
+		defaultValues: {
+			rent: rent || "",
+			securityDeposit: securityDeposit || "",
+		},
 	});
 
-	const onSubmit = form.handleSubmit(
-		(data) => {
-			nextStep();
-		},
-		(errors) => {}
-	);
+	async function onSubmit(data: z.infer<typeof CostFormSchema>) {
+		try {
+			const res = await addListingCost({
+				userId,
+				listingId,
+				...data,
+			});
+			if (res.status === 400)
+				return toast({ title: res.message, variant: "destructive" });
+			toast({
+				title: res.message,
+			});
+			return router.push(
+				`/create-listing/${res?.listing?._id}/final-details`
+			);
+		} catch (error) {
+			toast({
+				title: "Error!",
+				description: "An error occurred!",
+				variant: "destructive",
+			});
+		}
+	}
 
 	return (
 		<div className="py-10 px-6 rounded-md bg-white shadow-[0px_2px_3px_-1px_rgba(0,0,0,0.1),0px_1px_0px_0px_rgba(25,28,33,0.02),0px_0px_0px_1px_rgba(25,28,33,0.08)]">
@@ -88,10 +107,6 @@ const CostForm: React.FC<PropertyInformationProps> = ({
 									<Input
 										placeholder="e.g., ₦500,000 per year"
 										{...field}
-										onChange={(e) => {
-											field.onChange(e);
-											handleChange("rent")(e);
-										}}
 									/>
 								</FormControl>
 								<FormMessage />
@@ -108,10 +123,6 @@ const CostForm: React.FC<PropertyInformationProps> = ({
 									<Input
 										placeholder="e.g., ₦10,000 per year"
 										{...field}
-										onChange={(e) => {
-											field.onChange(e);
-											handleChange("securityDeposit")(e);
-										}}
 									/>
 								</FormControl>
 								<FormMessage />
@@ -127,21 +138,20 @@ const CostForm: React.FC<PropertyInformationProps> = ({
 								<Select
 									onValueChange={(value) => {
 										field.onChange(value);
-										handleChange("rentNegotiable")(value);
 									}}
 									value={field.value}
 									defaultValue={field.value}
 								>
 									<FormControl>
 										<SelectTrigger>
-											<SelectValue placeholder="Select your category" />
+											<SelectValue placeholder="Select options" />
 										</SelectTrigger>
 									</FormControl>
 									<SelectContent>
-										<SelectItem value={"Yes"}>
+										<SelectItem value={"yes"}>
 											Yes
 										</SelectItem>
-										<SelectItem value={"No"}>No</SelectItem>
+										<SelectItem value={"yo"}>No</SelectItem>
 									</SelectContent>
 								</Select>
 
@@ -151,22 +161,22 @@ const CostForm: React.FC<PropertyInformationProps> = ({
 					/>
 
 					<div className="flex justify-between mt-6">
-						<Button size="lg" onClick={prevStep} variant="outline">
-							Back
+						<Button asChild size="lg" variant="outline">
+							<Link
+								href={`/create-listing/${listingId}/policies`}
+							>
+								Back
+							</Link>
 						</Button>
 						<Button
-							disabled={loading}
+							disabled={form.formState.isSubmitting}
 							size="lg"
 							type="submit"
 							className="ml-2"
 						>
-							{loading ? (
-								<>
-									<Loader2 className="w-4 h-4 animate-spin transition-all" />
-								</>
-							) : (
-								"Continue"
-							)}
+							{form.formState.isSubmitting
+								? "Saving..."
+								: "Continue"}
 						</Button>
 					</div>
 				</form>
@@ -174,5 +184,3 @@ const CostForm: React.FC<PropertyInformationProps> = ({
 		</div>
 	);
 };
-
-export default CostForm;

@@ -1,3 +1,4 @@
+"use client";
 import { AmenitiesFormSchema } from "@/lib/validations";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
@@ -17,38 +18,52 @@ import { Loader2 } from "lucide-react";
 import RequiredAsterisk from "@/components/shared/RequiredAsterisk";
 import { amenities } from "@/constant";
 import { Input } from "@/components/ui/input";
+import { useToast } from "@/hooks/use-toast";
+import { useRouter } from "next/navigation";
+import Link from "next/link";
+import { addListingAmenities } from "@/lib/actions/list.actions";
 
 type FormValues = z.infer<typeof AmenitiesFormSchema>;
 
 interface AmenitiesProps {
-	nextStep: () => void;
-	prevStep: () => void;
-	handleChange: (
-		input: keyof FormValues
-	) => (e: string | React.ChangeEvent<HTMLInputElement>) => void;
-	values: FormValues;
+	userId: string;
+	listingId: string;
 }
 
-const AmenitiesForm: React.FC<AmenitiesProps> = ({
-	nextStep,
-	prevStep,
-	handleChange,
-	values,
+export const AmenitiesForm: React.FC<AmenitiesProps> = ({
+	userId,
+	listingId,
 }) => {
-	const [loading, setLoading] = useState(false);
+	const { toast } = useToast();
+	const router = useRouter();
 
 	const form = useForm<FormValues>({
 		resolver: zodResolver(AmenitiesFormSchema),
-		defaultValues: values, // ✅ Pre-fill values when going back
 	});
 
-	const onSubmit = form.handleSubmit(
-		(data) => {
-			// nextStep();
-			console.log(data);
-		},
-		(errors) => {}
-	);
+	async function onSubmit(data: z.infer<typeof AmenitiesFormSchema>) {
+		try {
+			const formatted = data.amenities.map((item) => ({ name: item }));
+			console.log(formatted);
+			const res = await addListingAmenities({
+				userId,
+				listingId,
+				amenities: formatted,
+			});
+			if (res.status === 400)
+				return toast({ title: res.message, variant: "destructive" });
+			toast({
+				title: res.message,
+			});
+			return router.push(`/create-listing/${res?.listing?._id}/policies`);
+		} catch (error) {
+			toast({
+				title: "Error!",
+				description: "An error occurred!",
+				variant: "destructive",
+			});
+		}
+	}
 
 	return (
 		<div className="py-10 px-6 rounded-md bg-white shadow-[0px_2px_3px_-1px_rgba(0,0,0,0.1),0px_1px_0px_0px_rgba(25,28,33,0.02),0px_0px_0px_1px_rgba(25,28,33,0.08)]">
@@ -121,12 +136,6 @@ const AmenitiesForm: React.FC<AmenitiesProps> = ({
 																				field.onChange(
 																					updatedLaundry
 																				);
-																				handleChange(
-																					"amenities"
-																				)(
-																					// @ts-ignore
-																					updatedLaundry
-																				);
 																			}}
 																		/>
 																	</FormControl>
@@ -149,22 +158,20 @@ const AmenitiesForm: React.FC<AmenitiesProps> = ({
 						)}
 					/>
 					<div className="flex justify-between mt-6">
-						<Button size="lg" onClick={prevStep} variant="outline">
-							Back
+						<Button asChild size="lg" variant="outline">
+							<Link href={`/create-listing/${listingId}/media`}>
+								Back
+							</Link>
 						</Button>
 						<Button
-							disabled={loading}
+							disabled={form.formState.isSubmitting}
 							size="lg"
 							type="submit"
 							className="ml-2"
 						>
-							{loading ? (
-								<>
-									<Loader2 className="w-4 h-4 animate-spin transition-all" />
-								</>
-							) : (
-								"Continue"
-							)}
+							{form.formState.isSubmitting
+								? "Saving..."
+								: "Continue"}
 						</Button>
 					</div>
 				</form>
@@ -172,5 +179,3 @@ const AmenitiesForm: React.FC<AmenitiesProps> = ({
 		</div>
 	);
 };
-
-export default AmenitiesForm;

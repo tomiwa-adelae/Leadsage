@@ -29,34 +29,41 @@ import RequiredAsterisk from "@/components/shared/RequiredAsterisk";
 import { useToast } from "@/hooks/use-toast";
 // import { updateListingDetails } from "@/lib/actions/list.actions";
 import { useRouter } from "next/navigation";
+import { IList } from "@/lib/database/models/list.model";
+import Link from "next/link";
+import { addListingPropertyDetails } from "@/lib/actions/list.actions";
 
 type FormValues = z.infer<typeof PropertyInformationFormSchema>;
 
 interface PropertyInformationProps {
 	userId: string;
-	listingId?: string;
-	nextStep: () => void;
-	prevStep: () => void;
-	handleChange: (
-		input: keyof FormValues
-	) => (e: string | React.ChangeEvent<HTMLInputElement>) => void;
-	values: FormValues;
+	listingId: string;
+	category?: string;
+	city?: string;
+	address?: string;
+	state?: string;
 }
 
 const PropertyInformationForm: React.FC<PropertyInformationProps> = ({
 	userId,
 	listingId,
-	nextStep,
-	prevStep,
-	handleChange,
-	values,
+	city,
+	state,
+	address,
+	category,
 }) => {
 	const { toast } = useToast();
 	const router = useRouter();
 
 	const form = useForm<FormValues>({
 		resolver: zodResolver(PropertyInformationFormSchema),
-		defaultValues: values, // ✅ Pre-fill values when going back
+		defaultValues: {
+			city,
+			state,
+			// @ts-ignore
+			category: category?._id || "",
+			address,
+		},
 	});
 
 	const [categories, setCategories] = useState<ICategory[]>([]);
@@ -76,37 +83,19 @@ const PropertyInformationForm: React.FC<PropertyInformationProps> = ({
 		data: z.infer<typeof PropertyInformationFormSchema>
 	) {
 		try {
-			const details = {
+			const res = await addListingPropertyDetails({
+				userId,
+				listingId,
 				...data,
-			};
-
-			if (!listingId) {
-				return toast({
-					title: "Error!",
-					description: "Listing ID is missing!",
-					variant: "destructive",
-				});
-			} else {
-				// const res = await updateListingDetails({
-				// 	details,
-				// 	userId,
-				// 	listingId,
-				// });
-				// if (res?.status == 400)
-				// 	return toast({
-				// 		title: "Error!",
-				// 		description: res?.message,
-				// 		variant: "destructive",
-				// 	});
-
-				// toast({
-				// 	title: "Success!",
-				// 	description: res?.message,
-				// });
-
-				nextStep();
-				// router.push(`/create-listing?id=${res.list?._id}&steps=${3}`);
-			}
+			});
+			if (res.status === 400)
+				return toast({ title: res.message, variant: "destructive" });
+			toast({
+				title: res.message,
+			});
+			return router.push(
+				`/create-listing/${res?.listing?._id}/rent-details`
+			);
 		} catch (error) {
 			toast({
 				title: "Error!",
@@ -146,7 +135,6 @@ const PropertyInformationForm: React.FC<PropertyInformationProps> = ({
 									<Select
 										onValueChange={(value) => {
 											field.onChange(value);
-											handleChange("category")(value);
 										}}
 										value={field.value}
 										defaultValue={field.value}
@@ -175,7 +163,7 @@ const PropertyInformationForm: React.FC<PropertyInformationProps> = ({
 												))}
 										</SelectContent>
 									</Select>
-									<Button
+									{/* <Button
 										type="button"
 										variant={"outline"}
 										size={"md"}
@@ -183,7 +171,7 @@ const PropertyInformationForm: React.FC<PropertyInformationProps> = ({
 										onClick={() => setOpenNewCategory(true)}
 									>
 										Add new category
-									</Button>
+									</Button> */}
 								</div>
 								<FormMessage />
 							</FormItem>
@@ -201,10 +189,6 @@ const PropertyInformationForm: React.FC<PropertyInformationProps> = ({
 									<Input
 										placeholder="Be specific. Include house number, street name, and area if available"
 										{...field}
-										onChange={(e) => {
-											field.onChange(e);
-											handleChange("address")(e);
-										}}
 									/>
 								</FormControl>
 								<FormMessage />
@@ -224,10 +208,6 @@ const PropertyInformationForm: React.FC<PropertyInformationProps> = ({
 										<Input
 											placeholder="Enter the city where the property is located"
 											{...field}
-											onChange={(e) => {
-												field.onChange(e);
-												handleChange("city")(e);
-											}}
 										/>
 									</FormControl>
 									<FormMessage />
@@ -245,7 +225,6 @@ const PropertyInformationForm: React.FC<PropertyInformationProps> = ({
 									<Select
 										onValueChange={(value) => {
 											field.onChange(value);
-											handleChange("state")(value);
 										}}
 										defaultValue={field.value}
 									>
@@ -271,8 +250,12 @@ const PropertyInformationForm: React.FC<PropertyInformationProps> = ({
 						/>
 					</div>
 					<div className="flex justify-between mt-6">
-						<Button size="lg" onClick={prevStep} variant="outline">
-							Back
+						<Button asChild size="lg" variant="outline">
+							<Link
+								href={`/create-listing?listingId=${listingId}`}
+							>
+								Back
+							</Link>
 						</Button>
 						<Button
 							disabled={form.formState.isSubmitting}

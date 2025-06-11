@@ -17,12 +17,12 @@ const page = async ({ params }: { params: { id: string } }) => {
 
 	return (
 		<div className="pb-12">
-			<div className="flex flex-col md:flex-row gap-4 items-start md:items-center justify-between">
+			{/* <div className="flex flex-col md:flex-row gap-4 items-start md:items-center justify-between">
 				<SectionTitle
 					title="Create Listing"
 					subTitle="Lorem ipsum dolor sit amet, consectetur."
 				/>
-			</div>
+			</div> */}
 			<FinalDetailsForm
 				listingId={listingId}
 				userId={user?._id}

@@ -87,14 +87,14 @@ const page = async ({ searchParams }: SearchParamProps) => {
 									<div className="flex items-center justify-center capitalize font-semibold">
 										<Dot
 											className={`w-8 h-8 ${
-												list.isPublished &&
+												list?.isPublished &&
 												list?.status === "pending"
 													? "text-yellow-400"
 													: list?.status === "success"
 													? "text-green-400"
 													: "text-red-400"
 											} ${
-												!list.isPublished &&
+												!list?.isPublished &&
 												"text-yellow-400"
 											}`}
 										/>

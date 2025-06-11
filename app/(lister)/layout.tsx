@@ -28,7 +28,7 @@ export default async function Layout({
 				<TopNavbar user={user} />
 				<div className="min-h-screen pt-8">
 					<div className="container">{children}</div>
-					<Footer />
+					{/* <Footer /> */}
 				</div>
 			</div>
 		</div>

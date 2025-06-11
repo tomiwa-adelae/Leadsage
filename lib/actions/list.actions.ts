@@ -283,7 +283,7 @@ export const addListingPropertyDetails = async ({
 
 // Create a listing by the name
 export const addListingRentDetails = async ({
-	squareMeters,
+	// squareMeters,
 	availabilityDate,
 	description,
 	bedrooms,
@@ -291,7 +291,7 @@ export const addListingRentDetails = async ({
 	listingId,
 	userId,
 }: {
-	squareMeters?: string;
+	// squareMeters?: string;
 	availabilityDate: any;
 	description: string;
 	listingId: string;
@@ -324,7 +324,7 @@ export const addListingRentDetails = async ({
 				message: "You are not authorized for this request.",
 			};
 
-		listing.squareMeters = squareMeters || listing.squareMeters;
+		// listing.squareMeters = squareMeters || listing.squareMeters;
 		listing.bathrooms = bathrooms || listing.bathrooms;
 		listing.bedrooms = bedrooms || listing.bedrooms;
 		listing.description = description || listing.description;

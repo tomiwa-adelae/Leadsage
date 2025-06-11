@@ -50,9 +50,9 @@ export const PropertyInformationFormSchema = z.object({
 });
 
 export const RentDetailsFormSchema = z.object({
-	squareMeters: z.string().min(2, {
-		message: "The Square meters must be at least 2 characters.",
-	}),
+	// squareMeters: z.string().min(2, {
+	// 	message: "The Square meters must be at least 2 characters.",
+	// }),
 	availabilityDate: z.date({
 		required_error: "Availability date is required.",
 	}),

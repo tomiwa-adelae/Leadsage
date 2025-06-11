@@ -64,7 +64,7 @@ export const RentDetailsForm: React.FC<RentDetailsProps> = ({
 		defaultValues: {
 			description,
 			bedrooms,
-			squareMeters,
+			// squareMeters,
 			bathrooms,
 		},
 	});
@@ -108,7 +108,7 @@ export const RentDetailsForm: React.FC<RentDetailsProps> = ({
 					onSubmit={form.handleSubmit(onSubmit)}
 					className="space-y-6"
 				>
-					<FormField
+					{/* <FormField
 						control={form.control}
 						name="squareMeters"
 						render={({ field }) => (
@@ -128,7 +128,7 @@ export const RentDetailsForm: React.FC<RentDetailsProps> = ({
 								<FormMessage />
 							</FormItem>
 						)}
-					/>
+					/> */}
 					<FormField
 						control={form.control}
 						name="availabilityDate"

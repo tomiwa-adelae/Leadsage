@@ -130,7 +130,7 @@ const MediaForm: React.FC<RentDetailsProps> = ({
 						</Button>
 					</div>
 				))}
-				{listingImages.map((photo, index) => (
+				{listingImages.map((photo: any, index: any) => (
 					<div key={index} className="relative">
 						<Image
 							src={photo.src}

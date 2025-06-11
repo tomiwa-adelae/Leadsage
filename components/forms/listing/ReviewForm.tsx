@@ -10,6 +10,7 @@ import { addListingPublish } from "@/lib/actions/list.actions";
 import { useToast } from "@/hooks/use-toast";
 import { useRouter } from "next/navigation";
 import { DEFAULT_LISTING_IMAGE } from "@/constant";
+import { formatDate } from "@/lib/utils";
 
 interface ReviewFormProps {
 	userId: string;
@@ -97,7 +98,11 @@ export const ReviewForm: React.FC<ReviewFormProps> = ({
 					</div>
 					<div className="space-y-2 text-muted-foreground font-medium text-sm leading-relaxed">
 						<p>Square meter: {listing?.squareMeters}</p>
-						<p>Availability Date: {listing?.availabilityDate}</p>
+						<p>
+							Availability Date:{" "}
+							{listing?.availabilityDate &&
+								formatDate(listing?.availabilityDate)}
+						</p>
 						<p>Number of Bedrooms: {listing?.bedrooms}</p>
 						<p>Number of Bathrooms: {listing?.bathrooms}</p>
 						<p>Description: {listing?.description}</p>
@@ -112,17 +117,16 @@ export const ReviewForm: React.FC<ReviewFormProps> = ({
 						<Button variant="ghost">Edit</Button>
 					</div>
 					<div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-						{/* {listing.images?.map((image, index) => (
-
+						{listing.images?.map((image, index) => (
 							<Image
-							key={index}
-							src={image.src || DEFAULT_LISTING_IMAGE}
-							alt={image.name || 'Apartment image'}
-							width={1000}
-							height={1000}
-							className="aspect-video size-full object-cover rounded-md"
+								key={index}
+								src={image.src || DEFAULT_LISTING_IMAGE}
+								alt={listing.name || "Apartment image"}
+								width={1000}
+								height={1000}
+								className="aspect-video size-full object-cover rounded-md"
 							/>
-						))} */}
+						))}
 					</div>
 				</div>
 				<Separator className="my-8" />

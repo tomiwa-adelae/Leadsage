@@ -1,4 +1,3 @@
-import { CreateListingForm } from "@/components/forms/CreateListingForm";
 import BasicInformationForm from "@/components/forms/listing/BasicInformationForm";
 import SectionTitle from "@/components/shared/SectionTitle";
 import { getListing } from "@/lib/actions/list.actions";
@@ -20,10 +19,6 @@ const page = async ({ searchParams }: PageProps) => {
 	if (listingId) {
 		listing = await getListing(listingId);
 	}
-
-	console.log();
-
-	console.log(`lisitng`, listing);
 
 	return (
 		<div className="pb-12">

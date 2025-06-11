@@ -25,7 +25,7 @@ const ProductCard = ({
 	return (
 		<Link
 			href={`/apartments/${id}`}
-			className="inline-block aspect-auto w-[400px] rounded-xl overflow-hidden cursor-pointer group"
+			className="inline-block aspect-auto hover:bg-[#F7F7F7] transition-all w-[250px] md:w-[320px] lg:w-[400px] rounded-xl overflow-hidden cursor-pointer group"
 		>
 			<div className="overflow-hidden">
 				<Image
@@ -33,10 +33,10 @@ const ProductCard = ({
 					alt={name}
 					width={1000}
 					height={1000}
-					className="group-hover:scale-[1.1] aspect-auto w-full object-cover transition ease-out"
+					className="group-hover:scale-[1.1] aspect-auto w-full rounded-xl object-cover transition ease-out"
 				/>
 			</div>
-			<h4 className="mt-4 text-green-400 text-base md:text-lg lg:text-xl font-semibold hover:text-green-700 transition ease-in-out">
+			<h4 className="mt-4 text-green-400 text-lg md:text-xl font-semibold hover:text-green-700 transition ease-in-out">
 				{name}
 			</h4>
 			<p className="text-muted-foreground text-sm lg:text-base mt-1.5">

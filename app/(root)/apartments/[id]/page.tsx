@@ -21,9 +21,11 @@ const page = async ({ params }: { params: { id: string } }) => {
 
 	const user = await getUserInfo(userId!);
 
-	// const id = params.id;
+	const id = params.id;
 
-	// const listing = await getListing(id!);
+	const listing = await getListing(id!);
+
+	console.log(listing?.listing);
 
 	// const requiredFields = [
 	// 	listing?.name,
@@ -55,9 +57,16 @@ const page = async ({ params }: { params: { id: string } }) => {
 		<div>
 			<Header color="black" />
 			<div className="container">
-				<h1 className="font-bold text-2xl">
-					Apartment details for landlords
-				</h1>
+				<h2 className="font-medium text-2xl md:text-3xl lg:text-4xl">
+					{listing?.listing?.name}
+				</h2>
+				<p className="text-sm lg:text-base text-muted-foreground mt-2">
+					{listing?.listing.address}, {listing?.listing.city},{" "}
+					{listing?.listing?.state},{" "}
+					<span className="capitalize">
+						{listing?.listing?.country}
+					</span>
+				</p>
 				{/* {!isComplete && (
 					<Marquee className="mt-4 font-medium text-sm bg-primary/50 py-4">
 						This listing is currently unpublished and not visible to

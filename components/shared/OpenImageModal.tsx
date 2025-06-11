@@ -3,10 +3,8 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Drawer, DrawerClose, DrawerContent } from "@/components/ui/drawer";
-// import { updateListing } from "@/lib/actions/list.actions";
 import { toast } from "@/hooks/use-toast";
 import { FileUpload } from "../ui/file-upload";
-import { uploadDocuments } from "@/lib/actions/upload.actions";
 
 export function OpenImageModal({
 	id,
@@ -28,37 +26,6 @@ export function OpenImageModal({
 	const handleSubmit = async () => {
 		try {
 			setLoading(true);
-
-			// const uploadResult = await uploadDocuments(image, selectedImage);
-
-			// if (uploadResult?.status === 400) {
-			// 	toast({
-			// 		title: "Error!",
-			// 		description: uploadResult?.message,
-			// 		variant: "destructive",
-			// 	});
-			// 	return;
-			// }
-
-			// // Create the payload dynamically to exclude oldImage when selectedImage is null
-			// const payload: any = {
-			// 	userId,
-			// 	listingId: id,
-			// 	type: "images",
-			// 	value: {
-			// 		url: uploadResult?.url!,
-			// 		id: uploadResult?.id!,
-			// 	},
-			// };
-
-			// // Only include oldImage if selectedImage exists
-			// if (selectedImage) {
-			// 	payload.value.oldImage = selectedImage?._id;
-			// }
-
-			// const res = await updateListing(payload);
-			// toast({ title: "Success!", description: res?.message });
-			// closeModal();
 		} catch (error) {
 			toast({
 				title: "Error!",

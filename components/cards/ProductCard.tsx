@@ -8,7 +8,7 @@ import { DEFAULT_LISTING_IMAGE } from "@/constant";
 const ProductCard = ({
 	images,
 	name,
-	rentPrice,
+	rent,
 	address,
 	city,
 	state,
@@ -18,14 +18,14 @@ const ProductCard = ({
 	address: string;
 	city: string;
 	state: string;
-	rentPrice: string;
+	rent: string;
 	name: string;
 	images: { url: string }[];
 }) => {
 	return (
 		<Link
 			href={`/apartments/${id}`}
-			className="inline-block border rounded-xl overflow-hidden cursor-pointer group shadow-[0px_2px_3px_-1px_rgba(0,0,0,0.1),0px_1px_0px_0px_rgba(25,28,33,0.02),0px_0px_0px_1px_rgba(25,28,33,0.08)] w-[300px] lg:w-[350px]"
+			className="inline-block aspect-auto w-[400px] rounded-xl overflow-hidden cursor-pointer group"
 		>
 			<div className="overflow-hidden">
 				<Image
@@ -33,33 +33,18 @@ const ProductCard = ({
 					alt={name}
 					width={1000}
 					height={1000}
-					className="group-hover:scale-[1.1] aspect-video min-h-60 w-full object-cover transition ease-out"
+					className="group-hover:scale-[1.1] aspect-auto w-full object-cover transition ease-out"
 				/>
 			</div>
-			<div className="p-3 lg:p-6">
-				<div className="flex flex-col items-start pb-4 justify-between gap-4">
-					<h4 className="text-green-400 text-lg lg:text-xl font-medium hover:text-green-700 transition ease-in-out">
-						{name}
-					</h4>
-					<p className="text-gray-700 text-sm lg:text-base">
-						<Image
-							src={"/assets/icons/location.svg"}
-							alt={"Location"}
-							width={1000}
-							height={1000}
-							className="w-[20px] h-[20px] inline-block mr-2"
-						/>
-						{city}, {state}
-					</p>
-				</div>
-				<div>
-					<Separator className="my-2" />
-				</div>
-				<p className="text-gray-800 font-semibold text-base py-2">
-					₦{formatMoneyInput(rentPrice)}
-					{/* ₦600,000 */}
-				</p>
-			</div>
+			<h4 className="mt-4 text-green-400 text-base md:text-lg lg:text-xl font-semibold hover:text-green-700 transition ease-in-out">
+				{name}
+			</h4>
+			<p className="text-muted-foreground text-sm lg:text-base mt-1.5">
+				{city}, {state}
+			</p>
+			<p className="text-base font-medium mt-2">
+				₦{formatMoneyInput(rent)}
+			</p>
 		</Link>
 	);
 };

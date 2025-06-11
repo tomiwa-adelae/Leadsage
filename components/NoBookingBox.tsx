@@ -5,7 +5,7 @@ import Image from "next/image";
 
 const NoBookingBox = ({ isRenter }: { isRenter: boolean }) => {
 	return (
-		<div className="bg-white rounded-md py-8 mt-10 shadow-[0px_2px_3px_-1px_rgba(0,0,0,0.1),0px_1px_0px_0px_rgba(25,28,33,0.02),0px_0px_0px_1px_rgba(25,28,33,0.08)]">
+		<div className="bg-white rounded-md py-8">
 			<div className="container text-center flex flex-col gap-10 items-center justify-center">
 				<h3 className="font-semibold text-lg lg:text-xl">
 					No bookings yet

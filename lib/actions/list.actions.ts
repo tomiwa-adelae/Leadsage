@@ -43,7 +43,7 @@ export const getAllListings = async ({
 
 		const lists = await List.find({
 			...keyword,
-			status: "approved",
+			status: "completed",
 			isPublished: true,
 		})
 			.populate("user")
@@ -572,8 +572,6 @@ export const addListingPublish = async ({
 			rentNegotiable,
 			listedBy,
 		} = listing;
-
-		console.log(listing);
 
 		if (
 			!name ||

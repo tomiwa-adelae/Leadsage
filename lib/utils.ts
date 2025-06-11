@@ -10,8 +10,10 @@ export const handleError = (error: unknown) => {
 };
 
 export const formatMoneyInput = (inputValue: any) => {
-	let value = inputValue?.replace(/[^0-9.]/g, "");
-	let [whole, decimal] = value?.split(".");
+	if (inputValue == null || isNaN(Number(inputValue))) return "0";
+
+	let value = String(inputValue).replace(/[^0-9.]/g, "");
+	let [whole, decimal] = value.split(".");
 	whole = whole.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 	return decimal !== undefined ? `${whole}.${decimal}` : whole;
 };

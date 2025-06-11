@@ -13,9 +13,9 @@ declare interface GetAllListingsParams {
 }
 
 declare interface GetMyListingsParams {
-	query: string;
-	limit: number;
-	page: number;
+	query?: string;
+	limit?: number;
+	page?: number;
 	userId: string;
 }
 

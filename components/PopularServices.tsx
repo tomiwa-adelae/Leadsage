@@ -14,8 +14,6 @@ const PopularServices = async () => {
 		limit: 5,
 	});
 
-	// console.log(listings);
-
 	return (
 		<div className="container pb-16">
 			<div className="space-y-2">
@@ -28,14 +26,14 @@ const PopularServices = async () => {
 				</p>
 			</div>
 			<ScrollArea className="">
-				<div className="flex w-max space-x-4 pt-4 pr-10 pb-4">
+				<div className="flex w-max space-x-8 pt-4 pr-10 pb-4">
 					{listings.data?.map((listing: any, index: string) => (
 						<ProductCard
 							key={index}
 							id={listing._id}
 							images={listing.images}
 							name={listing.name}
-							rentPrice={listing.price}
+							rent={listing.price}
 							address={listing.address}
 							city={listing.city}
 							state={listing.state}
@@ -47,7 +45,7 @@ const PopularServices = async () => {
 							id={listing._id}
 							images={listing.images}
 							name={listing.name}
-							rentPrice={listing.price}
+							rent={listing.rent}
 							address={listing.address}
 							city={listing.city}
 							state={listing.state}

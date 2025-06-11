@@ -3,7 +3,7 @@ const SectionTitle = ({
 	subTitle,
 }: {
 	title: string;
-	subTitle: string;
+	subTitle?: string;
 }) => {
 	return (
 		<div>

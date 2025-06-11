@@ -19,6 +19,7 @@ import { BookingsActions } from "@/components/shared/BookingsActions";
 import NoBookingBox from "@/components/NoBookingBox";
 import { Dot } from "lucide-react";
 import NewDashboard from "@/components/shared/NewDashboard";
+import { getMyListings } from "@/lib/actions/list.actions";
 
 const BookingStatus = ({ status }: { status: string }) => {
 	const statusColor =
@@ -124,6 +125,8 @@ const page = async ({ searchParams }: SearchParamProps) => {
 		userId: user?._id,
 	});
 
+	const listings = await getMyListings({ userId: user?._id });
+
 	if (bookings.status === 400) redirect("/not-found");
 
 	const pendingBookings = bookings.data.filter(
@@ -158,7 +161,7 @@ const page = async ({ searchParams }: SearchParamProps) => {
 									Total Properties
 								</p>
 								<h3 className="font-bold text-3xl">
-									{bookings.data.length}
+									{listings?.data?.length}
 								</h3>
 								<div>
 									<Separator className="my-6" />

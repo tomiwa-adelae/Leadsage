@@ -49,9 +49,7 @@ export function MobileNavbar({ userDetails }: any) {
 						alt="Menu Icon"
 						width={1000}
 						height={1000}
-						className={`w-[30px] h-[30px] ${
-							pathname === "/" && "invert"
-						}`}
+						className={`w-[30px] h-[30px] invert`}
 					/>
 				</Button>
 			</SheetTrigger>
@@ -59,16 +57,24 @@ export function MobileNavbar({ userDetails }: any) {
 				<ScrollArea className="h-full">
 					<SheetHeader className="border-green-400 border-b">
 						<SheetClose asChild>
-							<Link href="/">
-								<h3
-									className={`uppercase font-bold text-green-400 text-xl hover:text-green-500 transition ease-out ${inknut.className}`}
-								>
-									Leadsage
+							<Link
+								href={"/"}
+								className="flex items-center justify-start gap-2"
+							>
+								<Image
+									src={"/assets/images/opengraph.png"}
+									alt={"Leadsage Logo"}
+									width={1000}
+									height={1000}
+									className="size-14 object-cover"
+								/>
+								<h3 className="font-semibold text-xl">
+									LeadSage Africa
 								</h3>
 							</Link>
 						</SheetClose>
 					</SheetHeader>
-					<nav className="flex flex-col font-semibold gap-0.5 p-4 text-xs uppercase">
+					<nav className="flex flex-col font-semibold gap-0.5 p-4 text-sm">
 						<SheetClose
 							asChild
 							className="p-3.5 hover:bg-gray-100 transition ease-out"
@@ -148,7 +154,7 @@ export function MobileNavbar({ userDetails }: any) {
 						<>
 							<div>
 								<Separator className="my-4" />
-								<nav className="flex flex-col font-semibold gap-4 p-4 text-xs uppercase">
+								<nav className="flex flex-col font-semibold gap-4 p-4 text-sm">
 									{(userDetails?.isRenter
 										? dashboardLinks
 										: dashboardMemberLinks

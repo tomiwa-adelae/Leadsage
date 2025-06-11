@@ -15,13 +15,9 @@ import {
 } from "@/components/ui/navigation-menu";
 import { categories, navLinks } from "@/constant";
 
-export function NavigationDropdowns({ color }: { color?: string }) {
+export function NavigationDropdowns() {
 	return (
-		<NavigationMenu
-			className={`hidden ${
-				color === "black" ? "text-black" : "text-white"
-			} md:block`}
-		>
+		<NavigationMenu className={`hidden text-white md:block`}>
 			<NavigationMenuList>
 				{navLinks.slice(0, 3).map(({ title, slug }, index) => (
 					<NavigationMenuItem key={index}>
@@ -63,7 +59,7 @@ const ListItem = React.forwardRef<
 				<a
 					ref={ref}
 					className={cn(
-						"block select-none space-y-1 rounded-md p-3 leading-none no-underline text-xs outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground hover:text-green-400 uppercase",
+						"block select-none space-y-1 rounded-md p-3 leading-none no-underline text-sm outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground hover:text-green-400",
 						className
 					)}
 					{...props}

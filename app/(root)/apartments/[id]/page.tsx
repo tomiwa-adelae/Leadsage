@@ -25,38 +25,12 @@ const page = async ({ params }: { params: { id: string } }) => {
 
 	const listing = await getListing(id!);
 
-	console.log(listing?.listing);
-
-	// const requiredFields = [
-	// 	listing?.name,
-	// 	listing?.category,
-	// 	listing?.rentPrice,
-	// 	listing?.address,
-	// 	listing?.city,
-	// 	listing?.state,
-	// 	listing?.description,
-	// 	listing?.images,
-	// 	listing?.availabilityDate,
-	// 	// listing?.location,
-	// ];
-
-	// const totalFields = requiredFields.length;
-
-	// const completedFields = requiredFields.filter(Boolean).length;
-
-	// const completedText = `${completedFields} / ${totalFields}`;
-
-	// const hasEnoughImages =
-	// 	Array.isArray(listing?.images) && listing.images.length >= 3;
-
-	// const isComplete = requiredFields.every(Boolean) && hasEnoughImages;
-
-	// if (listing.status === 400) redirect("/not-found.tsx");
+	if (listing.status === 400) redirect("/not-found.tsx");
 
 	return (
 		<div>
 			<Header color="black" />
-			<div className="container">
+			<div className="container py-6 bg-red-300">
 				<h2 className="font-medium text-2xl md:text-3xl lg:text-4xl">
 					{listing?.listing?.name}
 				</h2>
@@ -67,6 +41,9 @@ const page = async ({ params }: { params: { id: string } }) => {
 						{listing?.listing?.country}
 					</span>
 				</p>
+				<div className="bg-yellow-300">
+					<ApartmentImages images={listing?.listing?.images} />
+				</div>
 				{/* {!isComplete && (
 					<Marquee className="mt-4 font-medium text-sm bg-primary/50 py-4">
 						This listing is currently unpublished and not visible to

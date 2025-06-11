@@ -10,7 +10,6 @@ import { getUserInfo } from "@/lib/actions/user.actions";
 import { useEffect, useState } from "react";
 import Image from "next/image";
 
-
 const inknut = Inknut_Antiqua({
 	subsets: ["latin"],
 	weight: ["300", "400", "500"],
@@ -32,24 +31,18 @@ const Header = ({ color = "white" }: { color?: string }) => {
 	}, []);
 
 	return (
-		<div
-			className={`${
-				color === "black" ? "text-green-400 border-b" : "text-white"
-			}`}
-		>
-			<header
-				className={`py-4 container flex items-center justify-between`}
-			>
+		<div className={`bg-green-700 text-white py-4`}>
+			<header className={`container flex items-center justify-between`}>
 				<Link href={"/"}>
-				<Image
-					src={"/assets/images/logo.png"}
-					alt={"Leadsage Logo"}
-					width={1000}
-					height={1000}
-					className="w-28 h-28"
-				/>
-			</Link>
-				<NavigationDropdowns color={color} />
+					<Image
+						src={"/assets/images/logo.png"}
+						alt={"Leadsage Logo"}
+						width={1000}
+						height={1000}
+						className="w-40 lg:w-52 object-cover"
+					/>
+				</Link>
+				<NavigationDropdowns />
 				<div className={`gap-4 hidden md:flex`}>
 					<SignedIn>
 						<ProfileDropdown userDetails={user} />

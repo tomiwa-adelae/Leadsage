@@ -42,7 +42,7 @@ export function ProfileDropdown({ userDetails }: any) {
 					: dashboardMemberLinks
 				).map((link, index) => (
 					<React.Fragment key={index}>
-						<DropdownMenuLabel className="uppercase font-medium text-xs text-gray-400">
+						<DropdownMenuLabel className="font-medium text-sm text-gray-400">
 							{link.title}
 						</DropdownMenuLabel>
 						<DropdownMenuSeparator />
@@ -57,7 +57,7 @@ export function ProfileDropdown({ userDetails }: any) {
 											height={1000}
 											className="w-[20px] h-[20px]"
 										/>
-										<span className="uppercase text-xs font-medium">
+										<span className="text-sm font-medium">
 											{title}
 										</span>
 									</DropdownMenuItem>
@@ -78,9 +78,7 @@ export function ProfileDropdown({ userDetails }: any) {
 						height={1000}
 						className="w-[20px] h-[20px]"
 					/>
-					<span className="uppercase text-xs font-medium">
-						Logout
-					</span>
+					<span className="text-sm font-medium">Logout</span>
 				</DropdownMenuItem>
 			</DropdownMenuContent>
 		</DropdownMenu>

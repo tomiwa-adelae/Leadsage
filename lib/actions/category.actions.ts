@@ -4,6 +4,7 @@ import { revalidatePath } from "next/cache";
 import { connectToDatabase } from "../database";
 import Category from "../database/models/category.model";
 import { handleError } from "../utils";
+import "../database";
 
 export const getAllCategories = async () => {
 	try {

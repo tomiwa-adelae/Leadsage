@@ -146,7 +146,7 @@ export function OpenEditModal({
 		<Drawer open={open} onClose={closeModal}>
 			<DrawerContent>
 				<div className="mx-auto w-full sm:max-w-sm lg:max-w-lg py-10 container">
-					<h4 className="text-sm uppercase font-medium">
+					<h4 className="text-sm font-medium">
 						Edit {formattedApartmentTypes[type]}
 					</h4>
 

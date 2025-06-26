@@ -42,9 +42,7 @@ export function AddNewCategoryForm({
 		<Drawer open={open} onClose={closeModal}>
 			<DrawerContent className="z-[1000] pointer-events-auto">
 				<div className="mx-auto w-full sm:max-w-sm lg:max-w-lg py-10 container">
-					<h4 className="text-sm uppercase font-medium">
-						Add new category
-					</h4>
+					<h4 className="text-sm font-medium">Add new category</h4>
 					<div className="mt-2">
 						<Input
 							value={value}

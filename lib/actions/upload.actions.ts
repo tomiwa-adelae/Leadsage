@@ -64,6 +64,8 @@
 "use server";
 import { v2 as cloudinary } from "cloudinary";
 import { handleError } from "../utils";
+import "../database";
+import { revalidatePath } from "next/cache";
 
 cloudinary.config({
 	cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
@@ -97,6 +99,9 @@ export const uploadImages = async ({
 
 		const results = await Promise.all(uploadPromises);
 
+		revalidatePath(`/listings`);
+		revalidatePath(`/apartments`);
+
 		return results.map((result, index) => ({
 			src: result.secure_url,
 			imageId: result.public_id,
@@ -107,6 +112,37 @@ export const uploadImages = async ({
 			status: error?.status || 400,
 			message:
 				error.message || "Oops! Images not uploaded. Try again later",
+		};
+	}
+};
+
+export const uploadImage = async (image: any) => {
+	try {
+		const isImage =
+			image.startsWith("data:image/jpeg") ||
+			image.startsWith("data:image/png") ||
+			image.startsWith("data:image/jpg") ||
+			image.startsWith("data:image/gif") ||
+			image.startsWith("data:image/webp");
+
+		const isPDF = image.startsWith("data:application/pdf");
+
+		const result = await cloudinary.uploader.upload(image, {
+			folder: "leadsage",
+			resource_type: isImage || isPDF ? "image" : "raw",
+		});
+
+		return {
+			src: result.secure_url,
+			imageId: result.public_id,
+		};
+	} catch (error: any) {
+		handleError(error);
+		return {
+			status: error?.status || 400,
+			message:
+				error?.message ||
+				"Oops! Couldn't upload the image! Try again later.",
 		};
 	}
 };

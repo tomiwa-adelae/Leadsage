@@ -78,7 +78,7 @@ export function PricingDropdown() {
 				</Button>
 			</DropdownMenuTrigger>
 			<DropdownMenuContent className="w-72">
-				<DropdownMenuLabel className="uppercase text-sm text-gray-600">
+				<DropdownMenuLabel className="text-sm text-gray-600">
 					Price Range
 				</DropdownMenuLabel>
 				<DropdownMenuSeparator />
@@ -92,7 +92,7 @@ export function PricingDropdown() {
 							name="minimum"
 							render={({ field }) => (
 								<FormItem>
-									<FormLabel className="text-muted-foreground text-xs uppercase">
+									<FormLabel className="text-muted-foreground text-sm">
 										Minimum
 									</FormLabel>
 									<FormControl>
@@ -113,7 +113,7 @@ export function PricingDropdown() {
 							name="maximum"
 							render={({ field }) => (
 								<FormItem>
-									<FormLabel className="text-muted-foreground text-xs uppercase">
+									<FormLabel className="text-muted-foreground text-sm">
 										Maximum
 									</FormLabel>
 									<FormControl>

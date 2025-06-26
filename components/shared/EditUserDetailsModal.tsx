@@ -77,7 +77,7 @@ export function EditUserDetailsModal({
 		<Drawer open={open} onClose={closeModal}>
 			<DrawerContent>
 				<div className="mx-auto w-full sm:max-w-sm lg:max-w-lg py-10 container">
-					<h4 className="text-sm uppercase font-medium">
+					<h4 className="text-sm font-medium">
 						Kindly fill in the following basic information to
 						proceed
 					</h4>

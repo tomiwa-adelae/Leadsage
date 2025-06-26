@@ -25,7 +25,7 @@ export function removeCommas(value: any) {
 export const formattedApartmentTypes: Record<string, string> = {
 	name: "name",
 	description: "description",
-	rentPrice: "monthly price",
+	rent: "monthly price",
 	availabilityDate: "availability date",
 	address: "address",
 	city: "city",

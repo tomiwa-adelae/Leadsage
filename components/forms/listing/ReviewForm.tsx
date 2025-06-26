@@ -56,12 +56,10 @@ export const ReviewForm: React.FC<ReviewFormProps> = ({
 		}
 	};
 
-	console.log(listing.images);
-
 	return (
 		<div className="py-10 px-6 rounded-md bg-white shadow-[0px_2px_3px_-1px_rgba(0,0,0,0.1),0px_1px_0px_0px_rgba(25,28,33,0.02),0px_0px_0px_1px_rgba(25,28,33,0.08)]">
 			<div className="mb-6">
-				<h3 className="text-lg uppercase mb-1 font-semibold text-primary">
+				<h3 className="text-lg mb-1 font-semibold text-primary">
 					Review Your Listing
 				</h3>
 				<p className="text-base text-muted-foreground">
@@ -74,7 +72,7 @@ export const ReviewForm: React.FC<ReviewFormProps> = ({
 			<div>
 				<div>
 					<div className="flex items-center justify-between gap-4">
-						<h3 className="font-semibold uppercase text-lg mb-2">
+						<h3 className="font-semibold  text-lg mb-2">
 							Basic Information
 						</h3>
 						<Button variant="ghost">Edit</Button>
@@ -91,7 +89,7 @@ export const ReviewForm: React.FC<ReviewFormProps> = ({
 				<Separator className="my-8" />
 				<div>
 					<div className="flex items-center justify-between gap-4">
-						<h3 className="font-semibold uppercase text-lg mb-2">
+						<h3 className="font-semibold text-lg mb-2">
 							Rent Information
 						</h3>
 						<Button variant="ghost">Edit</Button>
@@ -111,9 +109,7 @@ export const ReviewForm: React.FC<ReviewFormProps> = ({
 				<Separator className="my-8" />
 				<div>
 					<div className="flex items-center justify-between gap-4">
-						<h3 className="font-semibold uppercase text-lg mb-2">
-							Images
-						</h3>
+						<h3 className="font-semibold text-lg mb-2">Images</h3>
 						<Button variant="ghost">Edit</Button>
 					</div>
 					<div className="grid grid-cols-2 md:grid-cols-3 gap-4">
@@ -132,7 +128,7 @@ export const ReviewForm: React.FC<ReviewFormProps> = ({
 				<Separator className="my-8" />
 				<div>
 					<div className="flex items-center justify-between gap-4">
-						<h3 className="font-semibold uppercase text-lg mb-2">
+						<h3 className="font-semibold text-lg mb-2">
 							Amenities
 						</h3>
 						<Button variant="ghost">Edit</Button>
@@ -152,9 +148,7 @@ export const ReviewForm: React.FC<ReviewFormProps> = ({
 				<Separator className="my-8" />
 				<div>
 					<div className="flex items-center justify-between gap-4">
-						<h3 className="font-semibold uppercase text-lg mb-2">
-							Policies
-						</h3>
+						<h3 className="font-semibold text-lg mb-2">Policies</h3>
 						<Button variant="ghost">Edit</Button>
 					</div>
 					<div className="space-y-2 text-muted-foreground font-medium text-sm leading-relaxed">
@@ -170,9 +164,7 @@ export const ReviewForm: React.FC<ReviewFormProps> = ({
 				<Separator className="my-8" />
 				<div>
 					<div className="flex items-center justify-between gap-4">
-						<h3 className="font-semibold uppercase text-lg mb-2">
-							Cost
-						</h3>
+						<h3 className="font-semibold  text-lg mb-2">Cost</h3>
 						<Button variant="ghost">Edit</Button>
 					</div>
 					<div className="space-y-2 text-muted-foreground font-medium text-sm leading-relaxed">
@@ -187,7 +179,7 @@ export const ReviewForm: React.FC<ReviewFormProps> = ({
 				<Separator className="my-8" />
 				<div>
 					<div className="flex items-center justify-between gap-4">
-						<h3 className="font-semibold uppercase text-lg mb-2">
+						<h3 className="font-semibold text-lg mb-2">
 							Final details
 						</h3>
 						<Button variant="ghost">Edit</Button>

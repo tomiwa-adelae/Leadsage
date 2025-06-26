@@ -30,7 +30,7 @@ const BookingStatus = ({ status }: { status: string }) => {
 			: "text-red-400";
 
 	return (
-		<div className="uppercase flex items-center font-medium">
+		<div className="flex items-center font-medium">
 			<Dot className={`w-8 h-8 ${statusColor}`} />
 			{status}
 		</div>
@@ -89,7 +89,7 @@ const BookingTable = ({
 							</TableCell>
 						)}
 						<TableCell>
-							₦{formatMoneyInput(booking?.listing.rentPrice)}
+							₦{formatMoneyInput(booking?.listing.rent)}
 						</TableCell>
 						<TableCell>{formatDate(booking?.createdAt)}</TableCell>
 						<TableCell>
@@ -157,7 +157,7 @@ const page = async ({ searchParams }: SearchParamProps) => {
 									height={1000}
 									className="w-20 h-20"
 								/>
-								<p className="uppercase text-xs font-medium text-gray-700">
+								<p className="text-sm font-medium text-gray-700">
 									Total Properties
 								</p>
 								<h3 className="font-bold text-3xl">
@@ -174,13 +174,13 @@ const page = async ({ searchParams }: SearchParamProps) => {
 										height={1000}
 										className="w-14 h-14"
 									/>
-									<p className="font-medium text-xs leading-loose uppercase">
+									<p className="font-medium text-sm leading-loose">
 										1 Active Tenants
 									</p>
 								</div>
 							</div>
 							<div className="rounded-md p-8 border space-y-3">
-								<p className="uppercase text-xs text-gray-700">
+								<p className="text-sm text-gray-700">
 									Total Earnings
 								</p>
 								<h2 className="text-3xl font-bold">₦0.00</h2>
@@ -194,7 +194,7 @@ const page = async ({ searchParams }: SearchParamProps) => {
 								<div>
 									<Separator className="my-4" />
 								</div>
-								<p className="uppercase text-xs text-gray-700">
+								<p className="text-sm text-gray-700">
 									Pending Booking
 								</p>
 								<h2 className="text-3xl font-bold">
@@ -212,7 +212,7 @@ const page = async ({ searchParams }: SearchParamProps) => {
 								className="w-24 h-24"
 							/>
 							<div>
-								<p className="uppercase text-xs font-medium text-gray-700">
+								<p className=" text-xs font-medium text-gray-700">
 									Total Active Bookings
 								</p>
 								<h3 className="mt-4 font-bold text-4xl">

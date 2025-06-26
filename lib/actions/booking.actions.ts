@@ -14,6 +14,7 @@ import {
 	generateAdminApprovedEmail,
 	generateAdminRejectedEmail,
 } from "@/templates";
+import "../database";
 import { connectToDatabase } from "../database";
 import Booking from "../database/models/booking.model";
 import List from "../database/models/list.model";

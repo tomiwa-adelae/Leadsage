@@ -160,7 +160,7 @@ export function MobileNavbar({ userDetails }: any) {
 										: dashboardMemberLinks
 									).map(({ title, links }, index) => (
 										<div key={index}>
-											<h4 className="uppercase text-xs font-medium text-gray-400 container">
+											<h4 className="text-sm font-medium text-gray-400 container">
 												{title}
 											</h4>
 											<div className="grid gap-2 mt-4">

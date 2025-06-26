@@ -2,6 +2,7 @@ import SectionTitle from "@/components/shared/SectionTitle";
 import { Button } from "@/components/ui/button";
 import { Dot, FileSearch } from "lucide-react";
 import Link from "next/link";
+import React from "react";
 import {
 	Table,
 	TableBody,
@@ -10,15 +11,14 @@ import {
 	TableHeader,
 	TableRow,
 } from "@/components/ui/table";
-import Image from "next/image";
-import { getBookings } from "@/lib/actions/booking.actions";
-import { BOOKING_LIMIT } from "@/constant";
-import { auth } from "@clerk/nextjs";
-import { getUserInfo } from "@/lib/actions/user.actions";
-import NoBookingBox from "@/components/NoBookingBox";
 import { formatDate, formatMoneyInput } from "@/lib/utils";
 import { BookingsActions } from "@/components/shared/BookingsActions";
+import { getBookings } from "@/lib/actions/booking.actions";
+import { BOOKING_LIMIT } from "@/constant";
 import { redirect } from "next/navigation";
+import { getUserInfo } from "@/lib/actions/user.actions";
+import { auth } from "@clerk/nextjs";
+import NoBookingBox from "@/components/NoBookingBox";
 
 const BookingStatus = ({ status }: { status: string }) => {
 	const statusColor =
@@ -29,7 +29,7 @@ const BookingStatus = ({ status }: { status: string }) => {
 			: "text-red-400";
 
 	return (
-		<div className="flex items-center font-medium">
+		<div className="text-sm capitalize flex items-center font-medium">
 			<Dot className={`w-8 h-8 ${statusColor}`} />
 			{status}
 		</div>
@@ -49,19 +49,9 @@ const BookingTable = ({
 		<Table className="mt-10 bg-white rounded-md">
 			<TableHeader>
 				<TableRow>
-					{isRenter ? (
-						<>
-							<TableHead>Renter's Name</TableHead>
-							<TableHead>Listing Name</TableHead>
-							<TableHead>Rent Price</TableHead>
-						</>
-					) : (
-						<>
-							<TableHead>Listing Name</TableHead>
-							<TableHead>Location</TableHead>
-							<TableHead>Amount</TableHead>
-						</>
-					)}
+					<TableHead>Name</TableHead>
+					<TableHead>Location</TableHead>
+					<TableHead>Amount</TableHead>
 					<TableHead>Booked On</TableHead>
 					<TableHead className="text-center">Status</TableHead>
 					<TableHead className="text-right">Actions</TableHead>
@@ -70,27 +60,20 @@ const BookingTable = ({
 			<TableBody>
 				{bookings.map((booking) => (
 					<TableRow key={booking._id} className="hover:bg-green-100">
-						{isRenter ? (
-							<TableCell className="font-medium">
-								{booking?.user.firstName}{" "}
-								{booking?.user.lastName}
-							</TableCell>
-						) : null}
-						<TableCell className="font-medium">
+						<TableCell className="font-medium truncate">
 							<Link href={`/apartments/${booking?.listing._id}`}>
 								{booking?.listing.name}
 							</Link>
 						</TableCell>
-						{!isRenter && (
-							<TableCell>
-								{booking?.listing.address},{" "}
-								{booking?.listing.city}
-							</TableCell>
-						)}
-						<TableCell>
-							₦{formatMoneyInput(booking?.listing.rent)}
+						<TableCell className="truncate">
+							{booking?.listing.address}, {booking?.listing?.city}
 						</TableCell>
-						<TableCell>{formatDate(booking?.createdAt)}</TableCell>
+						<TableCell>
+							₦{formatMoneyInput(booking?.listing?.rent)}
+						</TableCell>
+						<TableCell className="truncate">
+							{formatDate(booking?.createdAt)}
+						</TableCell>
 						<TableCell>
 							<BookingStatus status={booking?.status} />
 						</TableCell>
@@ -120,7 +103,6 @@ const page = async ({ searchParams }: SearchParamProps) => {
 	});
 
 	if (bookings.status === 400) redirect("/not-found");
-
 	return (
 		<div className="pb-12">
 			<div className="flex flex-col md:flex-row gap-4 items-start md:items-center justify-between">

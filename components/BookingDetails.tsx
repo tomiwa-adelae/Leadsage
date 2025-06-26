@@ -5,6 +5,7 @@ import { Separator } from "./ui/separator";
 import { formatDate, formatMoneyInput } from "@/lib/utils";
 import { OpenUpdateBookingStatusModal } from "./shared/OpenUpdateBookingStatusModal";
 import { useState } from "react";
+import { NairaIcon } from "./shared/NairaIcon";
 
 interface BookingDetailsProps {
 	name: string;
@@ -12,7 +13,7 @@ interface BookingDetailsProps {
 	city: string;
 	state: string;
 	description: string;
-	rentPrice: string;
+	rent: string;
 	bookedDate: string;
 	availabilityDate: string;
 	bookingStatus: string;
@@ -40,24 +41,18 @@ const DetailRow = ({
 	isEmail?: boolean;
 	isLast?: boolean;
 }) => (
-	<div className="font-semibold text-xs uppercase">
-		<span>{label}:</span>
+	<div className="font-medium text-sm md:text-base">
+		<span className="text-muted-foreground">{label}:</span>
 		{isTel ? (
-			<a
-				href={`tel:${value}`}
-				className="ml-1 text-green-400 lowercase underline"
-			>
+			<a href={`tel:${value}`} className="ml-1  lowercase underline">
 				{value}
 			</a>
 		) : isEmail ? (
-			<a
-				href={`tel:${value}`}
-				className="ml-1 text-green-400 lowercase underline"
-			>
+			<a href={`tel:${value}`} className="ml-1  lowercase underline">
 				{value}
 			</a>
 		) : (
-			<span className="ml-1 text-green-400">{value}</span>
+			<span className="ml-1  capitalize">{value}</span>
 		)}
 		{!isLast && <Separator className="mb-4 mt-2" />}
 	</div>
@@ -69,7 +64,7 @@ const BookingDetails = ({
 	city,
 	state,
 	description,
-	rentPrice,
+	rent,
 	bookedDate,
 	availabilityDate,
 	bookingStatus,
@@ -169,47 +164,49 @@ const BookingDetails = ({
 			asChild
 		>
 			<Link href="/apartments">
-				Contact {isRenter ? "renter" : "Landlord"}
+				Contact {isRenter ? "customer" : "Landlord"}
 			</Link>
 		</Button>,
 	];
 
 	return (
 		<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
-			<div className="bg-white p-8 rounded-xl col-span-2 lg:col-span-3 space-y-4 border-b">
-				<h1 className="text-3xl font-bold text-green-400">{name}</h1>
-				<div className="text-xs text-gray-700 font-medium space-y-4">
-					<DetailRow label="Address" value={address} />
-					<DetailRow label="City" value={city} />
-					<DetailRow label="State" value={state} isLast />
-				</div>
+			<div className="col-span-2 lg:col-span-3">
+				<div className="bg-white p-8 rounded-xl space-y-4 border-b">
+					<h1 className="text-3xl font-semibold">{name}</h1>
+					<div className="text-sm md:text-base text-muted-foreground font-medium space-y-4">
+						<DetailRow label="Address" value={address} />
+						<DetailRow label="City" value={city} />
+						<DetailRow label="State" value={state} isLast />
+					</div>
 
-				<div>
-					<Separator className="mt-8" />
+					<Separator className="mt-4" />
+					<div className="font-medium text-sm md:text-base">
+						<span className="text-muted-foreground">
+							Property available from:
+						</span>
+						<span className=" ml-1.5">
+							{formatDate(availabilityDate)}
+						</span>
+					</div>
+					<Separator />
+					<p className="text-sm md:text-base py-2 leading-loose">
+						{description}
+					</p>
 				</div>
-				<div className="font-semibold text-sm py-2">
-					<span className="text-gray-700">
-						APARTMENT AVAILABLE FROM:
-					</span>
-					<span className="text-green-400 ml-1.5">
-						{formatDate(availabilityDate)}
-					</span>
-				</div>
-				<Separator />
-				<p className="text-sm py-4 leading-loose">{description}</p>
 			</div>
 			<div className="col-span-2 border rounded-xl bg-white p-8">
-				<h5 className="font-semibold text-sm">Rent price</h5>
-				<h2 className="text-2xl font-semibold my-2 text-green-400">
-					NGN {formatMoneyInput(rentPrice)}{" "}
-					<small className="text-sm font-medium text-gray-700">
+				<h5 className="font-medium text-sm md:text-base">Rent price</h5>
+				<h2 className="text-2xl font-semibold my-2 ">
+					<NairaIcon /> {formatMoneyInput(rent)}{" "}
+					<small className="text-sm md:text-base font-medium text-muted-foreground">
 						/ Year
 					</small>
 				</h2>
 
 				{/* Booking Information */}
 				<Separator />
-				<p className="text-gray-700 uppercase font-semibold text-sm pt-8 pb-6">
+				<p className="text-muted-foreground font-medium text-sm md:text-base pt-8 pb-6">
 					Booking Information
 				</p>
 				<DetailRow
@@ -221,8 +218,8 @@ const BookingDetails = ({
 
 				{/* Contact Details */}
 				<Separator className="mt-8" />
-				<p className="text-gray-700 uppercase font-semibold text-sm pt-8 pb-6">
-					{isRenter ? "Renter's" : "Landlord's"} details
+				<p className="text-muted-foreground font-medium text-sm md:text-base pt-8 pb-6">
+					{isRenter ? "Customer's" : "Landlord's"} details
 				</p>
 				<DetailRow label="Name" value={contactName} />
 				<DetailRow label="Email" value={contactEmail} isEmail />

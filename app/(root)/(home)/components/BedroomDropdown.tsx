@@ -78,7 +78,7 @@ export function BedroomDropdown() {
 				</Button>
 			</DropdownMenuTrigger>
 			<DropdownMenuContent className="w-60">
-				<DropdownMenuLabel className="uppercase text-sm text-gray-600">
+				<DropdownMenuLabel className="text-sm text-gray-600">
 					Number of Bedrooms
 				</DropdownMenuLabel>
 				<DropdownMenuSeparator />
@@ -92,7 +92,7 @@ export function BedroomDropdown() {
 							name="bedrooms"
 							render={({ field }) => (
 								<FormItem>
-									<FormLabel className="text-muted-foreground text-xs uppercase">
+									<FormLabel className="text-muted-foreground text-sm">
 										Bedrooms
 									</FormLabel>
 									<FormControl>
@@ -113,7 +113,7 @@ export function BedroomDropdown() {
 							name="bathrooms"
 							render={({ field }) => (
 								<FormItem>
-									<FormLabel className="text-muted-foreground text-xs uppercase">
+									<FormLabel className="text-muted-foreground text-sm">
 										Number 0f Bathrooms
 									</FormLabel>
 									<FormControl>

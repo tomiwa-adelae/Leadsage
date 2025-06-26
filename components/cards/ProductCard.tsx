@@ -20,7 +20,7 @@ const ProductCard = ({
 	state: string;
 	rent: string;
 	name: string;
-	images: { url: string }[];
+	images: { src: string }[];
 }) => {
 	return (
 		<Link
@@ -29,11 +29,11 @@ const ProductCard = ({
 		>
 			<div className="overflow-hidden">
 				<Image
-					src={images[0]?.url || DEFAULT_LISTING_IMAGE}
+					src={images[0]?.src || DEFAULT_LISTING_IMAGE}
 					alt={name}
 					width={1000}
 					height={1000}
-					className="group-hover:scale-[1.1] aspect-auto w-full rounded-xl object-cover transition ease-out"
+					className="group-hover:scale-[1.1] aspect-video w-full rounded-xl object-cover transition ease-out"
 				/>
 			</div>
 			<h4 className="mt-4 text-green-400 text-lg md:text-xl font-semibold hover:text-green-700 transition ease-in-out">

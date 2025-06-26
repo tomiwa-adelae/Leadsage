@@ -42,7 +42,7 @@ const Header = ({ color = "white" }: { color?: string }) => {
 						className="w-40 lg:w-52 object-cover"
 					/>
 				</Link>
-				<NavigationDropdowns />
+				{/* <NavigationDropdowns /> */}
 				<div className={`gap-4 hidden md:flex`}>
 					<SignedIn>
 						<ProfileDropdown userDetails={user} />

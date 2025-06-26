@@ -136,10 +136,10 @@ const config: Config = {
 		function ({ addComponents }: any) {
 			addComponents({
 				".container": {
-					maxWidth: "93%",
+					maxWidth: "89%",
 					"@screen lg": {
 						maxWidth: "1224px",
-						width: "93%",
+						width: "89%",
 					},
 				},
 			});

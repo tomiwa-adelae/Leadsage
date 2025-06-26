@@ -20,7 +20,7 @@ const position: [number, number] = [6.5244, 3.3792]; // Lagos, Nigeria coordinat
 export default function ApartmentLocation() {
 	return (
 		<div className="pb-16 pt-4">
-			<h3 className="uppercase font-semibold text-sm mb-8">Location</h3>
+			<h3 className="font-semibold text-sm mb-8">Location</h3>
 			<MapContainer
 				center={position}
 				zoom={14}

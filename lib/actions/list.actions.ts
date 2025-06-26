@@ -7,6 +7,9 @@ import { handleError } from "../utils";
 import User from "../database/models/user.model";
 import { revalidatePath } from "next/cache";
 import { v2 as cloudinary } from "cloudinary";
+
+import "../database/index";
+
 cloudinary.config({
 	cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
 	api_key: process.env.CLOUDINARY_API_KEY,
@@ -149,9 +152,8 @@ export const getListing = async (id: string) => {
 				message: "Oops! Listing ID not found.",
 			};
 
-		const listing = await List.findById(id)
-			.populate("user")
-			.populate("category");
+		const listing = await List.findById(id).populate("user");
+		// .populate("category");
 
 		if (!listing)
 			return {
@@ -654,8 +656,6 @@ export const addListingImages = async ({
 		listing.images = Array.isArray(listing.images) ? listing.images : [];
 		listing.images = [...uploadedImages, ...listing.images];
 
-		console.log(uploadedImages);
-
 		const updatedListing = await listing.save();
 
 		if (!updatedListing)
@@ -796,77 +796,211 @@ export const addListingAmenities = async ({
 // 	}
 // };
 
-// export const updateListingDetails = async ({
-// 	listingId,
-// 	userId,
-// 	details,
-// }: {
-// 	listingId: string;
-// 	userId: string;
-// 	details: any;
-// }) => {
-// 	try {
-// 		await connectToDatabase();
+export const suspendListing = async ({
+	listingId,
+	userId,
+}: {
+	listingId: string;
+	userId: string;
+}) => {
+	try {
+		await connectToDatabase();
 
-// 		const user = await User.findById(userId);
+		const user = await User.findById(userId);
 
-// 		if (!listingId)
-// 			return {
-// 				status: 400,
-// 				message: "Oops! Listing ID is missing.",
-// 			};
+		if (!listingId)
+			return {
+				status: 400,
+				message: "Oops! Listing ID is missing.",
+			};
 
-// 		if (!user)
-// 			return {
-// 				status: 400,
-// 				message: "Oops! User not found.",
-// 			};
+		if (!user)
+			return {
+				status: 400,
+				message: "Oops! User not found.",
+			};
 
-// 		if (!user.isRenter)
-// 			return {
-// 				status: 400,
-// 				message: "Oops! You are not authorized to update this listing.",
-// 			};
+		if (!user.isRenter)
+			return {
+				status: 400,
+				message: "Oops! You are not authorized to update this listing.",
+			};
 
-// 		const listing = await List.findOne({ user: userId, _id: listingId });
+		const listing = await List.findOne({ user: userId, _id: listingId });
 
-// 		if (!listing)
-// 			return {
-// 				status: 400,
-// 				message: "Oops! Listing is not found.",
-// 			};
+		if (!listing)
+			return {
+				status: 400,
+				message: "Oops! Listing is not found.",
+			};
 
-// 		listing.name = details.name || listing.name;
-// 		listing.category = details.category || listing.category;
-// 		listing.address = details.address || listing.address;
-// 		listing.city = details.city || listing.city;
-// 		listing.state = details.state || listing.state;
-// 		listing.squareMeters = details.squareMeters || listing.squareMeters;
-// 		listing.availabilityDate =
-// 			details.availabilityDate || listing.availabilityDate;
-// 		listing.bedrooms = details.bedrooms || listing.bedrooms;
-// 		listing.bathrooms = details.bathrooms || listing.bathrooms;
-// 		listing.description = details.description || listing.description;
+		listing.status = "suspended";
 
-// 		await listing.save();
-// 		revalidatePath(`/apartments`);
-// 		revalidatePath(`/apartments/${listing._id}`);
+		await listing.save();
+		revalidatePath(`/apartments`);
+		revalidatePath(`/listings`);
+		revalidatePath(`/apartments/${listing._id}`);
+		revalidatePath(`/listings/${listing._id}`);
 
-// 		return {
-// 			status: 201,
-// 			message: `Change successful!`,
-// 			list: JSON.parse(JSON.stringify(listing)),
-// 		};
-// 	} catch (error: any) {
-// 		handleError(error);
-// 		return {
-// 			status: error?.status || 400,
-// 			message:
-// 				error?.message ||
-// 				"Oops! Couldn't update the listing! Try again later.",
-// 		};
-// 	}
-// };
+		return {
+			status: 201,
+			message: `Change successful!`,
+			list: JSON.parse(JSON.stringify(listing)),
+		};
+	} catch (error) {}
+};
+
+export const unSuspendListing = async ({
+	listingId,
+	userId,
+}: {
+	listingId: string;
+	userId: string;
+}) => {
+	try {
+		await connectToDatabase();
+
+		const user = await User.findById(userId);
+
+		if (!listingId)
+			return {
+				status: 400,
+				message: "Oops! Listing ID is missing.",
+			};
+
+		if (!user)
+			return {
+				status: 400,
+				message: "Oops! User not found.",
+			};
+
+		if (!user.isRenter)
+			return {
+				status: 400,
+				message: "Oops! You are not authorized to update this listing.",
+			};
+
+		const listing = await List.findOne({ user: userId, _id: listingId });
+
+		if (!listing)
+			return {
+				status: 400,
+				message: "Oops! Listing is not found.",
+			};
+
+		listing.status = "active";
+
+		await listing.save();
+		revalidatePath(`/apartments`);
+		revalidatePath(`/listings`);
+		revalidatePath(`/apartments/${listing._id}`);
+		revalidatePath(`/listings/${listing._id}`);
+
+		return {
+			status: 201,
+			message: `Change successful!`,
+			list: JSON.parse(JSON.stringify(listing)),
+		};
+	} catch (error) {}
+};
+
+export const updateListingDetails = async ({
+	listingId,
+	userId,
+	details,
+}: {
+	listingId: string;
+	userId: string;
+	details: any;
+}) => {
+	try {
+		await connectToDatabase();
+
+		const user = await User.findById(userId);
+
+		if (!listingId)
+			return {
+				status: 400,
+				message: "Oops! Listing ID is missing.",
+			};
+
+		if (!user)
+			return {
+				status: 400,
+				message: "Oops! User not found.",
+			};
+
+		if (!user.isRenter)
+			return {
+				status: 400,
+				message: "Oops! You are not authorized to update this listing.",
+			};
+
+		const listing = await List.findOne({ user: userId, _id: listingId });
+
+		if (!listing)
+			return {
+				status: 400,
+				message: "Oops! Listing is not found.",
+			};
+
+		listing.name = details.name || listing.name;
+		listing.category = details.category || listing.category;
+		listing.address = details.address || listing.address;
+		listing.city = details.city || listing.city;
+		listing.state = details.state || listing.state;
+		listing.squareMeters = details.squareMeters || listing.squareMeters;
+		listing.availabilityDate =
+			details.availabilityDate || listing.availabilityDate;
+		listing.bedrooms = details.bedrooms || listing.bedrooms;
+		listing.bathrooms = details.bathrooms || listing.bathrooms;
+		listing.description = details.description || listing.description;
+		listing.rent = details.rent || listing.rent;
+		listing.securityDeposit =
+			details.securityDeposit || listing.securityDeposit;
+		listing.listedBy = details.listedBy || listing.listedBy;
+		user.phoneNumber = details.phoneNumber || user.phoneNumber;
+		// Merge existing and new amenities, avoiding duplicates
+		// @ts-ignore
+		// const existingAmenityNames = listing?.amenities.map((a: any) => a.name);
+		// const filteredNewAmenities = details?.amenities?.filter(
+		// 	(a: any) => !existingAmenityNames.includes(a.name)
+		// );
+		// @ts-ignore
+		// listing.amenities = [...listing?.amenities, ...filteredNewAmenities];
+
+		listing.petPolicy =
+			details.petPolicy === "yes" ? true : false || listing.petPolicy;
+		listing.smokingPolicy =
+			details.smokingPolicy === "yes"
+				? true
+				: false || listing.smokingPolicy;
+		listing.rentNegotiable =
+			details.rentNegotiable === "yes"
+				? true
+				: false || listing.rentNegotiable;
+
+		await listing.save();
+		revalidatePath(`/apartments`);
+		revalidatePath(`/listings`);
+		revalidatePath(`/apartments/${listing._id}`);
+		revalidatePath(`/listings/${listing._id}`);
+
+		return {
+			status: 201,
+			message: `Change successful!`,
+			list: JSON.parse(JSON.stringify(listing)),
+		};
+	} catch (error: any) {
+		handleError(error);
+		return {
+			status: error?.status || 400,
+			message:
+				error?.message ||
+				"Oops! Couldn't update the listing! Try again later.",
+		};
+	}
+};
 
 // // Edit and update the listing by Renter
 // export const updateListing = async ({
@@ -1018,73 +1152,83 @@ export const addListingAmenities = async ({
 // 	}
 // };
 
-// // Delete listing image
-// export const deleteListingImage = async ({
-// 	userId,
-// 	image,
-// 	listingId,
-// }: {
-// 	userId: string;
-// 	image: any;
-// 	listingId: string;
-// }) => {
-// 	try {
-// 		await connectToDatabase();
+// Delete listing image
+export const deleteListingImage = async ({
+	userId,
+	imageId,
+	listingId,
+}: {
+	userId: string;
+	imageId: any;
+	listingId: string;
+}) => {
+	try {
+		await connectToDatabase();
 
-// 		const user = await User.findById(userId);
+		const user = await User.findById(userId);
 
-// 		if (!user)
-// 			return {
-// 				status: 400,
-// 				message: "Oops! User not found.",
-// 			};
+		if (!user)
+			return {
+				status: 400,
+				message: "Oops! User not found.",
+			};
 
-// 		if (!user.isRenter && !user.isAdmin)
-// 			return {
-// 				status: 400,
-// 				message: "Oops! You are not authorized to delete this listing.",
-// 			};
+		if (!user.isRenter && !user.isAdmin)
+			return {
+				status: 400,
+				message: "Oops! You are not authorized to delete this listing.",
+			};
 
-// 		const listing = await List.findById(listingId);
+		const listing = await List.findById(listingId);
 
-// 		if (!listing)
-// 			return {
-// 				status: 400,
-// 				message: "Oops! Listing is not found.",
-// 			};
+		if (!listing)
+			return {
+				status: 400,
+				message: "Oops! Listing is not found.",
+			};
 
-// 		// Delete from cloudinary first
-// 		await cloudinary.uploader.destroy(image.id, {});
+		await cloudinary.uploader.destroy(imageId, {});
 
-// 		const oldImage = listing.images.find(
-// 			(img: any) => img._id.toString() === image._id
-// 		);
+		const oldPhoto = listing?.images.find(
+			(image: any) => image.imageId.toString() === imageId
+		);
 
-// 		// Remove the old image from MongoDB
-// 		const deletedImage = await List.findByIdAndUpdate(
-// 			listingId,
-// 			{ $pull: { images: { id: oldImage.id } } }, // Remove the old image
-// 			{ new: true }
-// 		);
+		if (!oldPhoto) {
+			return {
+				status: 400,
+				message: "Image not found in the list.",
+			};
+		}
 
-// 		if (!deletedImage)
-// 			return {
-// 				status: 400,
-// 				message: "Oops! Image not deleted. Try again later.",
-// 			};
+		const deletedPhoto = await List.findByIdAndUpdate(
+			listingId,
+			{ $pull: { images: { imageId: oldPhoto.imageId } } },
+			{ new: true }
+		);
 
-// 		revalidatePath(`/apartments`);
-// 		revalidatePath(`/apartments/${listing._id}`);
-// 		revalidatePath(`/listings`);
+		if (!deletedPhoto)
+			return {
+				status: 400,
+				message: "Oops! An error occurred! Try again later",
+			};
 
-// 		return { status: 201, message: `Successfully deleted!` };
-// 	} catch (error: any) {
-// 		handleError(error);
-// 		return {
-// 			status: error?.status || 400,
-// 			message:
-// 				error?.message ||
-// 				"Oops! Couldn't get any listings! Try again later.",
-// 		};
-// 	}
-// };
+		if (deletedPhoto?.images?.length < 3) {
+			deletedPhoto.status = "draft";
+
+			await deletedPhoto.save();
+		}
+
+		revalidatePath(`/listings`);
+		revalidatePath(`/listings/${listing?._id}`);
+
+		return { status: 200, message: "Successful" };
+	} catch (error: any) {
+		handleError(error);
+		return {
+			status: error?.status || 400,
+			message:
+				error?.message ||
+				"Oops! Couldn't get any listings! Try again later.",
+		};
+	}
+};

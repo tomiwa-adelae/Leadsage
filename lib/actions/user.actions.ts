@@ -4,6 +4,7 @@ import { connectToDatabase } from "../database";
 import User from "../database/models/user.model";
 import { handleError } from "../utils";
 import { revalidatePath } from "next/cache";
+import "../database";
 
 // Register user
 export const createUser = async (user: CreateUserParams) => {

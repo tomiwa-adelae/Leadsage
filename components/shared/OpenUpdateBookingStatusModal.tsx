@@ -7,6 +7,7 @@ import { toast } from "@/hooks/use-toast";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { updateBookingStatus } from "@/lib/actions/booking.actions";
+import { Loader2 } from "lucide-react";
 
 export function OpenUpdateBookingStatusModal({
 	open,
@@ -73,11 +74,11 @@ export function OpenUpdateBookingStatusModal({
 		<Drawer open={open} onClose={closeModal}>
 			<DrawerContent>
 				<div className="mx-auto w-full sm:max-w-sm lg:max-w-lg py-10 container">
-					<h4 className="text-sm uppercase font-medium">
+					<h4 className="text-lg font-medium">
 						{statusIcons[updateStatus]} Confirm{" "}
 						{statusLabels[updateStatus]}
 					</h4>
-					<p className="text-xs leading-loose mt-2 mb-4">
+					<p className="text-sm leading-loose mt-2 mb-4">
 						Are you sure you want to {updateStatus} this booking?
 						This action cannot be undone.
 					</p>
@@ -104,9 +105,17 @@ export function OpenUpdateBookingStatusModal({
 							disabled={loading}
 							className="w-full md:w-auto"
 						>
-							{loading
-								? `${statusLabels[updateStatus]}...`
-								: statusLabels[updateStatus]}
+							{loading ? (
+								<Loader2 className="animate-spin size-4" />
+							) : (
+								`${
+									updateStatus === "rejected"
+										? "Yes, reject"
+										: updateStatus === "approved"
+										? "Yes, approve"
+										: "Yes, cancel"
+								}`
+							)}
 						</Button>
 					</div>
 				</div>

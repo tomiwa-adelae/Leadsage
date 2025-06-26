@@ -56,9 +56,7 @@ export function OpenDeleteImageModal({
 		<Drawer open={open} onClose={closeModal}>
 			<DrawerContent>
 				<div className="mx-auto w-full sm:max-w-sm lg:max-w-lg py-10 container">
-					<h4 className="text-sm uppercase font-medium">
-						🛑 Confirm Deletion
-					</h4>
+					<h4 className="text-sm font-medium">🛑 Confirm Deletion</h4>
 					<p className="text-xs leading-loose mt-2 mb-4">
 						Are you sure you want to delete this image? This action
 						cannot be undone. Once deleted, all associated data will

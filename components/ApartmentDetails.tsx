@@ -240,8 +240,8 @@
 // 							className="cursor-pointer"
 // 							onClick={() => {
 // 								handleOpenModal(
-// 									"rentPrice",
-// 									details?.rentPrice
+// 									"rent",
+// 									details?.rent
 // 								);
 // 								setIsNumber(true);
 // 							}}
@@ -249,8 +249,8 @@
 // 					)}
 // 					<div>
 // 						NGN{" "}
-// 						{details?.rentPrice &&
-// 							formatMoneyInput(details?.rentPrice)}{" "}
+// 						{details?.rent &&
+// 							formatMoneyInput(details?.rent)}{" "}
 // 						<small className="text-base font-medium text-muted-foreground">
 // 							/ Year
 // 						</small>
@@ -264,8 +264,8 @@
 // 						</p>
 // 						<p className="text-green-400 text-2xl font-semibold text-right">
 // 							NGN{" "}
-// 							{details?.rentPrice &&
-// 								formatMoneyInput(details?.rentPrice)}
+// 							{details?.rent &&
+// 								formatMoneyInput(details?.rent)}
 // 						</p>
 // 					</div>
 // 					<div className="grid gap-4">
@@ -406,11 +406,187 @@
 // };
 
 // export default ApartmentDetails;
+"use client";
+import React, { useState } from "react";
+import { Separator } from "./ui/separator";
+import { NairaIcon } from "./shared/NairaIcon";
+import { Check, Loader2 } from "lucide-react";
+import { formatMoneyInput } from "@/lib/utils";
+import { SignedOut, SignedIn } from "@clerk/nextjs";
+import { Button } from "./ui/button";
+import Link from "next/link";
+import { amenities } from "@/constant";
+import { IAmenity } from "@/lib/database/models/list.model";
+import { AmenityBox } from "./shared/AmenityBox";
+import { toast } from "@/hooks/use-toast";
+import { bookListing } from "@/lib/actions/booking.actions";
+import { useRouter } from "next/navigation";
 
-import React from "react";
+const ApartmentDetails = ({
+	rent,
+	securityDeposit,
+	petPolicy,
+	smokingPolicy,
+	description,
+	amenities,
+	listId,
+	userId,
+}: {
+	rent: string;
+	securityDeposit: string;
+	description: string;
+	petPolicy: boolean;
+	smokingPolicy: boolean;
+	amenities: any;
+	listId: string;
+	userId: string;
+}) => {
+	const [loading, setLoading] = useState<boolean>(false);
+	const router = useRouter();
+	const handleBooking = async () => {
+		try {
+			setLoading(true);
+			const res = await bookListing({ listing: listId, user: userId });
+			toast({
+				title: "Your booking was successful. You would receive a mail soon and be redirected now",
+			});
+			router.push(`/my-bookings`);
+		} catch (error) {
+			toast({
+				title: "An error occurred!",
+				variant: "destructive",
+			});
+		} finally {
+			setLoading(false);
+		}
+	};
 
-const ApartmentDetails = () => {
-	return <div>ApartmentDetails</div>;
+	return (
+		<div className="grid grid-cols-1 lg:grid-cols-8 gap-8 lg:gap-4 mt-8">
+			<div className="col-span-7 lg:col-span-5">
+				<div>
+					<p className="text-base mt-2 leading-relaxed">
+						{description}
+					</p>
+				</div>
+				<Separator className="my-4 md:my-6" />
+				<div>
+					<h4 className="text-xl md:text-2xl font-medium">
+						Amenities
+					</h4>
+					<div className="grid md:grid-cols-2 gap-6 mt-4">
+						{amenities?.map(({ name }: any, index: any) => {
+							return (
+								<AmenityBox
+									key={index}
+									name={name!}
+									icon={Check}
+								/>
+							);
+						})}
+					</div>
+				</div>
+				<Separator className="my-4 md:my-6" />
+				<div>
+					<h4 className="text-xl md:text-2xl font-medium">
+						Policies
+					</h4>
+					<div className="grid gap-6 mt-4 text-sm md:text-base text-muted-foreground">
+						<p>
+							<Check className="mr-2 size-5 inline-block" />
+							Are pets allowed?{" "}
+							<span className="text-black">
+								{petPolicy === true ? "yes" : "no"}
+							</span>
+						</p>
+						<p>
+							<Check className="mr-2 size-5 inline-block" />
+							Is smoking allowed?{" "}
+							<span className="text-black">
+								{smokingPolicy === true ? "yes" : "no"}
+							</span>
+						</p>
+					</div>
+				</div>
+				{/* <Separator className="my-4 md:my-6" /> */}
+			</div>
+			<div className="col-span-6 lg:col-span-3">
+				<div className="sticky top-25 rounded-lg p-4 lg:p-8 border shadow-[0_3px_10px_rgb(0,0,0,0.2)]">
+					<h4 className="text-xl md:text-2xl font-medium">
+						<NairaIcon />
+						{formatMoneyInput(rent)}{" "}
+						<span className="text-muted-foreground text-sm">
+							/ year
+						</span>
+					</h4>
+					<div className="grid gap-6 text-sm md:text-base text-muted-foreground mt-4">
+						<p className="flex items-center justify-between gap-4">
+							<span>Rent</span>
+							<span className="text-black">
+								<NairaIcon />
+								{formatMoneyInput(rent)} yearly
+							</span>
+						</p>
+						<p className="flex items-center justify-between gap-4">
+							<span>Security deposit</span>
+							<span className="text-black">
+								<NairaIcon />
+								{formatMoneyInput(securityDeposit)}
+							</span>
+						</p>
+						<p className="flex items-center justify-between gap-4">
+							<span>One-time Legal Fee</span>
+							<span className="text-black">₦0</span>
+						</p>
+						<p className="flex items-center justify-between gap-4">
+							<span>One-time Agency Fee</span>
+							<span className="text-black">₦0</span>
+						</p>
+						<p className="flex items-center justify-between gap-4">
+							<span>VAT</span>
+							<span className="text-black">₦0</span>
+						</p>
+						<Separator />
+						<p className="flex items-center justify-between gap-4">
+							<span>Total</span>
+							<span className="text-black">₦669,500</span>
+						</p>
+					</div>
+					<div className="mt-4 space-y-2">
+						<SignedOut>
+							<Button className="w-full" size="md">
+								Login & Proceed
+							</Button>
+						</SignedOut>
+						<SignedIn>
+							<Button
+								onClick={handleBooking}
+								className="w-full"
+								size="md"
+								disabled={loading}
+							>
+								{loading ? (
+									<Loader2 className="size-4 animate-spin" />
+								) : (
+									"Book space"
+								)}
+							</Button>
+						</SignedIn>
+						<Button
+							className="w-full"
+							variant={"outline"}
+							size="md"
+							asChild
+						>
+							<Link href="/apartments">
+								Not what you're looking for? Click here
+							</Link>
+						</Button>
+					</div>
+				</div>
+			</div>
+		</div>
+	);
 };
 
 export default ApartmentDetails;

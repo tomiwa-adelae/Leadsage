@@ -19,18 +19,22 @@ const Sidebar = ({ user }: any) => {
 		<div className="hidden bg-white fixed left-0 top-0 h-screen lg:flex w-[300px] flex-col z-50">
 			<ScrollArea>
 				<div className="py-6">
-					<h3
-						className={`container uppercase font-bold text-xl lg:text-2xl hover:text-green-400 transition ease-out ${inknut.className}`}
-					>
-						<Link href={"/"}>Leadsage</Link>
-					</h3>
+					<Link href={"/"}>
+						<Image
+							src={"/assets/images/logo.png"}
+							alt={"Leadsage Logo"}
+							width={1000}
+							height={1000}
+							className="w-40 lg:w-52 object-cover invert"
+						/>
+					</Link>
 					<div className="grid gap-4 mt-8">
 						{(user?.isRenter
 							? dashboardLinks
 							: dashboardMemberLinks
 						).map(({ title, links }, index) => (
 							<div key={index}>
-								<h4 className="uppercase text-sm font-medium text-gray-400 container">
+								<h4 className="text-sm font-medium text-gray-400 container">
 									{title}
 								</h4>
 								<div className="grid gap-2 mt-4 mr-8">
@@ -44,7 +48,7 @@ const Sidebar = ({ user }: any) => {
 													className={`flex items-center gap-3 justify-start py-4 px-4 rounded-r-sm ${
 														isActive &&
 														"text-white font-semibold bg-green-400"
-													} hover:bg-green-400 hover:text-white  transition-all text-xs uppercase font-medium`}
+													} hover:bg-green-400 hover:text-white  transition-all text-sm font-medium`}
 													href={slug}
 													key={index}
 												>

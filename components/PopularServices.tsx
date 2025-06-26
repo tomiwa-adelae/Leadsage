@@ -27,7 +27,7 @@ const PopularServices = async () => {
 			</div>
 			<ScrollArea className="">
 				<div className="flex w-max space-x-4 md:space-x-6 lg:space-x-8 pt-4 pr-10 pb-8">
-					{listings.data?.map((listing: any, index: string) => (
+					{/* {listings.data?.map((listing: any, index: string) => (
 						<ProductCard
 							key={index}
 							id={listing._id}
@@ -38,7 +38,7 @@ const PopularServices = async () => {
 							city={listing.city}
 							state={listing.state}
 						/>
-					))}
+					))} */}
 					{listings.data?.map((listing: any, index: string) => (
 						<ProductCard
 							key={index}

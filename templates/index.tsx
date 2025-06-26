@@ -22,7 +22,7 @@ export const generateRenterEmail = (booking: any) => `
                             <p>Dear <strong>${booking.user.firstName} ${
 	booking.user.lastName
 }</strong>,</p>
-                            <p>Thank you for booking <strong>{{ listing_name }}</strong> at <strong>${
+                            <p>Thank you for booking <strong>{booking?.listing.name}</strong> at <strong>${
 								booking.listing.address
 							}, ${booking.listing.city},${
 	booking.listing.state
@@ -39,14 +39,14 @@ export const generateRenterEmail = (booking: any) => `
                                 <tr>
                                     <td style="padding: 8px; border-bottom: 1px solid #ddd;"><strong>Rent price:</strong></td>
                                     <td style="padding: 8px; border-bottom: 1px solid #ddd;">${formatMoneyInput(
-										booking.listing.rentPrice
+										booking.listing.rent
 									)}</td>
                                 </tr>
                                 <tr>
                                     <td style="padding: 8px; border-bottom: 1px solid #ddd;"><strong>Availability Date:</strong></td>
-                                    <td style="padding: 8px; border-bottom: 1px solid #ddd;">${
+                                    <td style="padding: 8px; border-bottom: 1px solid #ddd;">${formatDate(
 										booking.listing.availabilityDate
-									}</td>
+									)}</td>
                                 </tr>
                             </table>
 
@@ -116,7 +116,7 @@ export const generateAdminEmail = (booking: any) => `
                                 </tr>
                                 <tr>
                                     <td style="padding: 8px; border-bottom: 1px solid #ddd;"><strong>Rent price:</strong></td>
-                                    <td style="padding: 8px; border-bottom: 1px solid #ddd;">${booking.listing.rentPrice}</td>
+                                    <td style="padding: 8px; border-bottom: 1px solid #ddd;">${booking.listing.rent}</td>
                                 </tr>
                             </table>
 
@@ -132,7 +132,7 @@ export const generateAdminEmail = (booking: any) => `
                                 </tr>
                                 <tr>
                                     <td style="padding: 8px; border-bottom: 1px solid #ddd;"><strong>Phone Number:</strong></td>
-                                    <td style="padding: 8px; border-bottom: 1px solid #ddd;">${booking.user.phoneNumber}</td>
+                                    <td style="padding: 8px; border-bottom: 1px solid #ddd;">{booking.user.phoneNumber}</td>
                                 </tr>
                             </table>
 
@@ -225,14 +225,14 @@ export const generateLandlordEmail = (booking: any) => `
                                 <tr>
                                     <td style="padding: 8px; border-bottom: 1px solid #ddd;"><strong>Rent price:</strong></td>
                                     <td style="padding: 8px; border-bottom: 1px solid #ddd;">${formatMoneyInput(
-										booking.listing.rentPrice
+										booking.listing.rent
 									)}</td>
                                 </tr>
                                 <tr>
                                     <td style="padding: 8px; border-bottom: 1px solid #ddd;"><strong>Check-in Date:</strong></td>
-                                    <td style="padding: 8px; border-bottom: 1px solid #ddd;">${
+                                    <td style="padding: 8px; border-bottom: 1px solid #ddd;">${formatDate(
 										booking.listing.availabilityDate
-									}</td>
+									)}</td>
                                 </tr>
                             </table>
 
@@ -457,7 +457,7 @@ export const generateRenterApprovedEmail = (booking: any) => {
 				booking.createdAt
 			)}</p>
             <p>💰 <strong>Total Amount:</strong> ${formatMoneyInput(
-				booking.listing.rentPrice
+				booking.listing.rent
 			)}</p>
              <p>✅ <strong>Approval Date:</strong> ${formatDate(
 					booking.updatedAt
@@ -512,7 +512,7 @@ export const generateRenterRejectedEmail = (booking: any) => {
 				booking.createdAt
 			)}</p>
             <p>💰 <strong>Total Amount:</strong> ${formatMoneyInput(
-				booking.listing.rentPrice
+				booking.listing.rent
 			)}</p>
             <p>❌ <strong>Rejection Date:</strong> ${formatDate(
 				booking.updatedAt

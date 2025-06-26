@@ -26,8 +26,6 @@ const MediaForm: React.FC<RentDetailsProps> = ({
 	const [photos, setPhotos] = useState<string[]>([]);
 	const router = useRouter();
 
-	console.log(listingImages);
-
 	const handleUpload = async () => {
 		try {
 			setLoading(true);
@@ -42,8 +40,6 @@ const MediaForm: React.FC<RentDetailsProps> = ({
 				listingImages,
 				photos,
 			});
-
-			console.log("fronte", uploadedImages);
 
 			const res = await addListingImages({
 				userId,
@@ -79,7 +75,7 @@ const MediaForm: React.FC<RentDetailsProps> = ({
 	return (
 		<div className="py-10 px-6 rounded-md bg-white shadow-[0px_2px_3px_-1px_rgba(0,0,0,0.1),0px_1px_0px_0px_rgba(25,28,33,0.02),0px_0px_0px_1px_rgba(25,28,33,0.08)]">
 			<div className="mb-6">
-				<h3 className="text-lg uppercase mb-1 font-semibold text-primary">
+				<h3 className="text-lg mb-1 font-semibold text-primary">
 					Add photos
 				</h3>
 				<p className="text-base text-muted-foreground">

@@ -18,11 +18,15 @@ const TopNavbar = ({ user }: any) => {
 	return (
 		<nav className="py-4 lg:left-[300px] w-full bg-white shadow-[0px_2px_10px_-2px_rgba(0,0,0,0.1)] z-50">
 			<div className="container flex items-center justify-between">
-				<h3
-					className={`lg:hidden uppercase font-bold text-xl lg:text-2xl hover:text-green-400 transition ease-out ${inknut.className}`}
-				>
-					<Link href={"/"}>Leadsage</Link>
-				</h3>
+				<Link href={"/"}>
+					<Image
+						src={"/assets/images/logo.png"}
+						alt={"Leadsage Logo"}
+						width={1000}
+						height={1000}
+						className="w-40 lg:w-52 object-cover invert md:hidden"
+					/>
+				</Link>
 				<div className="flex-1">
 					<div className="hidden lg:block relative">
 						<Input

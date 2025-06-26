@@ -51,10 +51,10 @@ const page = async ({ searchParams }: SearchParamProps) => {
 			{lists.data.length === 0 && <NoListingBox />}
 			{lists.data.length !== 0 && (
 				<>
-					<Table className="mt-10 bg-white rounded-md hidden md:block">
-						<TableHeader className="bg-red-300">
+					<Table className="mt-8 bg-white rounded-md">
+						<TableHeader>
 							<TableRow>
-								<TableHead>Listing name</TableHead>
+								<TableHead>Name</TableHead>
 								<TableHead>Location</TableHead>
 								<TableHead>Amount</TableHead>
 								<TableHead className="text-center">
@@ -71,12 +71,12 @@ const page = async ({ searchParams }: SearchParamProps) => {
 									key={list?.name}
 									className="hover:bg-green-100"
 								>
-									<TableCell className="font-medium">
-										<Link href={`/apartments/${list?._id}`}>
+									<TableCell className="font-medium truncate">
+										<Link href={`/listings/${list?._id}`}>
 											{list?.name}
 										</Link>
 									</TableCell>
-									<TableCell>
+									<TableCell className="truncate">
 										{list?.address}, {list?.city}
 									</TableCell>
 									<TableCell>
@@ -90,7 +90,7 @@ const page = async ({ searchParams }: SearchParamProps) => {
 													list?.status === "pending"
 														? "text-yellow-400"
 														: list?.status ===
-														  "success"
+														  "completed"
 														? "text-green-400"
 														: "text-red-400"
 												} ${
@@ -103,7 +103,7 @@ const page = async ({ searchParams }: SearchParamProps) => {
 												: "Not published"}
 										</div>
 									</TableCell>
-									<TableCell className="font-medium uppercase text-xs flex items-center justify-end gap-4">
+									<TableCell className="font-medium text-sm flex items-center justify-end gap-4">
 										<Button
 											size={"icon"}
 											variant="ghost"
@@ -142,7 +142,7 @@ const page = async ({ searchParams }: SearchParamProps) => {
 							))}
 						</TableBody>
 					</Table>
-					<div className="md:hidden mt-4">
+					{/* <div className="md:hidden mt-4">
 						{lists.data?.map((list: any, index: string) => (
 							<div
 								key={index}
@@ -165,7 +165,7 @@ const page = async ({ searchParams }: SearchParamProps) => {
 								</div>
 							</div>
 						))}
-					</div>
+					</div> */}
 				</>
 			)}
 		</div>

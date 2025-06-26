@@ -18,7 +18,11 @@ const page = async ({ params }: { params: { id: string } }) => {
 
 	return (
 		<div className="pb-12 relative">
-			<BookingImages images={bookingDetails?.booking?.listing?.images} />
+			<div className="pb-10">
+				<BookingImages
+					images={bookingDetails?.booking?.listing?.images}
+				/>
+			</div>
 			<BookingDetails
 				name={bookingDetails?.booking?.listing?.name}
 				address={bookingDetails?.booking?.listing?.address}

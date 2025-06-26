@@ -47,8 +47,14 @@ export function BookingsActions({ user, id }: { user: any; id: string }) {
 					/>
 				</Button>
 			</DropdownMenuTrigger>
-			<DropdownMenuContent className="w-56 font-medium uppercase">
-				<Link href={`/bookings/${id}`}>
+			<DropdownMenuContent align="end" className="w-56 font-medium">
+				<Link
+					href={
+						!user?.isRenter && !user?.isAdmin
+							? `/my-bookings/${id}`
+							: `/bookings/${id}`
+					}
+				>
 					<DropdownMenuItem className="cursor-pointer">
 						<Image
 							src={"/assets/icons/open-folder.svg"}
@@ -57,7 +63,7 @@ export function BookingsActions({ user, id }: { user: any; id: string }) {
 							height={1000}
 							className="w-5 h-5"
 						/>
-						<span className="text-xs">Visit</span>
+						<span className="text-sm">Visit</span>
 					</DropdownMenuItem>
 				</Link>
 				{!user?.isRenter && (
@@ -69,7 +75,7 @@ export function BookingsActions({ user, id }: { user: any; id: string }) {
 							height={1000}
 							className="w-5 h-5"
 						/>
-						<span className="text-xs">Cancel booking</span>
+						<span className="text-sm">Cancel booking</span>
 					</DropdownMenuItem>
 				)}
 				{user?.isRenter && (
@@ -82,7 +88,7 @@ export function BookingsActions({ user, id }: { user: any; id: string }) {
 								height={1000}
 								className="w-5 h-5"
 							/>
-							<span className="text-xs">Approve booking</span>
+							<span className="text-sm">Approve booking</span>
 						</DropdownMenuItem>
 						<DropdownMenuItem>
 							<Image
@@ -92,7 +98,7 @@ export function BookingsActions({ user, id }: { user: any; id: string }) {
 								height={1000}
 								className="w-5 h-5"
 							/>
-							<span className="text-xs">Reject booking</span>
+							<span className="text-sm">Reject booking</span>
 						</DropdownMenuItem>
 					</>
 				)}

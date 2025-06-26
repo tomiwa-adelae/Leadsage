@@ -6,6 +6,7 @@ export default authMiddleware({
 		"/about",
 		"/contact",
 		"/apartments",
+		"/apartments/:id",
 		"/success-booking",
 		"/api/webhook/clerk",
 	],

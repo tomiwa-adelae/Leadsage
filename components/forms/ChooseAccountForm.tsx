@@ -72,7 +72,7 @@ const ChooseAccountForm = () => {
 					<p className="text-sm leading-loose my-3 text-gray-700">
 						As a Leadsage member, you can view and subscribe to
 						spaces listed on Leadsage. You can switch this account
-						to access host benefits.
+						to access landlord benefits.
 					</p>
 					<Button
 						disabled={loading}
@@ -101,7 +101,7 @@ const ChooseAccountForm = () => {
 						</h5>
 					</div>
 					<p className="text-sm leading-loose my-3 text-gray-700">
-						As a Leadsage Host, you can list spaces and earn on
+						As a Leadsage landlord, you can list spaces and earn on
 						Leadsage. You can switch this account to access member
 						benefits.
 					</p>
@@ -109,9 +109,9 @@ const ChooseAccountForm = () => {
 						disabled={loading}
 						size={"md"}
 						className="mt-2 bg-blue-400 hover:bg-blue-400/90"
-						onClick={() => chooseRole("host")}
+						onClick={() => chooseRole("landlord")}
 					>
-						{loading ? <LoaderCircle /> : "Continue as host"}
+						{loading ? <LoaderCircle /> : "Continue as landlord"}
 					</Button>
 				</div>
 			</div>

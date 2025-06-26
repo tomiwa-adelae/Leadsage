@@ -8,15 +8,7 @@ import { Grip, Trash2 } from "lucide-react";
 import { ShowAllPhotosModal } from "./ShowAllPhotosModal";
 import { DeleteImageModal } from "./DeleteImageModal";
 
-export function ApartmentImages({
-	images,
-	userId,
-	listingId,
-}: {
-	images: any;
-	userId: string;
-	listingId: string;
-}) {
+export function ApartmentImages({ images }: { images: any }) {
 	const [open, setOpen] = React.useState(false);
 	const [currentIndex, setCurrentIndex] = React.useState(0);
 	const [openAllPhotosModal, setOpenAllPhotosModal] = React.useState(false);

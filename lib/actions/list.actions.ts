@@ -1189,6 +1189,7 @@ export const deleteListingImage = async ({
 
 		await cloudinary.uploader.destroy(imageId, {});
 
+		// @ts-ignore
 		const oldPhoto = listing?.images.find(
 			(image: any) => image.imageId.toString() === imageId
 		);
@@ -1211,7 +1212,7 @@ export const deleteListingImage = async ({
 				status: 400,
 				message: "Oops! An error occurred! Try again later",
 			};
-
+		// @ts-ignore
 		if (deletedPhoto?.images?.length < 3) {
 			deletedPhoto.status = "draft";
 
